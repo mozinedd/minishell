@@ -16,16 +16,6 @@
 #include <stdbool.h>
 
 
-typedef struct s_commands {
-    char **cmd;         // Array of command and arguments
-    char **inoutfile;   // Array of input/output files
-    int fr_herdoc;      // File descriptor for heredoc
-    struct s_commands *next;
-    struct s_commands *prev;
-} t_commands;
-
-
-
 typedef enum e_token_type {
     WORD,       // string 
     HERDOC,     // <<
@@ -35,6 +25,18 @@ typedef enum e_token_type {
     PIPE,       // |
     ENV_VAR     // $variable
 } t_token_type;
+
+typedef struct s_file
+{
+    t_token_type type;
+    char *value;
+} t_file;
+
+typedef struct s_commands {
+    char **cmd;        
+    t_file *file;
+    struct s_commands *next;
+} t_commands;
 
 typedef struct s_tokens{
     char *str;
@@ -56,5 +58,8 @@ int is_operator(char c);
 void skip_to_next(char *str, int *i);
 bool	syntax_error(t_tokens **token);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-
+size_t ft_strlen(const char *str);
+char	*ft_strdup(const char *s1);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int is_redirection(t_tokens *type);
 #endif

@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_line.c                                     :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 16:23:17 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/05/03 16:23:18 by ysouaf           ###   ########.fr       */
+/*   Created: 2025/05/03 16:23:30 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/05/03 16:23:31 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-int is_operator(char c)
+
+char	*ft_strdup(const char *s1)
 {
-    return (c == '>' || c == '<' || c == '|');
+	size_t	i;
+	size_t	len;
+	char	*dup;
+
+	len = ft_strlen((char *)s1);
+	dup = (char *)malloc((len + 1) * sizeof(char));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		dup[i] = s1[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }
-char *read_command_line()
-{
-    char *line;
-
-    line = readline("minishell$ ");
-
-    if(!line)
-    {
-        return NULL;
-    }
-    add_history(line);
-    return line;
-}
-
-void skip_to_next(char *str, int *i)
-{
-	char quote;
-	quote = str[*i];
-	(*i)++;
-	while(str[*i] != quote && str[*i] != '\0')
-		(*i)++;
-	if(str[*i])
-		(*i)++;
-}
-

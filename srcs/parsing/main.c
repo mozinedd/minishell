@@ -21,16 +21,9 @@ int main()
             printf("exit\n");
             break;
         }
-        // if(!is_valid_line(str))
-        // {
-        //     printf("Syntax error: line cannot start or end with an operator.\n");
-        //     free(str);
-        //     continue;
-        // }
         token = tokenize_cmd(str);
         if(!token)
         {
-            // printf("syntaxe error\n");
             free(str);
             continue;
         }
