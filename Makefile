@@ -5,9 +5,10 @@ CFLAGS = -Wall -Wextra -Werror -I includes
 SRCS = srcs/parsing/command_line.c \
 	srcs/parsing/syntax_error.c \
 	srcs/parsing/tokens.c \
-	srcs/parsing/main.c \
 	srcs/parsing/ft_free.c \
 	lib/ft_strncmp.c \
+	srcs/parsing/cmd_to_send.c \
+	srcs/parsing/main.c \
 	lib/ft_substr.c
 
 SRCSEXEC = lib/ft_lstnew.c \
@@ -17,7 +18,6 @@ SRCSEXEC = lib/ft_lstnew.c \
 	lib/ft_strlen.c \
 	lib/ft_strndup.c \
 	srcs/execution/environment.c \
-	srcs/execution/main.c
 
 
 OBJS = $(SRCS:.c=.o)
@@ -32,7 +32,7 @@ $(NAME): $(OBJS) $(OBJSEXEC)
 
 %.o: %.c minishell.h
 	$(CC) -c $(CFLAGS) $< -o $@
-	
+
 clean:
 	rm -f $(OBJS) $(OBJSEXEC)
 

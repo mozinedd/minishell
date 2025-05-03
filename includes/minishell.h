@@ -43,7 +43,7 @@ typedef struct s_tokens{
     struct s_tokens *next;
 }   t_tokens;
 
-
+/*================parsing================*/
 //command line functions
 char *read_command_line();
 
@@ -52,17 +52,27 @@ char *read_command_line();
 t_tokens *new_token(char *str, t_token_type type);
 void add_token(t_tokens **token, t_tokens *new);
 t_tokens *tokenize_cmd(char *line);
-void free_token(t_tokens *token);
 int is_operator(char c);
 void skip_to_next(char *str, int *i);
 bool	syntax_error(t_tokens **token);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
 int is_redirection(t_tokens *type);
 
+//lib
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 
-// exec
+//free
+void free_token(t_tokens *token);
+void free_commands(t_commands *commands);
+
+
+//commandes
+t_commands *create_commands(t_tokens *token);
+
+
+
+/*==========execution=============*/
 
 typedef struct s_environment {
 	char *key;
