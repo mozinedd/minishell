@@ -57,4 +57,25 @@ void skip_to_next(char *str, int *i);
 bool	syntax_error(t_tokens **token);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
+
+
+
+// exec
+
+typedef struct s_environment {
+	char *key;
+	char *value;
+	struct s_environment *next;
+} t_environment;
+
+
+char			*ft_strchr(const char *s, int c);
+char			*ft_strndup(const char *s, size_t n);
+char	*ft_strdup(char *s1);
+t_environment	*ft_lstnew(void *content);
+t_environment 	*list_of_env(char **env);
+t_environment 	*creat_node(char *env);
+int 			ft_strlen(char *str);
+void    *ft_memcpy(void *dst, const void* src, size_t n);
+
 #endif

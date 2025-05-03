@@ -10,11 +10,16 @@ SRCS = \
 	srcs/parsing/mainc.c \
 	srcs/parsing/ft_fre.c
 
+
+SRCSEXEC =	lib/ft_lstnew.c lib/ft_memcpy.c lib/ft_strchr.c lib/ft_strdup.c lib/ft_strlen.c lib/ft_strndup.c \
+			srcs/execution/environment.c srcs/execution/main.c
+
 OBJS = $(SRCS:.c=.o)
+OBJSEXEC = $(SRCSEXEC:.c=.o)
 NAME = minishell
 all: $(NAME)
 
-$(NAME): $(OBJS) 
+$(NAME): $(OBJS) $(OBJSEXEC)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 %.o:%.c 
 	cc -c $(CFLAGS) $< -o $@
