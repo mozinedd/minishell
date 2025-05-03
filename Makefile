@@ -9,22 +9,37 @@ SRCS = srcs/parsing/ft_strdup.c \
 	srcs/parsing/tokens.c \
 	srcs/parsing/main.c \
 	srcs/parsing/ft_free.c \
-	srcs/parsing/ft_strncmp.c \
+	srcs/parsing/ft_strncmp.c
+
+SRCSEXEC = lib/ft_lstnew.c \
+	lib/ft_memcpy.c \
+	lib/ft_strchr.c \
+	lib/ft_strdup.c \
+	lib/ft_strlen.c \
+	lib/ft_strndup.c \
+	srcs/execution/environment.c \
+	srcs/execution/main.c
 
 OBJS = $(SRCS:.c=.o)
+OBJSEXEC = $(SRCSEXEC:.c=.o)
+
 NAME = minishell
+
 all: $(NAME)
 
-$(NAME): $(OBJS) 
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lreadline
-%.o:%.c 
-	cc -c $(CFLAGS) $< -o $@
-clean:
-	rm -f $(OBJS)
+$(NAME): $(OBJS) $(OBJSEXEC)
+	$(CC) $(CFLAGS) $(OBJS) $(OBJSEXEC) -o $(NAME) -lreadline
 
-fclean: clean 
+%.o: %.c
+	$(CC) -c $(CFLAGS) $< -o $@
+
+clean:
+	rm -f $(OBJS) $(OBJSEXEC)
+
+fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-# .PHONY: all clean fclean re
+.PHONY: all clean fclean re
+
