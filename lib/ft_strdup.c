@@ -3,31 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 16:23:30 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/05/03 16:23:31 by ysouaf           ###   ########.fr       */
+/*   Created: 2024/11/13 20:39:38 by mozinedd          #+#    #+#             */
+/*   Updated: 2025/05/02 20:01:59 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
-	size_t	i;
-	size_t	len;
-	char	*dup;
+	int		len;
+	char	*copys1;
+	char	*src;
 
-	len = ft_strlen((char *)s1);
-	dup = (char *)malloc((len + 1) * sizeof(char));
-	if (!dup)
+	len = ft_strlen(s1) + 1;
+	src = (char *) s1;
+	copys1 = (char *) malloc(len);
+	if (copys1 == NULL)
 		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		dup[i] = s1[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
+	ft_memcpy(copys1, src, len);
+	return (copys1);
 }

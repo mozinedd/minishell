@@ -6,21 +6,12 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 00:29:44 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/05/03 14:43:46 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/05/03 21:20:28 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t ft_strlen(char *str)
-{
-	size_t i;
-	
-	i = 0;
-	while(str[i])
-		i++;
-	return i;
-}
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
