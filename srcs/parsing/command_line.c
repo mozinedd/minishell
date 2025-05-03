@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 int is_operator(char c)
 {
     return (c == '>' || c == '<' || c == '|');

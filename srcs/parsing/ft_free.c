@@ -1,5 +1,5 @@
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 // libere tous les tokens
 void free_token(t_tokens *token)
