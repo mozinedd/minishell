@@ -7,7 +7,6 @@ SRCS = \
 	srcs/parsing/command_line.c \
 	srcs/parsing/syntax_error.c \
 	srcs/parsing/tokens.c \
-	srcs/parsing/mainc.c \
 	srcs/parsing/ft_fre.c
 
 
