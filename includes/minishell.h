@@ -43,6 +43,12 @@ typedef struct s_tokens{
     struct s_tokens *next;
 }   t_tokens;
 
+typedef struct s_environment {
+	char *key;
+	char *value;
+	struct s_environment *next;
+} t_environment;
+
 /*================parsing================*/
 //command line functions
 char *read_command_line();
@@ -60,7 +66,11 @@ int is_redirection(t_tokens *type);
 //lib
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
-
+int	ft_isalnum(char c);
+int	ft_isalpha(char c);
+int is_space(char c);
+char	**ft_split(char *s, char c);
+char	*ft_strjoin(char  *s1, char  *s2);
 
 //free
 void free_token(t_tokens *token);
@@ -68,18 +78,23 @@ void free_commands(t_commands *commands);
 
 
 //commandes
-t_commands *create_commands(t_tokens *token);
+t_commands *create_commands(t_tokens *token, t_environment *env);
+char *join_commands(t_tokens **token, t_environment *env);
+char **fill_command(char *joined_str);
+char *remove_quts(char *line);
+int size_cmd(char *expanded_word);
+t_commands *final_commandes(t_commands **command);
 
+//expand
+int expand_var(t_file *file, t_environment *envp);
+char *get_env_value(char *varname, t_environment *envp);
+char *allocate_name_var(char *wrd, int *i);
+char *replace_word(char *word, int start, int end, char *replace);
+char *expand_from_to(char *word, int start, int *end, t_environment *envp);
+char *expan_word(char *wrd, t_environment *envp);
 
 
 /*==========execution=============*/
-
-typedef struct s_environment {
-	char *key;
-	char *value;
-	struct s_environment *next;
-} t_environment;
-
 
 char			*ft_strchr(const char *s, int c);
 char			*ft_strndup(const char *s, size_t n);

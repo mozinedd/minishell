@@ -6,20 +6,20 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:23:55 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/05/03 16:23:56 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/05/07 16:36:09 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//creer un nouveau token
+// creer un nouveau token
 
 t_tokens *new_token(char *str, t_token_type type)
 {
 	t_tokens *token;
 
 	token = malloc(sizeof(t_tokens));
-	if(!token)
+	if (!token)
 		return NULL;
 	token->str = str;
 	token->type = type;
@@ -28,52 +28,52 @@ t_tokens *new_token(char *str, t_token_type type)
 	return token;
 }
 
-//ajouter un token a la fin de la liste
+// ajouter un token a la fin de la liste
 
 void add_token(t_tokens **token, t_tokens *new)
 {
 	t_tokens *tmp;
 
-	if(!*token)
+	if (!*token)
 	{
 		*token = new;
 		return;
 	}
 	tmp = *token;
-	while(tmp->next)
+	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
 }
 int is_space(char c)
 {
-	return( c==  ' ' || c == '\t');///add more
+	return (c == ' ' || c == '\t'); /// add more
 }
 void handl_op(char *str, int *i, t_tokens **token)
 {
-	if(ft_strncmp(&str[*i],">>", 2) == 0)
+	if (ft_strncmp(&str[*i], ">>", 2) == 0)
 	{
 		add_token(token, new_token(NULL, APPEND));
 		(*i) = (*i) + 2;
 	}
-	else if(ft_strncmp(&str[*i], "<<", 2) == 0)
+	else if (ft_strncmp(&str[*i], "<<", 2) == 0)
 	{
 		add_token(token, new_token(NULL, HERDOC));
-		(*i) = (*i) + 2;		
+		(*i) = (*i) + 2;
 	}
-	else if(str[*i] == '>')
+	else if (str[*i] == '>')
 	{
 		add_token(token, new_token(NULL, REDIR_OUT));
-		(*i) = (*i) + 1;	
+		(*i) = (*i) + 1;
 	}
-	else if(str[*i] == '<')
+	else if (str[*i] == '<')
 	{
 		add_token(token, new_token(NULL, REDIR_IN));
-		(*i) = (*i) + 1;		
+		(*i) = (*i) + 1;
 	}
-	else if(str[*i] == '|')
+	else if (str[*i] == '|')
 	{
 		add_token(token, new_token(NULL, PIPE));
-		(*i) = (*i) + 1;		
+		(*i) = (*i) + 1;
 	}
 }
 
@@ -84,27 +84,28 @@ t_tokens *tokenize_cmd(char *line)
 	int start;
 
 	i = 0;
-	while(line[i])
+	while (line[i])
 	{
-		if(is_space(line[i]))
+		if (is_space(line[i]))
 		{
 			i++;
 			continue;
 		}
-		if(is_operator(line[i]))
+		if (is_operator(line[i]))
 			handl_op(line, &i, &token);
 		else
 		{
 			start = i;
-			while(1)
+			while (1)
 			{
-				if(line[i] == '\'' || line[i] == '\"')
+				if (line[i] == '\'' || line[i] == '\"')
 				{
 					skip_to_next(line, &i);
 					continue;
 				}
-				if(line[i] == '\0' || is_space(line[i]) || is_operator(line[i]))
+				if (line[i] == '\0' || is_space(line[i]) || is_operator(line[i]))
 					break;
+
 				i++;
 			}
 			add_token(&token, new_token(ft_substr(line, start, i - start), WORD));
@@ -112,4 +113,5 @@ t_tokens *tokenize_cmd(char *line)
 	}
 	return token;
 }
+
 

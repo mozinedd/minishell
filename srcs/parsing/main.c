@@ -2,40 +2,67 @@
 
 void print_commands(t_commands *commands)
 {
-    t_commands *cmd = commands;
-    while (cmd)
+    t_commands *cmds = commands;
+    while (cmds)
     {
+        // Affichage des arguments de la commande
         printf("Command:\n");
-        if (cmd->cmd)
+        if (cmds->cmd)
         {
-            char **cmd_args = cmd->cmd;
+            char **cmd_args = cmds->cmd;
             while (*cmd_args)
             {
                 printf("  Argument: %s\n", *cmd_args);
                 cmd_args++;
             }
         }
+
+        // Affichage des fichiers associés à la commande
         printf("Files:\n");
-        t_file *file = cmd->file;
-        while (file && file->type != 0)
+        t_file *file = cmds->file;
+        while (file && file->type != 0) // Vérifie que le fichier existe et a un type valide
         {
-            printf("  file ==> word : %s ", file->value);
-            if (file->type == HERDOC)
-                printf("---- type : HERDOC\n");
-            if (file->type == REDIR_IN)
-                printf(" ----- type  : REDIR_IN\n");
-            if (file->type == APPEND)
-                printf(" ----- type : APPEND\n");
-            if (file->type == REDIR_OUT)
-                printf(" ---- type : REDIR_OUT\n");
+            printf("  File ==> word: %s ", file->value);
+            switch (file->type)
+            {
+                case HERDOC:
+                    printf("---- type: HERDOC\n");
+                    break;
+                case REDIR_IN:
+                    printf("----- type: REDIR_IN\n");
+                    break;
+                case APPEND:
+                    printf("----- type: APPEND\n");
+                    break;
+                case REDIR_OUT:
+                    printf("---- type: REDIR_OUT\n");
+                    break;
+                default:
+                    printf("---- type: UNKNOWN\n");
+                    break;
+            }
             file++;
         }
-        cmd = cmd->next;
+
+        // Passer à la commande suivante
+        cmds = cmds->next;
     }
 }
 
-int main()
+int main (int argc, char ** argv , char **env)
 {
+    t_environment *evnp;
+    // t_environment *current;
+    (void)argv;
+    (void)argc;
+
+    evnp = list_of_env(env);
+    // current = evnp;
+    // while (current)
+    // {
+    //     printf("%s=%s\n", current->key, current->value);
+    //     current = current->next;
+    // }
     char *str;
     t_tokens *token;
 
@@ -77,7 +104,8 @@ int main()
                 printf("type REDIR_OUT\n");
             tmp = tmp->next;
         }
-        t_commands *commands = create_commands(token);
+        t_commands *commands = create_commands(token, evnp);
+        commands = final_commandes(&commands);
         if (commands)
         {
             printf("\n\n=== Command Test ===\n");

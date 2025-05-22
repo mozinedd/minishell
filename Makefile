@@ -1,6 +1,6 @@
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I includes 
+CFLAGS = -Wall -Wextra -Werror -I includes -fsanitize=address
 
 SRCS = srcs/parsing/command_line.c \
 	srcs/parsing/syntax_error.c \
@@ -8,8 +8,14 @@ SRCS = srcs/parsing/command_line.c \
 	srcs/parsing/ft_free.c \
 	lib/ft_strncmp.c \
 	srcs/parsing/cmd_to_send.c \
+	srcs/parsing/expand_t_fille.c \
+	lib/ft_substr.c \
+	lib/ft_isalnum.c \
 	srcs/parsing/main.c \
-	lib/ft_substr.c
+	srcs/parsing/expand_cmd.c \
+	lib/ft_strjoin.c \
+	srcs/parsing/remove_quotes.c
+	
 
 SRCSEXEC = lib/ft_lstnew.c \
 	lib/ft_memcpy.c \
@@ -32,6 +38,9 @@ $(NAME): $(OBJS) $(OBJSEXEC)
 
 %.o: %.c minishell.h
 	$(CC) -c $(CFLAGS) $< -o $@
+
+run:
+	./$(NAME)
 
 clean:
 	rm -f $(OBJS) $(OBJSEXEC)
