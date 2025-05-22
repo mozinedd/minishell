@@ -16,16 +16,6 @@
 #include <stdbool.h>
 
 
-typedef struct s_commands {
-    char **cmd;         // Array of command and arguments
-    char **inoutfile;   // Array of input/output files
-    int fr_herdoc;      // File descriptor for heredoc
-    struct s_commands *next;
-    struct s_commands *prev;
-} t_commands;
-
-
-
 typedef enum e_token_type {
     WORD,       // string 
     HERDOC,     // <<
@@ -33,8 +23,19 @@ typedef enum e_token_type {
     REDIR_IN,   // <
     REDIR_OUT,  // >
     PIPE,       // |
-    ENV_VAR     // $variable
 } t_token_type;
+
+typedef struct s_file
+{
+    t_token_type type;
+    char *value;
+} t_file;
+
+typedef struct s_commands {
+    char **cmd;        
+    t_file *file;
+    struct s_commands *next;
+} t_commands;
 
 typedef struct s_tokens{
     char *str;
@@ -42,7 +43,13 @@ typedef struct s_tokens{
     struct s_tokens *next;
 }   t_tokens;
 
+typedef struct s_environment {
+	char *key;
+	char *value;
+	struct s_environment *next;
+} t_environment;
 
+/*================parsing================*/
 //command line functions
 char *read_command_line();
 
@@ -51,23 +58,43 @@ char *read_command_line();
 t_tokens *new_token(char *str, t_token_type type);
 void add_token(t_tokens **token, t_tokens *new);
 t_tokens *tokenize_cmd(char *line);
-void free_token(t_tokens *token);
 int is_operator(char c);
 void skip_to_next(char *str, int *i);
 bool	syntax_error(t_tokens **token);
+int is_redirection(t_tokens *type);
+
+//lib
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int	ft_isalnum(char c);
+int	ft_isalpha(char c);
+int is_space(char c);
+char	**ft_split(char *s, char c);
+char	*ft_strjoin(char  *s1, char  *s2);
+
+//free
+void free_token(t_tokens *token);
+void free_commands(t_commands *commands);
 
 
+//commandes
+t_commands *create_commands(t_tokens *token, t_environment *env);
+char *join_commands(t_tokens **token, t_environment *env);
+char **fill_command(char *joined_str);
+char *remove_quts(char *line);
+int size_cmd(char *expanded_word);
+t_commands *final_commandes(t_commands **command);
+
+//expand
+int expand_var(t_file *file, t_environment *envp);
+char *get_env_value(char *varname, t_environment *envp);
+char *allocate_name_var(char *wrd, int *i);
+char *replace_word(char *word, int start, int end, char *replace);
+char *expand_from_to(char *word, int start, int *end, t_environment *envp);
+char *expan_word(char *wrd, t_environment *envp);
 
 
-// exec
-
-typedef struct s_environment {
-	char *key;
-	char *value;
-	struct s_environment *next;
-} t_environment;
-
+/*==========execution=============*/
 
 char			*ft_strchr(const char *s, int c);
 char			*ft_strndup(const char *s, size_t n);
@@ -75,7 +102,6 @@ char	*ft_strdup(char *s1);
 t_environment	*ft_lstnew(void *content);
 t_environment 	*list_of_env(char **env);
 t_environment 	*creat_node(char *env);
-int 			ft_strlen(char *str);
+size_t			ft_strlen(const char *str);
 void    *ft_memcpy(void *dst, const void* src, size_t n);
-
 #endif
