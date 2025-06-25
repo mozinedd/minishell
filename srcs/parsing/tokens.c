@@ -1,95 +1,84 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tokens.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 16:23:55 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/05/07 16:36:09 by ysouaf           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 
-// creer un nouveau token
-
-t_tokens *new_token(char *str, t_token_type type)
+// créer un nouveau token
+t_tokens	*new_token(char *str, t_token_type type)
 {
-	t_tokens *token;
+	t_tokens	*token;
 
 	token = malloc(sizeof(t_tokens));
 	if (!token)
-		return NULL;
+		return (NULL);
 	token->str = str;
 	token->type = type;
 	token->next = NULL;
-
-	return token;
+	return (token);
 }
 
-// ajouter un token a la fin de la liste
-
-void add_token(t_tokens **token, t_tokens *new)
+// ajouter un token à la fin de la liste
+void	add_token(t_tokens **token, t_tokens *new)
 {
-	t_tokens *tmp;
+	t_tokens	*tmp;
 
 	if (!*token)
 	{
 		*token = new;
-		return;
+		return ;
 	}
 	tmp = *token;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
 }
-int is_space(char c)
+// fonction pour verifier si on a une espace
+int	is_space(char c)
 {
-	return (c == ' ' || c == '\t'); /// add more
+	return (c == ' ' || c == '\t');
 }
-void handl_op(char *str, int *i, t_tokens **token)
+// cette fonction verifier si on a les redirections 
+void	handl_op(char *str, int *i, t_tokens **token)
 {
 	if (ft_strncmp(&str[*i], ">>", 2) == 0)
 	{
 		add_token(token, new_token(NULL, APPEND));
-		(*i) = (*i) + 2;
+		*i += 2;
 	}
 	else if (ft_strncmp(&str[*i], "<<", 2) == 0)
 	{
 		add_token(token, new_token(NULL, HERDOC));
-		(*i) = (*i) + 2;
+		*i += 2;
 	}
 	else if (str[*i] == '>')
 	{
 		add_token(token, new_token(NULL, REDIR_OUT));
-		(*i) = (*i) + 1;
+		*i += 1;
 	}
 	else if (str[*i] == '<')
 	{
 		add_token(token, new_token(NULL, REDIR_IN));
-		(*i) = (*i) + 1;
+		*i += 1;
 	}
 	else if (str[*i] == '|')
 	{
 		add_token(token, new_token(NULL, PIPE));
-		(*i) = (*i) + 1;
+		*i += 1;
 	}
 }
-
-t_tokens *tokenize_cmd(char *line)
+//cette fonction tokenize les commandes 
+t_tokens	*tokenize_cmd(char *line)
 {
-	t_tokens *token = NULL;
-	int i;
-	int start;
+	t_tokens	*token;
+	int			i;
+	int			start;
 
+	token = NULL;
 	i = 0;
 	while (line[i])
 	{
 		if (is_space(line[i]))
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		if (is_operator(line[i]))
 			handl_op(line, &i, &token);
@@ -101,17 +90,20 @@ t_tokens *tokenize_cmd(char *line)
 				if (line[i] == '\'' || line[i] == '\"')
 				{
 					skip_to_next(line, &i);
-					continue;
+					continue ;
 				}
-				if (line[i] == '\0' || is_space(line[i]) || is_operator(line[i]))
-					break;
-
+				if (line[i] == '\0'
+					|| is_space(line[i])
+					|| is_operator(line[i]))
+					break ;
 				i++;
 			}
-			add_token(&token, new_token(ft_substr(line, start, i - start), WORD));
+			add_token(&token,
+				new_token(ft_substr(line, start, i - start), WORD));
 		}
 	}
-	return token;
+	return (token);
 }
+
 
 

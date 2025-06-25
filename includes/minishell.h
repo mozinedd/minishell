@@ -9,11 +9,14 @@
 #include <readline/history.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <limits.h>  
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <signal.h>
 #include <errno.h>
 #include <stdbool.h>
+#include <sys/ioctl.h>
+
 
 
 typedef enum e_token_type {
@@ -29,6 +32,8 @@ typedef struct s_file
 {
     t_token_type type;
     char *value;
+    int fd;
+    int found_quts;
 } t_file;
 
 typedef struct s_commands {
@@ -49,9 +54,23 @@ typedef struct s_environment {
 	struct s_environment *next;
 } t_environment;
 
+//========global variable=========//
+extern int g_sig_hander;
+
+
+/*================signals================*/
+void	handle_signal(int sig);
+void init_signals();
+
+
 /*================parsing================*/
 //command line functions
 char *read_command_line();
+
+
+/*================herdoc================*/
+void	search_herdoc(t_commands **command, t_environment *env);
+char	*ft_itoa(int n);
 
 
 //tokenization functions
@@ -104,4 +123,5 @@ t_environment 	*list_of_env(char **env);
 t_environment 	*creat_node(char *env);
 size_t			ft_strlen(const char *str);
 void    *ft_memcpy(void *dst, const void* src, size_t n);
+
 #endif

@@ -11,10 +11,13 @@ SRCS = srcs/parsing/command_line.c \
 	srcs/parsing/expand_t_fille.c \
 	lib/ft_substr.c \
 	lib/ft_isalnum.c \
+	lib/ft_itoa.c \
 	srcs/parsing/main.c \
 	srcs/parsing/expand_cmd.c \
 	lib/ft_strjoin.c \
-	srcs/parsing/remove_quotes.c
+	srcs/parsing/remove_quotes.c \
+	srcs/parsing/signal.c \
+	srcs/parsing/herdoc.c
 	
 
 SRCSEXEC = lib/ft_lstnew.c \

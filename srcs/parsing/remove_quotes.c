@@ -1,12 +1,17 @@
+
 #include "minishell.h"
 
-char *remove_quts(char *line)
+// on supprime les quotes ici
+char	*remove_quts(char *line)
 {
-	int i = 0;
-	int st;
-	char *temp;
-	char *new_cmd = ft_strdup("");
-	char c[2];
+	int		i;
+	int		st;
+	char	*temp;
+	char	*new_cmd;
+	char	c[2];
+
+	i = 0;
+	new_cmd = ft_strdup("");
 	c[1] = '\0';
 	while (line[i])
 	{
@@ -15,13 +20,14 @@ char *remove_quts(char *line)
 			st = i + 1;
 			skip_to_next(line, &i);
 			temp = ft_substr(line, st, i - st - 1);
-			new_cmd = ft_strjoin(new_cmd ,temp);
-			continue;
+			new_cmd = ft_strjoin(new_cmd, temp);
+			continue ;
 		}
 		c[0] = line[i];
-		new_cmd = ft_strjoin(new_cmd ,c);
+		new_cmd = ft_strjoin(new_cmd, c);
 		i++;
 	}
-    free(line);
-	return new_cmd;
+	free(line);
+	return (new_cmd);
 }
+
