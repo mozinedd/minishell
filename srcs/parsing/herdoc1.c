@@ -43,7 +43,7 @@ char	*generate_herdoc_name(void)
 		counter_str = ft_itoa(counter);
 		if (!counter_str)
 			return (NULL);
-		filename = ft_strjoin("/tmp/herdoc", counter_str);
+		filename = ft_strjoin2("/tmp/herdoc", counter_str);
 		free(counter_str);
 		if (!filename)
 			return (NULL);

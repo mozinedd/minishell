@@ -1,10 +1,10 @@
 #include "../includes/minishell.h"
 
-t_environment	*ft_lstnew(void *content)
+t_env*ft_lstnew(void *content)
 {
-	t_environment	*lst;
+	t_env	*lst;
 
-	lst = malloc(sizeof(t_environment));
+	lst = malloc(sizeof(t_env));
 	if (!lst)
 		return (NULL);
 	lst->value = content;

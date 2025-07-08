@@ -14,7 +14,7 @@ int	has_quotes(char *str)
 	return (0);
 }
 
-static void	remove_quotes_from_files(t_commands *cmd)
+static void	remove_quotes_from_files(t_cmds *cmd)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ static void	remove_quotes_from_files(t_commands *cmd)
 	}
 }
 
-static void	remove_quotes_from_cmd(t_commands *cmd)
+static void	remove_quotes_from_cmd(t_cmds *cmd)
 {
 	int	i;
 
@@ -44,9 +44,9 @@ static void	remove_quotes_from_cmd(t_commands *cmd)
 	}
 }
 
-t_commands	*final_commandes(t_commands **command)
+t_cmds	*final_commandes(t_cmds **command)
 {
-	t_commands	*current;
+	t_cmds	*current;
 
 	current = *command;
 	while (current)

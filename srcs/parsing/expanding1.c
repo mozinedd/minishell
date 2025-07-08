@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-char	*get_env_value(char *varname, t_environment *envp)
+char	*get_env_value(char *varname, t_env *envp)
 {
-	t_environment	*tmp;
+	t_env	*tmp;
 
 	if (!varname || !envp)
 		return (NULL);

@@ -1,3 +1,4 @@
+
 #include "minishell.h"
 
 void	free_tokens(t_tokens *token)
@@ -44,9 +45,9 @@ void	free_cmd_files(t_file *files)
 	free(files);
 }
 
-void	free_commands(t_commands *commands)
+void	free_commands(t_cmds *commands)
 {
-	t_commands	*tmp;
+	t_cmds	*tmp;
 
 	while (commands)
 	{
@@ -74,3 +75,4 @@ void	free_split(char **tab)
 	}
 	free(tab);
 }
+

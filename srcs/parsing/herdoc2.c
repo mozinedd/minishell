@@ -19,7 +19,7 @@ static int	handle_heredoc_file(t_file *file, t_glob *global)
 
 int	open_heredoc(t_glob *global)
 {
-	t_commands	*tmp;
+	t_cmds	*tmp;
 	int			i;
 
 	if (!global || !global->cmd)
@@ -44,7 +44,7 @@ int	open_heredoc(t_glob *global)
 
 void	close_heredoc(t_glob *global)
 {
-	t_commands	*tmp;
+	t_cmds	*tmp;
 	int			i;
 
 	if (!global || !global->cmd)
@@ -63,7 +63,7 @@ void	close_heredoc(t_glob *global)
 			if (tmp->file[i].type == HERDOC && tmp->file[i].fd >= 0)
 			{
 				close(tmp->file[i].fd);
-				tmp->file[i].fd = -1;
+				tmp->file[i].fd = -2;
 			}
 			i++;
 		}

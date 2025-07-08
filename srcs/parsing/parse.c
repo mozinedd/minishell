@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_commands	*parsing(t_glob *global)
+t_cmds	*parsing(t_glob *global)
 {
 	char	*line;
 
@@ -47,8 +47,8 @@ int	mshll_loop(char **envp)
 	global = init_global_struct();
 	if (!global)
 		return (perror("msh: error allocating memory"), 0);
-	if (!list_of_env(envp))
-		return (perror("msh: environment failed"), 0);
+	t_env* env = list_of_env(envp);
+	global->env = env;
 	init_signals();
 	while (1 && global)
 	{
@@ -62,9 +62,18 @@ int	mshll_loop(char **envp)
 		if (global->cmd)
 		{
 			// execution
+			printf("the command is : %s\n", global->cmd->cmd[0]);
+			execute_command(global);
 			free_commands(global->cmd);
 		}
-		// execution_terminal
+			// execution_terminal
 	}
 	return (free(global), 1);
+}
+int main (int args, char **argv, char **env)
+{
+	(void)args;
+	(void)argv;
+	mshll_loop(env);
+	return 1;
 }

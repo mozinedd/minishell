@@ -22,52 +22,57 @@
 #define CTRL_C 1
 
 typedef enum e_token_type {
-	WORD,       // string 
-	HERDOC,     // <<
-	APPEND,     // >>
-	REDIR_IN,   // <
-	REDIR_OUT,  // >
-	PIPE,       // |
+    WORD,       // string 
+    HERDOC,     // <<
+    APPEND,     // >>
+    REDIR_IN,   // <
+    REDIR_OUT,  // >
+    PIPE     // |
 } t_token_type;
+
+// ls -la >> a > b < Makefile
+
+typedef struct s_env {
+	char *key;
+	char *value;
+	struct s_env *next;
+} t_env;
+typedef struct s_tokens{
+    char *str;
+    t_token_type type;
+    struct s_tokens *next;
+}   t_tokens;
 
 typedef struct s_file
 {
 	t_token_type type;
 	char *value;
-	int fd;
 	int found_quts;
+	int fd;
 } t_file;
 
 
-typedef struct s_tokens
-{
-	char *str;
-	t_token_type type;
-	struct s_tokens *next;
-} t_tokens;
-
-typedef struct s_commands
+typedef struct s_cmds
 {
 	char **cmd;
 	t_file *file;
-	struct s_commands *next;
-} t_commands;
+	struct s_cmds *next;
+	struct s_cmds *prev;
+} t_cmds;
 
-typedef struct s_environment
-{
-	char *key;
-	char *value;
-	struct s_environment *next;
-} t_environment;
 
+/// @brief  here may  be error
 typedef struct s_glob
 {
-	t_commands *cmd;
-	t_environment *env;
+	t_cmds *cmd;
+	t_env *env;
 	t_tokens *token;
 	int exit_status;
 	int in_double_quotes;
 } t_glob;
+
+/*==========execution=============*/
+
 
 /*========global variable=========*/
 extern int g_sig_hander;
@@ -75,20 +80,19 @@ extern int g_sig_hander;
 /*================********================*/
 /*				libft                	  */
 /*================********================*/
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
-int			ft_isalnum(char c);
 int			ft_isalpha(char c);
 char		**ft_split(char *s, char c);
-char		*ft_strjoin(char  *s1, char  *s2);
+char		*ft_strjoin2(char  *s1, char  *s2);
 char		*ft_strtrim(char  *s1, char *set);
 int 		ft_isdigit(char c);
 char		*ft_itoa(int n);
 char		*ft_strchr(const char *s, int c);
 size_t 		ft_strlen(const char *str);
 char 		*ft_strndup(const char *s, size_t n);
-char		*ft_strdup(char *s1);
 size_t		ft_strlcpy(char *dst,char *src, size_t dstsize);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int	ft_isalnum(char c);
 
 /*================********================*/
 /*				parsing                	  */
@@ -139,7 +143,7 @@ void		close_heredoc(t_glob *global);
 
 /******************|  free  |********************/
 void		free_tokens(t_tokens *token);
-void		free_commands(t_commands *commands);
+void		free_commands(t_cmds *commands);
 void		free_split(char **tab);
 
 /******************|  export  |********************/
@@ -150,7 +154,7 @@ int 		handle_export_command(char **sp, int i, int flag2);
 char 		**operate_export(char **lines);
 
 /******************|  expanding  |********************/
-char		*get_env_value(char *varname, t_environment *envp);
+char		*get_env_value(char *varname, t_env *envp);
 char		*allocate_name_var(char *wrd, int *i);
 char		*replace_word(char *word, int start, int end, char *replace);
 char		*replace_quts(char *val);
@@ -164,16 +168,16 @@ int			size_cmd(char *expanded_word);
 char		**fill_command(char *joined_str);
 t_file		*init_files_of_commands(t_tokens *token);
 int			fill_files(t_file *files, t_glob *global);
-t_commands	*init_command_node(void);
-t_commands	*create_commands(t_glob *global);
-t_commands	*return_quts(t_commands **command);
-t_commands	*final_commandes(t_commands **command);
+t_cmds	*init_command_node(void);
+t_cmds	*create_commands(t_glob *global);
+t_cmds	*return_quts(t_cmds **command);
+t_cmds	*final_commandes(t_cmds **command);
 int			has_quotes(char *str);
 char		*remove_quts(char *line);
-void		cleanup_and_free(t_commands *head, t_commands *new_node);
+void		cleanup_and_free(t_cmds *head, t_cmds *new_node);
 
 /******************|  parse function   |********************/
-t_commands	*parsing(t_glob *global);
+t_cmds	*parsing(t_glob *global);
 t_glob		*init_global_struct(void);
 int			mshll_loop(char **envp);
 
@@ -181,8 +185,37 @@ int			mshll_loop(char **envp);
 /*				execution              	  */
 /*================********================*/
 
-t_environment	*ft_lstnew(void *content);
-t_environment 	*list_of_env(char **env);
-t_environment 	*creat_node(char *env);
-void    		*ft_memcpy(void *dst, const void* src, size_t n);
+char			*ft_strchr(const char *s, int c);
+char			*ft_strndup(const char *s, size_t n);
+char	*ft_strdup(char *s1);
+void	ft_env(t_env *env);
+size_t			ft_strlen(const char *str);
+void    *ft_memcpy(void *dst, const void* src, size_t n);
+void    ft_putchar(char c);
+int	ft_atoi(const char *str);
+void handle_single_command (t_glob *global);
+char	*ft_strcpy(char *dest, char *src);
+t_env *list_of_env(char **env);
+
+void	*ft_memset(void *b, int c, size_t len);
+void	*ft_calloc(size_t count, size_t size);
+int		ft_cd(t_env *env, char **args);
+int		ft_echo(char **args);
+int		ft_exit(char **args);
+void	ft_pwd(t_env *env);
+int	ft_strcmp(const char *s1, const char *s2);
+int	check_is_builtin(t_cmds *cmd);
+int	exec_is_builtin(t_env **env, t_cmds *cmd);
+char **env_to_array(t_env *head);
+char	*get_command_path(t_env *env, char *cmd);
+void	ft_export (t_env **env, char **cmd);
+int exit_status(int status, int is_get);
+int ft_unset(char **args, t_env **env);
+char    *ft_strjoin(char const *s1, char const *s2);
+int		detect_overflow(int is_set, int my_status);
+// todo : come back here
+char *ft_getenv(t_env *env, const char *key);
+char *check_command_is_exist(t_env *env, char	*cmd);
+void execute_command(t_glob *global);
+
 #endif

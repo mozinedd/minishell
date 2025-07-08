@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	process_command_node(t_commands *new_node, t_glob *global)
+static int	process_command_node(t_cmds *new_node, t_glob *global)
 {
 	char	*joined;
 
@@ -25,11 +25,11 @@ static int	process_command_node(t_commands *new_node, t_glob *global)
 	return (1);
 }
 
-t_commands	*create_commands(t_glob *global)
+t_cmds	*create_commands(t_glob *global)
 {
-	t_commands	*head;
-	t_commands	*tmp;
-	t_commands	*new_node;
+	t_cmds	*head;
+	t_cmds	*tmp;
+	t_cmds	*new_node;
 
 	if (!global)
 		return (NULL);
@@ -53,7 +53,7 @@ t_commands	*create_commands(t_glob *global)
 	return (head);
 }
 
-static void	restore_quotes_in_cmd(t_commands *cmd)
+static void	restore_quotes_in_cmd(t_cmds *cmd)
 {
 	int	i;
 	int	j;
@@ -95,9 +95,9 @@ static void	restore_quotes_in_files(t_file *file)
 	}
 }
 
-t_commands	*return_quts(t_commands **command)
+t_cmds	*return_quts(t_cmds **command)
 {
-	t_commands	*current;
+	t_cmds	*current;
 
 	current = *command;
 	while (current)

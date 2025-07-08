@@ -6,11 +6,11 @@ static char	*join_word(char *str, char *new)
 
 	if (!str)
 		return (ft_strdup(new));
-	tmp_str = ft_strjoin(str, " ");
+	tmp_str = ft_strjoin2(str, " ");
 	free(str);
 	if (!tmp_str)
 		return (NULL);
-	str = ft_strjoin(tmp_str, new);
+	str = ft_strjoin2(tmp_str, new);
 	free(tmp_str);
 	return (str);
 }

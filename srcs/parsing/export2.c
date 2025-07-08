@@ -19,10 +19,10 @@ static char	*add_quotes_to_value(char *value)
 	char	*tmp;
 	char	*quoted;
 
-	tmp = ft_strjoin("\"", value);
+	tmp = ft_strjoin2("\"", value);
 	if (!tmp)
 		return (NULL);
-	quoted = ft_strjoin(tmp, "\"");
+	quoted = ft_strjoin2(tmp, "\"");
 	free(tmp);
 	return (quoted);
 }
@@ -33,7 +33,7 @@ static char	**process_equal_split(char **equal_split, int flag, int flag2)
 	char	*quoted;
 
 	original = equal_split[0];
-	equal_split[0] = ft_strjoin(original, "=");
+	equal_split[0] = ft_strjoin2(original, "=");
 	free(original);
 	if (flag == 0 && flag2 == 0 && !has_quotes(equal_split[1])
 		&& !ft_isdigit(equal_split[0][0]))
@@ -59,7 +59,7 @@ static int	process_export_arg(char **sp, int i, int flag2)
 		return (i + 1);
 	flag = check_var_name(equal_split[0]);
 	equal_split = process_equal_split(equal_split, flag, flag2);
-	new_str = ft_strjoin(equal_split[0], equal_split[1]);
+	new_str = ft_strjoin2(equal_split[0], equal_split[1]);
 	free(sp[i]);
 	sp[i] = new_str;
 	free_split(equal_split);

@@ -39,9 +39,9 @@ char	*reconstruct_line(char **words)
 	i = 1;
 	while (words[i])
 	{
-		tmp = ft_strjoin(line, " ");
+		tmp = ft_strjoin2(line, " ");
 		free(line);
-		line = ft_strjoin(tmp, words[i]);
+		line = ft_strjoin2(tmp, words[i]);
 		free(tmp);
 		if (!line)
 			return (NULL);

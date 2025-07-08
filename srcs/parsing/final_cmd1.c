@@ -58,11 +58,11 @@ int	fill_files(t_file *files, t_glob *global)
 	return (expand_var(files, global));
 }
 
-t_commands	*init_command_node(void)
+t_cmds	*init_command_node(void)
 {
-	t_commands	*command;
+	t_cmds	*command;
 
-	command = malloc(sizeof(t_commands));
+	command = malloc(sizeof(t_cmds));
 	if (!command)
 		return (NULL);
 	command->cmd = NULL;
@@ -71,7 +71,7 @@ t_commands	*init_command_node(void)
 	return (command);
 }
 
-void	cleanup_and_free(t_commands *head, t_commands *new_node)
+void	cleanup_and_free(t_cmds *head, t_cmds *new_node)
 {
 	if (new_node)
 	{

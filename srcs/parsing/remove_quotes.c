@@ -18,11 +18,11 @@ char	*remove_quts(char *line)
 			st = i + 1;
 			skip_to_next(line, &i);
 			temp = ft_substr(line, st, i - st - 1);
-			new_cmd = ft_strjoin(new_cmd, temp);
+			new_cmd = temp;
 			continue ;
 		}
 		c[0] = line[i];
-		new_cmd = ft_strjoin(new_cmd, c);
+		new_cmd = ft_strjoin2(new_cmd, c);
 		i++;
 	}
 	free(line);
