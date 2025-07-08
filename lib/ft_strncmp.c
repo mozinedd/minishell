@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/23 00:29:44 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/05/03 21:20:28 by ysouaf           ###   ########.fr       */
+/*   Created: 2025/05/03 16:23:36 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/05/03 16:23:37 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
-	size_t	s_len;
-	char	*substr;
 
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	if (len > s_len - start)
-		len = s_len - start;
-	substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
-		return (NULL);
+	if (n == 0 && (!s1 || !s2))
+		return (0);
 	i = 0;
-	while (i < len && s[start + i])
-	{
-		substr[i] = s[start + i];
+	while ((unsigned char)s1[i] == (unsigned char)s2[i]
+		&& s1[i] && s2[i] && i < n - 1)
 		i++;
-	}
-	substr[i] = '\0';
-	return (substr);
+	if (n > 0)
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	else
+		return (0);
 }

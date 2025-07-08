@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 20:39:38 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/02 23:19:08 by mozinedd         ###   ########.fr       */
+/*   Created: 2025/06/16 20:04:34 by mozinedd          #+#    #+#             */
+/*   Updated: 2025/06/16 20:05:05 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
-char	*ft_strdup(char *s1)
+void *ft_calloc(size_t count, size_t size)
 {
-	int		len;
-	char	*copys1;
-	char	*src;
-	if (!s1)
-		return NULL;
-	len = ft_strlen(s1) + 1;
-	src = (char *) s1;
-	copys1 = (char *) malloc(len);
-	if (copys1 == NULL)
-		return (NULL);
-	ft_memcpy(copys1, src, len);
-	return (copys1);
+    void *pointer;
+    pointer = malloc(count * size);
+    if (pointer == NULL)
+        return (NULL);
+    ft_memset(pointer, 0, (count * size));
+    return (pointer);
 }

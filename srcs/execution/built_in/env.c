@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 20:39:38 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/02 23:19:08 by mozinedd         ###   ########.fr       */
+/*   Created: 2025/07/05 15:29:12 by mozinedd          #+#    #+#             */
+/*   Updated: 2025/07/05 15:29:13 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
-char	*ft_strdup(char *s1)
+void	ft_env(t_env *env)
 {
-	int		len;
-	char	*copys1;
-	char	*src;
-	if (!s1)
-		return NULL;
-	len = ft_strlen(s1) + 1;
-	src = (char *) s1;
-	copys1 = (char *) malloc(len);
-	if (copys1 == NULL)
-		return (NULL);
-	ft_memcpy(copys1, src, len);
-	return (copys1);
+	while (env)
+	{
+		if (env->value)
+		{
+			printf("%s", env->key);
+			printf("=");
+			printf("%s\n", env->value);
+		}
+		env = env->next;
+	}
 }

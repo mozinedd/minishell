@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 20:39:38 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/02 23:19:08 by mozinedd         ###   ########.fr       */
+/*   Created: 2025/06/24 19:42:45 by mozinedd          #+#    #+#             */
+/*   Updated: 2025/06/24 19:43:01 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
-char	*ft_strdup(char *s1)
+int	ft_isalnum(int c)
 {
-	int		len;
-	char	*copys1;
-	char	*src;
-	if (!s1)
-		return NULL;
-	len = ft_strlen(s1) + 1;
-	src = (char *) s1;
-	copys1 = (char *) malloc(len);
-	if (copys1 == NULL)
-		return (NULL);
-	ft_memcpy(copys1, src, len);
-	return (copys1);
+	if (ft_isalpha (c) || ft_isdigit (c))
+	{
+		return (1);
+	}
+	return (0);
 }
