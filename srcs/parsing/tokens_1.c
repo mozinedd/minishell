@@ -1,7 +1,5 @@
-
 #include "minishell.h"
 
-// créer un nouveau token
 t_tokens	*new_token(char *str, t_token_type type)
 {
 	t_tokens	*token;
@@ -15,7 +13,6 @@ t_tokens	*new_token(char *str, t_token_type type)
 	return (token);
 }
 
-// ajouter un token à la fin de la liste
 void	add_token(t_tokens **token, t_tokens *new)
 {
 	t_tokens	*tmp;
@@ -30,12 +27,7 @@ void	add_token(t_tokens **token, t_tokens *new)
 		tmp = tmp->next;
 	tmp->next = new;
 }
-// fonction pour verifier si on a une espace
-int	is_space(char c)
-{
-	return (c == ' ' || c == '\t');
-}
-// cette fonction verifier si on a les redirections 
+
 void	handl_op(char *str, int *i, t_tokens **token)
 {
 	if (ft_strncmp(&str[*i], ">>", 2) == 0)
@@ -64,46 +56,40 @@ void	handl_op(char *str, int *i, t_tokens **token)
 		*i += 1;
 	}
 }
-//cette fonction tokenize les commandes 
-t_tokens	*tokenize_cmd(char *line)
-{
-	t_tokens	*token;
-	int			i;
-	int			start;
 
-	token = NULL;
-	i = 0;
-	while (line[i])
-	{
-		if (is_space(line[i]))
-		{
-			i++;
-			continue ;
-		}
-		if (is_operator(line[i]))
-			handl_op(line, &i, &token);
-		else
-		{
-			start = i;
-			while (1)
-			{
-				if (line[i] == '\'' || line[i] == '\"')
-				{
-					skip_to_next(line, &i);
-					continue ;
-				}
-				if (line[i] == '\0'
-					|| is_space(line[i])
-					|| is_operator(line[i]))
-					break ;
-				i++;
-			}
-			add_token(&token,
-				new_token(ft_substr(line, start, i - start), WORD));
-		}
-	}
-	return (token);
+t_tokens	*append_token_list(t_tokens *list1, t_tokens *list2)
+{
+	t_tokens	*tmp;
+
+	if (!list1)
+		return (list2);
+	if (!list2)
+		return (list1);
+	tmp = list1;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = list2;
+	return (list1);
 }
 
+int	valid_quotes(char *s)
+{
+	int		i;
+	char	q;
 
-
+	i = 0;
+	while (s[i])
+	{
+		if (is_quote(s[i]))
+		{
+			q = s[i];
+			i++;
+			while (s[i] && s[i] != q)
+				i++;
+			if (s[i] == '\0')
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}

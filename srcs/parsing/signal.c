@@ -1,14 +1,15 @@
 #include "minishell.h"
 
-int g_sig_hander;
+int	g_sig_hander = 0;
 
 void	handle_signal(int sig)
 {
-	if(sig == SIGINT)
+	if (sig == SIGINT)
 	{
-		if(g_sig_hander == 16)// = 16 pour juste separer que ici on travail sur herdoc
+		if (waitpid(-1, NULL, WNOHANG) == 0)
+			return ;
+		if (g_sig_hander == HEREDOC_MODE)
 		{
-			g_sig_hander = 1;
 			ioctl(STDIN_FILENO, TIOCSTI, "\n");
 			rl_replace_line("", 0);
 			rl_redisplay();
@@ -20,12 +21,13 @@ void	handle_signal(int sig)
 			rl_on_new_line();
 			rl_redisplay();
 		}
+		g_sig_hander = CTRL_C;
 	}
 }
 
-void init_signals()
+void	init_signals(void)
 {
 	rl_catch_signals = 0;
 	signal(SIGINT, handle_signal);
-	signal(SIGQUIT, SIG_IGN);	
+	signal(SIGQUIT, SIG_IGN);
 }

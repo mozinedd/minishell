@@ -1,7 +1,5 @@
-
 #include "minishell.h"
 
-// on supprime les quotes ici
 char	*remove_quts(char *line)
 {
 	int		i;
@@ -30,4 +28,3 @@ char	*remove_quts(char *line)
 	free(line);
 	return (new_cmd);
 }
-

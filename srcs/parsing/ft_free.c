@@ -1,8 +1,6 @@
-
 #include "minishell.h"
 
-// libère tous les tokens
-void	free_token(t_tokens *token)
+void	free_tokens(t_tokens *token)
 {
 	t_tokens	*tmp;
 
@@ -10,42 +8,69 @@ void	free_token(t_tokens *token)
 	{
 		tmp = token;
 		token = token->next;
-		free(tmp->str);
+		if (tmp->str)
+			free(tmp->str);
 		free(tmp);
 	}
 }
-//free les commandes
+
+void	free_arr(char **arr)
+{
+	int	i;
+
+	if (!arr)
+		return ;
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
+void	free_cmd_files(t_file *files)
+{
+	int	i;
+
+	if (!files)
+		return ;
+	i = 0;
+	while (files[i].value)
+	{
+		free(files[i].value);
+		i++;
+	}
+	free(files);
+}
+
 void	free_commands(t_commands *commands)
 {
 	t_commands	*tmp;
-	char		**cmd;
-	t_file		*file;
 
 	while (commands)
 	{
 		tmp = commands;
 		commands = commands->next;
 		if (tmp->cmd)
-		{
-			cmd = tmp->cmd;
-			while (*cmd)
-			{
-				free(*cmd);
-				cmd++;
-			}
-			free(tmp->cmd);
-		}
+			free_arr(tmp->cmd);
 		if (tmp->file)
-		{
-			file = tmp->file;
-			while (file->type != 0)
-			{
-				free(file->value);
-				file++;
-			}
-			free(tmp->file);
-		}
+			free_cmd_files(tmp->file);
 		free(tmp);
 	}
 }
 
+void	free_split(char **tab)
+{
+	int	i;
+
+	if (!tab)
+		return ;
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}

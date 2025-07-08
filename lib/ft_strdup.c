@@ -1,4 +1,3 @@
-
 #include "../includes/minishell.h"
 
 char	*ft_strdup(char *s1)

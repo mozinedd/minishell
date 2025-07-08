@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-size_t	ft_strlcat(char *dst, char *src, size_t dstsize)
+size_t  ft_strlcat(char *dst, char *src, int dstsize)
 {
-	size_t	i;
-	size_t	len_dst;
-	size_t	len_src;
+	int 	i;
+	int 	len_dst;
+	int     len_src;
 
 	if (dst == NULL && dstsize == 0)
 		return (ft_strlen(src));

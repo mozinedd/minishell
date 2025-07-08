@@ -1,46 +1,30 @@
-
 #include "minishell.h"
 
-int g_sig_hander;
+int	g_sig_hander;
 
-int	is_operator(char c)
-{
-	return (c == '>' || c == '<' || c == '|');
-}
-
-int	no_op_in_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '>' || line[i] == '<' || line[i] == '|')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-char	*read_command_line(void)
+char	*read_command_line(t_glob *global, int exit_stat)
 {
 	char	*line;
-	int		i;
 
-	g_sig_hander = 1;
+	line = NULL;
 	line = readline("minishell$ ");
-	g_sig_hander = 0;
-	if (!line)
-		return (NULL);
-	if (no_op_in_line(line))
+	if (g_sig_hander == CTRL_C)
 	{
-		i = 0;
-		while (line[i] && is_space(line[i]))
-			i++;
-		if (ft_strncmp(&line[i], "minishell", 10) == 0)
-			return (line);
+		global->exit_status = 1;
+		g_sig_hander = 0;
 	}
-	add_history(line);
+	if (!line)
+	{
+		rl_clear_history();
+		/* free_env(global->env); */
+		free(global);
+		write(2, "exit\n", 5);
+		exit(exit_stat);
+	}
+	else if (*line)
+		add_history(line);
+	else
+		return (free(line), NULL);
 	return (line);
 }
 
