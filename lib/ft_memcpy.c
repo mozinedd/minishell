@@ -19,12 +19,4 @@ void    *ft_memcpy(void *dst, const void* src, size_t n)
     return (dest);
     
 }
-// #include<stdio.h>
-// int main()
-// {
 
-//     char c[]= "abcde";
-//     ft_memcpy(c, c + 4, 5 * sizeof (char));
-//     for(int i = 0 ; i < 6 ; i++)  
-//         printf("%c\n", c[i]);
-// }

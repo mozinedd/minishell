@@ -6,56 +6,48 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:23:17 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/05/08 18:59:52 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/05/03 16:23:18 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-int is_operator(char c)
-{
-    return (c == '>' || c == '<' || c == '|');
-}
-int no_op_in_line(char *line)
-{
-	int i = 0;
-	while(line[i])
-	{
-		if(line[i] == '>' || line[i] == '<' | line[i] == '|')
-			return 0;
-		i++;
-	}
-	return 1;
-}
-char *read_command_line()
-{
-    char *line;
-    int i;
-    line = readline("minishell$ ");
 
-    if(!line)
-    {
-        return NULL;
-    }
-	if(no_op_in_line(line))
+int	g_sig_hander;
+
+char	*read_command_line(t_glob *global, int exit_stat)
+{
+	char	*line;
+
+	line = NULL;
+	line = readline("minishell$ ");
+	if (g_sig_hander == CTRL_C)
 	{
-        i = 0;
-		while(line[i] && is_space(line[i]))
-			i++;
-		if(ft_strncmp(&line[i], "minishell", 10) == 0)
-			return line;
+		global->exit_status = 1;
+		g_sig_hander = 0;
 	}
-    add_history(line);
-    return line;
+	if (!line)
+	{
+		rl_clear_history();
+		/* free_env(global->env); */
+		free(global);
+		write(2, "exit\n", 5);
+		exit(exit_stat);
+	}
+	else if (*line)
+		add_history(line);
+	else
+		return (free(line), NULL);
+	return (line);
 }
 
-void skip_to_next(char *str, int *i)
+void	skip_to_next(char *str, int *i)
 {
-	char quote;
+	char	quote;
+
 	quote = str[*i];
 	(*i)++;
-	while(str[*i] != quote && str[*i] != '\0')
+	while (str[*i] != quote && str[*i] != '\0')
 		(*i)++;
-	if(str[*i])
+	if (str[*i])
 		(*i)++;
 }
-

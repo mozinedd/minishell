@@ -1,63 +1,78 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 16:23:22 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/05/08 19:36:54 by ysouaf           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 
 #include "minishell.h"
 
-// libere tous les tokens
-void free_token(t_tokens *token)
+void	free_tokens(t_tokens *token)
 {
-	t_tokens *tmp;
+	t_tokens	*tmp;
 
-	while(token)
+	while (token)
 	{
 		tmp = token;
 		token = token->next;
-		free(tmp->str);
+		if (tmp->str)
+			free(tmp->str);
 		free(tmp);
 	}
 }
 
-void free_commands(t_commands *commands)
+void	free_arr(char **arr)
 {
-    t_commands *tmp;
+	int	i;
 
-    while (commands)
-    {
-        tmp = commands;
-        commands = commands->next;
-
-        if (tmp->cmd)
-        {
-            char **cmd = tmp->cmd;
-            while (*cmd)
-            {
-                free(*cmd);
-                cmd++;
-            }
-            free(tmp->cmd);
-        }
-
-        if (tmp->file)
-        {
-            t_file *file = tmp->file;
-            while (file->type != 0)
-            {
-                free(file->value);
-                file++;
-            }
-            free(tmp->file);
-        }
-
-        free(tmp);
-    }
+	if (!arr)
+		return ;
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }
+
+void	free_cmd_files(t_file *files)
+{
+	int	i;
+
+	if (!files)
+		return ;
+	i = 0;
+	while (files[i].value)
+	{
+		free(files[i].value);
+		i++;
+	}
+	free(files);
+}
+
+void	free_commands(t_cmds *commands)
+{
+	t_cmds	*tmp;
+
+	while (commands)
+	{
+		tmp = commands;
+		commands = commands->next;
+		if (tmp->cmd)
+			free_arr(tmp->cmd);
+		if (tmp->file)
+			free_cmd_files(tmp->file);
+		free(tmp);
+	}
+}
+
+void	free_split(char **tab)
+{
+	int	i;
+
+	if (!tab)
+		return ;
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+

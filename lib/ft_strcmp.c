@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 20:39:38 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/08 18:37:12 by ysouaf           ###   ########.fr       */
+/*   Created: 2025/06/17 18:53:29 by mozinedd          #+#    #+#             */
+/*   Updated: 2025/06/17 18:53:30 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "minishell.h"
 
-char	*ft_strdup(char *s1)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int		len;
-	char	*copys1;
-	char	*src;
-	if (!s1)
-		return NULL;
-	len = ft_strlen(s1) + 1;
-	src = (char *) s1;
-	copys1 = (char *) malloc(len);
-	if (copys1 == NULL)
-		return (NULL);
-	ft_memcpy(copys1, src, len);
-	return (copys1);
-}
+	size_t	i;
 
+	if (!s1 || !s2)
+		return (-1);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}

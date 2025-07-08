@@ -36,7 +36,7 @@ static size_t	len_words(char *s, char c)
 	return (i);
 }
 
-static void	safe_free(char **arr, size_t i)
+static void	split_free(char **arr, size_t i)
 {
 	size_t	n;
 
@@ -63,7 +63,7 @@ static char	**alloc_words(char **arr, char *s, char c, size_t count)
 		arr[i] = (char *)malloc((wlen + 1) * sizeof(char));
 		if (arr[i] == NULL)
 		{
-			safe_free(arr, i);
+			split_free(arr, i);
 			return (NULL);
 		}
 		j = 0;
