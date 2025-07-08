@@ -123,5 +123,6 @@ int		detect_overflow(int is_set, int my_status);
 // todo : come back here
 char *ft_getenv(t_env *env, const char *key);
 char *check_command_is_exist(t_env *env, char	*cmd);
+void	execute_command(t_cmds *cmd, t_env *env);
 
 #endif

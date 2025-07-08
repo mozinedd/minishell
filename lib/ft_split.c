@@ -86,15 +86,3 @@ char **ft_split(char const *s, char c)
     return(NULL);
    return (fill_final_str(final_str, s, c));
 }
-// #include <stdio.h>
-// int main ()
-// {
-//     char **str = ft_split("  hello  hjdgsf jldsf  world  ", ' ');
-//     for (int i = 0 ; i < 6; i++)
-//     {
-//         printf("%s\n",str[i]);
-//         i++;
-        
-//     }
-//     return 0;
-// }

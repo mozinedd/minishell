@@ -41,7 +41,8 @@ SRCSEXEC = lib/ft_atoi.c \
 	srcs/execution/built_in/unset.c \
 	lib/ft_substr.c \
 	lib/ft_strjoin.c \
-	srcs/execution/utilis/ft_getenv.c
+	srcs/execution/utilis/ft_getenv.c \
+	srcs/execution/main_excute_cmd.c
 	
 
 OBJS = $(SRCS:.c=.o)
@@ -51,7 +52,7 @@ NAME = minishell
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(OBJSEXE)
+$(NAME): $(OBJS) $(OBJSEXEC)
 	$(CC) $(CFLAGS) $(OBJS) $(OBJSEXEC) -o $(NAME) -lreadline
 
 %.o: %.c minishell.h
@@ -66,4 +67,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
