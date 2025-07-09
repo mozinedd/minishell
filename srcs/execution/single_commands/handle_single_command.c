@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:47 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/09 14:31:07 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/09 22:30:16 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,15 @@ void restore_fd(int *org_in, int *org_out)
 	dup2(1, *org_out);
 }
 
+int get_status_code(int status)
+{
+	if (WIFSIGNALED(status))
+	{
+		return WTERMSIG(status) + 128;
+	}
+	return (WEXITSTATUS(status));
+}
+
 void handle_single_command (t_glob *global)
 {
 	char	**env_list;
@@ -124,8 +133,7 @@ void handle_single_command (t_glob *global)
 	else
 	{
 		waitpid(id, &status, 0);
-		if(WIFEXITED(status))
-			exit_status(WEXITSTATUS(status), 0);
+		exit_status(get_status_code(status), 0);
 	}
 	restore_fd(&origin_stdin, &origin_stdout);
 }
