@@ -62,7 +62,6 @@ static int	process_export_arg(char **sp, int i, int flag2)
 	new_str = ft_strjoin2(equal_split[0], equal_split[1]);
 	free(sp[i]);
 	sp[i] = new_str;
-	free_split(equal_split);
 	return (i + 1);
 }
 

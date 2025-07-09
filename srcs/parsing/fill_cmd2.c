@@ -44,9 +44,7 @@ char	**fill_command(char *joined_str)
 
 	if (!joined_str)
 		return (NULL);
-	cmd = malloc(sizeof(char *) * (size_cmd(joined_str) + 1));
-	if (!cmd)
-		return (NULL);
+	cmd = gc_malloc(sizeof(char *) * (size_cmd(joined_str) + 1));
 	if (!fill_cmd_array(joined_str, cmd))
 		return (NULL);
 	return (cmd);

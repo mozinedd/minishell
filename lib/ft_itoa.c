@@ -25,9 +25,7 @@ char	*ft_itoa(int n)
 
 	num = n;
 	count = count_digit(n);
-	pnt = (char *)malloc(sizeof(char) * (count + 1));
-	if (!pnt)
-		return (NULL);
+	pnt = gc_malloc(sizeof(char) * (count + 1));
 	pnt[count] = '\0';
 	if (num < 0)
 	{

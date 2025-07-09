@@ -81,8 +81,6 @@ char	**ft_split_whitespace(char *s)
 	if (!s)
 		return (NULL);
 	count = count_word(s);
-	arr = (char **)malloc((count + 1) * sizeof(char *));
-	if (!arr)
-		return (NULL);
+	arr = gc_malloc((count + 1) * sizeof(char *));
 	return (alloc_words(arr, s, count));
 }

@@ -6,7 +6,7 @@ t_cmds	*parsing(t_glob *global)
 
 	if (!global)
 		return (NULL);
-	line = read_command_line(global);
+	line = read_command_line();
 	if (!line)
 		return (NULL);
 	global->token = lexer(line, global);
@@ -29,9 +29,7 @@ t_glob	*init_global_struct(void)
 {
 	t_glob	*global;
 
-	global = malloc(sizeof(t_glob));
-	if (!global)
-		return (NULL);
+	global = gc_malloc(sizeof(t_glob));
 	global->cmd = NULL;
 	global->token = NULL;
 	global->env = NULL;

@@ -70,8 +70,11 @@ typedef struct s_glob
 	int in_double_quotes;
 } t_glob;
 
-/*==========execution=============*/
-
+typedef struct s_gc
+{
+    void            *ptr;
+    struct s_gc     *next;
+}   t_gc;
 
 /*========global variable=========*/
 extern int g_sig_hander;
@@ -98,7 +101,13 @@ int	ft_isalnum(char c);
 /*================********================*/
 
 /*****************|  readlines |***************/
-char	*read_command_line(t_glob *global);
+char	*read_command_line(void);
+
+/*****************|  garbage_collecter  |***************/
+t_gc		 **get_garbage_collector(void);
+void 		*gc_malloc(size_t size);
+void 		gc_free(void);
+
 
 /*****************|  tokens  |***************/
 t_tokens	*new_token(char *str, t_token_type type);

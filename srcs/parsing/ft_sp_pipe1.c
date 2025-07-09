@@ -74,9 +74,7 @@ char	*trim_spaces(char *str)
 		&& !is_in_quotes_at_pos(str, end - str))
 		end--;
 	len = end - start + 1;
-	res = malloc(len + 1);
-	if (!res)
-		return (NULL);
+	res = gc_malloc(len + 1);
 	ft_strlcpy(res, start, len + 1);
 	free(str);
 	return (res);

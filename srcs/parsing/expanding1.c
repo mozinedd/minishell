@@ -51,9 +51,7 @@ char	*replace_word(char *word, int start, int end, char *replace)
 		return (word);
 	if (!replace)
 		replace = "";
-	new = malloc(ft_strlen(word) - (end - start) + ft_strlen(replace) + 1);
-	if (!new)
-		return (free(word), NULL);
+	new = gc_malloc(ft_strlen(word) - (end - start) + ft_strlen(replace) + 1);
 	while (i < start)
 		new[j++] = word[i++];
 	while (replace[k])

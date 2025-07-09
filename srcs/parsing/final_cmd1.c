@@ -12,9 +12,7 @@ t_file	*init_files_of_commands(t_tokens *token)
 			count++;
 		token = token->next;
 	}
-	file = malloc(sizeof(t_file) * (count + 1));
-	if (!file)
-		return (NULL);
+	file = gc_malloc(sizeof(t_file) * (count + 1));
 	return (file);
 }
 
@@ -62,9 +60,7 @@ t_cmds	*init_command_node(void)
 {
 	t_cmds	*command;
 
-	command = malloc(sizeof(t_cmds));
-	if (!command)
-		return (NULL);
+	command = gc_malloc(sizeof(t_cmds));
 	command->cmd = NULL;
 	command->file = NULL;
 	command->next = NULL;

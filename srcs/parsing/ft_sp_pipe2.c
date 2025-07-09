@@ -38,9 +38,7 @@ static char	**split_by_p(char *line, size_t count)
 	size_t	idx;
 	int		i;
 
-	res = malloc(sizeof(char *) * (count + 1));
-	if (!res)
-		return (NULL);
+	res = gc_malloc(sizeof(char *) * (count + 1));
 	idx = 0;
 	i = 0;
 	while (line[i] && idx < count)

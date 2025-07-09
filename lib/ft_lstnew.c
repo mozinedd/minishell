@@ -4,7 +4,7 @@ t_env*ft_lstnew(void *content)
 {
 	t_env	*lst;
 
-	lst = malloc(sizeof(t_env));
+	lst = gc_malloc(sizeof(t_env));
 	if (!lst)
 		return (NULL);
 	lst->value = content;

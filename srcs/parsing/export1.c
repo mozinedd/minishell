@@ -12,7 +12,7 @@ char	**trim_split_result(char **arr)
 	{
 		trimmed = ft_strtrim(arr[i], " \t\n\r\v\f");
 		if (!trimmed)
-			return (free_split(arr), NULL);
+			return (NULL);
 		free(arr[i]);
 		arr[i] = trimmed;
 		i++;

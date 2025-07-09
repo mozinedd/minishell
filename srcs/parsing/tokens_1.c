@@ -4,9 +4,7 @@ t_tokens	*new_token(char *str, t_token_type type)
 {
 	t_tokens	*token;
 
-	token = malloc(sizeof(t_tokens));
-	if (!token)
-		return (NULL);
+	token = gc_malloc(sizeof(t_tokens));
 	token->str = str;
 	token->type = type;
 	token->next = NULL;
