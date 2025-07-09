@@ -12,9 +12,7 @@ static int	process_command_node(t_cmds *new_node, t_glob *global)
 	joined = join_commands(global);
 	if (!joined)
 	{
-		new_node->cmd = malloc(sizeof(char *));
-		if (!new_node->cmd)
-			return (0);
+		new_node->cmd = gc_malloc(sizeof(char *));
 		new_node->cmd[0] = NULL;
 		return (1);
 	}
@@ -50,6 +48,7 @@ t_cmds	*create_commands(t_glob *global)
 		if (global->token && global->token->type == PIPE)
 			global->token = global->token->next;
 	}
+
 	return (head);
 }
 

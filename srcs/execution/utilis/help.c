@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/09 14:34:30 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/09 16:06:08 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ char **env_to_array(t_env *head)
 	t_env *tmp = head;
 
 	size = env_size(head);
-	array = malloc(sizeof(char *) * (size +1));
-	if (!array)
-		return (NULL);
+	array = gc_malloc(sizeof(char *) * (size +1));
 	i = 0;
 	while (i < size)
 	{
@@ -82,7 +80,7 @@ char *get_path(char **dirs, char *cmd)
 		size_t len_dirs = ft_strlen(dirs[i]);
 		size_t len_cmd = ft_strlen(cmd);
 		size_t total_len = len_dirs + 1 + len_cmd + 1;
-		all_path = malloc(total_len);
+		all_path = gc_malloc(total_len);
 		if (!all_path)
 		{
 			i++;
@@ -155,9 +153,7 @@ t_env *creat_node(char *env)
 		t_env   *new_node;
 		char            *equal;
 
-		new_node = malloc(sizeof(t_env));
-		if (!new_node)
-			return (NULL);
+		new_node = gc_malloc(sizeof(t_env));
 		equal = ft_strchr(env, '=');
 		if (!equal)
 				return (NULL);

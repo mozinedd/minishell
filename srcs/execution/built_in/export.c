@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:28:56 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/05 15:28:57 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:05:19 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ void    print_exported_vars(t_env *env)
 
 t_env  *creat_new_var(char *key, char *value, char *key_val)
 {
-	t_env *new_node = malloc (sizeof(t_env));
-	if (!new_node)
-		return (NULL);
+	t_env *new_node = gc_malloc (sizeof(t_env));
 	if (!value){
 
 		new_node->key = ft_strdup(key);
@@ -97,7 +95,7 @@ char **split_key_value(char *cmd, int *is_append)
 	int key_len = 0;
 
 	result = ft_strchr(cmd, '=');
-	final_resutl = malloc(sizeof(char *) * 3);
+	final_resutl = gc_malloc(sizeof(char *) * 3);
 	if (result)
 	{
 		if (*(result - 1) == '+')

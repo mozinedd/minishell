@@ -15,7 +15,7 @@ SRCS = lib/ft_strncmp.c lib/ft_strtrim.c lib/ft_substr.c lib/ft_isalnum.c lib/ft
 	 srcs/parsing/syntax_err1.c \
 	 srcs/parsing/remove_quotes.c \
 	 srcs/parsing/parse.c \
-	 srcs/parsing/signal.c \
+	 srcs/parsing/signal.c  lib/ft_malloc.c lib/ft_free.c\
 
 SRCSEXEC = lib/ft_atoi.c\
 	lib/ft_memcpy.c \

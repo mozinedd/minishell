@@ -20,7 +20,6 @@ char	**do_job(char **sp)
 			i = handle_export_command(sp, i, flag2);
 		else
 			i++;
-		free(str);
 	}
 	return (sp);
 }
@@ -60,7 +59,6 @@ static char	*process_single_line(char *line)
 		return (NULL);
 	split_line = do_job(split_line);
 	new_line = reconstruct_line(split_line);
-	free_split(split_line);
 	if (!new_line)
 		return (NULL);
 	return (new_line);

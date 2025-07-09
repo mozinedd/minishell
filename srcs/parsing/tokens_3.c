@@ -7,6 +7,7 @@ static char	*prepare_line(char *line)
 	if (!line || !*line)
 		return (NULL);
 	trimmed = ft_strtrim(line, " \t\n\r\v\f");
+	free(line);
 	if (!trimmed)
 		return (NULL);
 	if (!check_pipe_error(trimmed))

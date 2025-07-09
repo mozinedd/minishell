@@ -39,7 +39,7 @@ static void	remove_quotes_from_cmd(t_cmds *cmd)
 	i = 0;
 	while (cmd->cmd[i])
 	{
-		cmd->cmd[i] = remove_quts(cmd->cmd[i]);
+			cmd->cmd[i] = remove_quts(cmd->cmd[i]);
 		i++;
 	}
 }
@@ -47,7 +47,6 @@ static void	remove_quotes_from_cmd(t_cmds *cmd)
 t_cmds	*final_commandes(t_cmds **command)
 {
 	t_cmds	*current;
-
 	current = *command;
 	while (current)
 	{
@@ -55,5 +54,9 @@ t_cmds	*final_commandes(t_cmds **command)
 		remove_quotes_from_files(current);
 		current = current->next;
 	}
-	return (return_quts(command));
+	t_cmds *tmp = return_quts(command);
+	printf(" \nfinal command : %s\n", tmp->cmd[0]);
+	printf(" \nfinal command: %s\n", tmp->cmd[1]);
+	printf("\n---------------------------------\n");
+	return (tmp);
 }

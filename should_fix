@@ -1,0 +1,16 @@
+minishell$ export =
+ 
+final command : export
+ 
+final command: =
+=================================================================
+==74419==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000b24f at pc 0x00010400b62e bp 0x7ffeebc0d050 sp 0x7ffeebc0d048
+
+
+minishell$ export =a
+ 
+final command : export
+ 
+final command: =a
+=================================================================
+==74549==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000416f at pc 0x00010412162e bp 0x7ffeebaf7050 sp 0x7ffeebaf7048

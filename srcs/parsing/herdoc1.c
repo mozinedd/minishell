@@ -21,7 +21,7 @@ void	write_herdoc_line(char *line, int fd_write, int flag, t_glob *global)
 	int		len;
 
 	len = (int)ft_strlen(line);
-	if (flag == 0 && check_dollar(line))
+	if (flag == 0)
 	{
 		expanded = expand_from_to(line, 0, &len, global);
 		write(fd_write, expanded, ft_strlen(expanded));
@@ -87,7 +87,7 @@ int	creat_herdoc(char *delimiter, t_glob *global, int fd_read, int flag)
 		if (!line || ft_strncmp(delimiter, line, -1) == 0)
 			break ;
 		write_herdoc_line(line, fd_write, flag, global);
-		free(line);
+
 	}
 	free(line);
 	close(fd_write);

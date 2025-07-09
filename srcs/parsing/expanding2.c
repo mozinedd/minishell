@@ -76,6 +76,11 @@ char	*expand_from_to(char *word, int start, int *end, t_glob *g)
 		return (word);
 	i = start;
 	while (i < *end && word[i])
-		word = expand_loop(word, &i, end, g);
+	{
+		if(word[i] == '$' && !ft_isalnum(word[i + 1]) && word[i + 1] != '$' && word[i + 1] != '?')
+			i++;
+		else
+			word = expand_loop(word, &i, end, g);
+	}
 	return (word);
 }

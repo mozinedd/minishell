@@ -17,8 +17,9 @@ char	*remove_quts(char *line)
 		{
 			st = i + 1;
 			skip_to_next(line, &i);
-			temp = ft_substr(line, st, i - st - 1);
-			new_cmd = temp;
+			temp = ft_substr(line, st, i - st -1);
+			new_cmd = ft_strjoin2(new_cmd, temp);
+			free(temp);
 			continue ;
 		}
 		c[0] = line[i];

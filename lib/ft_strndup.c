@@ -9,9 +9,7 @@ char *ft_strndup(const char *s, size_t n)
 	i = 0;
 	while (s[i] && i < n)
 		i++;
-	copy = (char *)malloc(i + 1);
-	if (!copy)
-		return (NULL);
+	copy = gc_malloc(i + 1);
 	j = 0;
 	while (j < i )
 	{

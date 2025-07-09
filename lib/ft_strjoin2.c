@@ -50,9 +50,7 @@ char	*ft_strjoin2(char  *s1, char  *s2)
 	else if (!s2)
 		return (ft_strdup(s1));
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	s3 = malloc(sizeof(char) * len);
-	if (!s3)
-		return (NULL);
+	s3 = gc_malloc(sizeof(char) * len);
 	ft_strlcpy(s3, s1, len);
 	ft_strlcat(s3, s2, len);
 	return (s3);

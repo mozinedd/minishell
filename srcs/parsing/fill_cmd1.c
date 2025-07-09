@@ -21,6 +21,7 @@ static char	*joint_expand(char *str, t_tokens *tmp, t_glob *global)
 
 	expanded = expan_word(tmp->str, global);
 	str = join_word(str, expanded);
+
 	return (str);
 }
 

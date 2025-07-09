@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:23:17 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/09 15:33:35 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/09 16:53:41 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_sig_hander;
 
-char	*read_command_line(t_glob *global)
+char	*read_command_line(void)
 {
 	char	*line;
 
@@ -28,7 +28,6 @@ char	*read_command_line(t_glob *global)
 	if (!line)
 	{
 		rl_clear_history();
-		free(global);
 		write(2, "exit\n", 5);
 		exit(0);
 	}
