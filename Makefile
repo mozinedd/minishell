@@ -49,7 +49,7 @@ OBJSEXEC = $(SRCSEXEC:.c=.o)
 
 NAME = minishell
 
-all: $(NAME)
+all: $(NAME) clean
 
 $(NAME): $(OBJS) $(OBJSEXEC)
 	$(CC) $(CFLAGS) $(OBJS) $(OBJSEXEC) -o $(NAME) -lreadline

@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/08 21:29:42 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/09 14:34:30 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,6 @@ char *check_command_is_exist(t_env *env, char	*cmd)
 
 	if (!cmd)
 		return NULL;
-
-	printf("the env is ============> : %s \n", env->key);
-	printf("the command is ============>: %s\n", cmd);
 	my_final_cmd = get_command_path(env, cmd);
 	stat(my_final_cmd, &mozinedd);
 	if (my_final_cmd == NULL){

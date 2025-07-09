@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:02:58 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/08 16:03:17 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:18:12 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	check_is_builtin(t_cmds *cmd)
 		return (1);
 	else if (ft_strncmp(cmd->cmd[0], "exit", 4) == 0)
 		return (1);
-	else
-		return (0);
+	return (0);
 }
 
 int	exec_is_builtin(t_env **env, t_cmds *cmd)

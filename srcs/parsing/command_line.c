@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:23:17 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/05/03 16:23:18 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/09 15:33:35 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_sig_hander;
 
-char	*read_command_line(t_glob *global, int exit_stat)
+char	*read_command_line(t_glob *global)
 {
 	char	*line;
 
@@ -22,16 +22,15 @@ char	*read_command_line(t_glob *global, int exit_stat)
 	line = readline("minishell$ ");
 	if (g_sig_hander == CTRL_C)
 	{
-		global->exit_status = 1;
+		exit_status(1, 0);
 		g_sig_hander = 0;
 	}
 	if (!line)
 	{
 		rl_clear_history();
-		/* free_env(global->env); */
 		free(global);
 		write(2, "exit\n", 5);
-		exit(exit_stat);
+		exit(0);
 	}
 	else if (*line)
 		add_history(line);

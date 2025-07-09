@@ -6,16 +6,16 @@ t_cmds	*parsing(t_glob *global)
 
 	if (!global)
 		return (NULL);
-	line = read_command_line(global, global->exit_status);
+	line = read_command_line(global);
 	if (!line)
 		return (NULL);
 	global->token = lexer(line, global);
 	if (!global->token)
 		return (NULL);
-	if (!check_redirections(global->token, global))
+	if (!check_redirections(global->token))
 	{
-		free_tokens(global->token);
-		global->exit_status = 258;
+		// free_tokens(global->token);
+		exit_status(258, 0);
 		return (NULL);
 	}
 	global->cmd = create_commands(global);
@@ -61,12 +61,9 @@ int	mshll_loop(char **envp)
 		}
 		if (global->cmd)
 		{
-			// execution
-			printf("the command is : %s\n", global->cmd->cmd[0]);
 			execute_command(global);
 			free_commands(global->cmd);
 		}
-			// execution_terminal
 	}
 	return (free(global), 1);
 }

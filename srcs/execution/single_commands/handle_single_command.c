@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:47 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/08 21:55:33 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/09 14:31:07 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,8 @@ int	redirection_handel(t_glob *global)
 	}
 	if (outfile > 0)
 	{
-		printf("here ======>\n");
 		if(dup2(outfile, 1) == -1)
 			return (perror(""), 0);
-		printf("here ======>\n");
 		close(outfile);
 	}
 	return (1);
@@ -104,21 +102,13 @@ void handle_single_command (t_glob *global)
 	if (id == 0)
 	{
 		redirection_check =  redirection_handel(global);
-		printf(" the command is  esfsgadsf : %s\n", global->cmd->cmd[0]);
 		if (redirection_check == -1)
 		{
 			perror("Error redirection failed\n");
 			exit(1);
 		}
 		env_list = env_to_array(global->env);
-
-		printf("the env is  adsfadsf : %s\n", global->env->key);
-
-
-		perror("am over her 1\n");
 		cmd_path = check_command_is_exist(global->env, global->cmd->cmd[0]);
-		printf("my final cmd is 2: %s\n", cmd_path);
-
 		if (!cmd_path)
 			return ;
 		if (execve(cmd_path, global->cmd->cmd, env_list) < 0)
