@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:16 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/05 15:29:17 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:24:55 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	ft_echo(char **args)
 	int i;
 	int newline;
 
+	if (!args || !args[0])
+        return (0);
 	i = 1;
 	newline = 1;
 	while (args[i] && is_n_option(args[i])) {

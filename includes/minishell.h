@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <unistd.h>
@@ -99,7 +98,7 @@ int	ft_isalnum(char c);
 /*================********================*/
 
 /*****************|  readlines |***************/
-char		*read_command_line(t_glob *global, int exit_stat);
+char	*read_command_line(t_glob *global);
 
 /*****************|  tokens  |***************/
 t_tokens	*new_token(char *str, t_token_type type);
@@ -113,10 +112,10 @@ t_tokens	*lexer(char *line, t_glob *global);
 void 		skip_to_next(char *str, int *i);;
 
 /*****************| syntaxe_error |***************/
-bool		check_redirections(t_tokens *t, t_glob *g);
-bool		check_pipe_error(char *line, t_glob *g);
-bool		redir_error(t_glob *g);
-bool		pipe_error(t_glob *g);
+bool		check_redirections(t_tokens *t);
+bool		check_pipe_error(char *line);
+bool		redir_error(void);
+bool		pipe_error(void);
 
 
 /******************|  is_functions  |***************/

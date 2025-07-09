@@ -13,8 +13,8 @@ static char	*handle_exit_code(char *w, int *i, int *end, t_glob *g)
 	char	*value;
 	int		pos;
 
+	value = ft_itoa(exit_status(g->exit_status, 1));
 	pos = *i;
-	value = ft_itoa(g->exit_status);
 	if (!value)
 		return (NULL);
 	*end += ft_strlen(value) - 2;

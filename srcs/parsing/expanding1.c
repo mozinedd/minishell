@@ -29,7 +29,7 @@ char	*allocate_name_var(char *wrd, int *i)
 	if (ft_isdigit(wrd[*i]) || wrd[*i] == '$')
 	{
 		(*i)++;
-		return (ft_strdup("0"));
+		return (ft_strdup(" "));
 	}
 	while (ft_isalnum(wrd[*i]) || wrd[*i] == '_')
 		(*i)++;

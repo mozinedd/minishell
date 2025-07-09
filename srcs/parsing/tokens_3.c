@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static char	*prepare_line(char *line, t_glob *global)
+static char	*prepare_line(char *line)
 {
 	char	*trimmed;
 
@@ -9,17 +9,17 @@ static char	*prepare_line(char *line, t_glob *global)
 	trimmed = ft_strtrim(line, " \t\n\r\v\f");
 	if (!trimmed)
 		return (NULL);
-	if (!check_pipe_error(trimmed, global))
+	if (!check_pipe_error(trimmed))
 	{
 		free(trimmed);
-		global->exit_status = 258;
+		exit_status(258, 0);
 		return (NULL);
 	}
 	if (!valid_quotes(trimmed))
 	{
 		write(2, "msh: syntax error near unexpected token `quotes'\n", 50);
 		free(trimmed);
-		global->exit_status = 1;
+		exit_status(1, 0);
 		return (NULL);
 	}
 	return (trimmed);
@@ -31,7 +31,7 @@ t_tokens	*lexer(char *line, t_glob *global)
 	char		**split_lines;
 	char		*clean_line;
 
-	clean_line = prepare_line(line, global);
+	clean_line = prepare_line(line);
 	if (!clean_line)
 		return (NULL);
 	split_lines = split_by_pipes(clean_line);
