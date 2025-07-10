@@ -1,3 +1,4 @@
+###############################################################
 minishell$ export =
  
 final command : export
@@ -16,7 +17,7 @@ final command: =a
 ==74549==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000416f at pc 0x00010412162e bp 0x7ffeebaf7050 sp 0x7ffeebaf7048
 
 
-
+###############################################################
 
 
 minishell$ >a <d >b >c ls ## if file faild not run cmd
@@ -33,7 +34,7 @@ README.md       b               includes        minishell       srcs
 minishell$ 
 
 
-
+###############################################################
 
 ➜  minishell git:(ysouaf) ✗ env -i ./minishell
 minishell$ export f=fff
@@ -75,15 +76,19 @@ AddressSanitizer can not provide additional info.
 SUMMARY: AddressSanitizer: SEGV (/usr/lib/system/libsystem_platform.dylib:x86_64+0x94d) in _platform_memmove$VARIANT$Haswell+0x4d
 ==69505==ABORTING
 [1]    69505 abort      env -i ./minishell
+###############################################################
+
 
 bash-3.2$ exit | exit | exit
 bash-3.2$ 
+
+###############################################################
 
 
 bash-3.2$ ls | ls | ls | ls
 Makefile        README.md       includes        lib             should_fix.md   srcs
 
-
+###############################################################
 
 minishell$ cat 
  
@@ -96,7 +101,7 @@ final command: (null)
  #when i click on ctrl+\ should print quit : 3 like bash and exit status must be 131
 ^Cminishell$    
 
-
+##########################################################
 minishell$ top
  
 final command : top
@@ -106,7 +111,7 @@ final command: (null)
 ---------------------------------
 Error opening terminal: unknown. #should run normaly like bash
 
-
+############################################################
 
 minishell$ dfsdf
  
@@ -133,6 +138,8 @@ final command: 127
 ---------------------------------
 127 #but here should be 0
 
+
+###########################################################
 minishell$ < r > t
  
 final command : (null)
@@ -191,3 +198,34 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
   Shadow gap:              cc
 ==97596==ABORTING
 [1]    97596 abort      ./minishell
+
+##########################################
+
+minishell$ clear
+ 
+final command : clear
+ 
+final command: (null)
+
+---------------------------------
+TERM environment variable not set
+
+
+########################################
+
+
+minishell$ expand 
+ 
+final command : expand
+ 
+final command: (null)
+
+---------------------------------
+
+
+
+
+
+
+^Cminishell$ 
+###############################################################

@@ -39,13 +39,15 @@ static char	**split_by_p(char *line, size_t count)
 	int		i;
 
 	res = gc_malloc(sizeof(char *) * (count + 1));
+	if (!res)
+		return (0);
 	idx = 0;
 	i = 0;
 	while (line[i] && idx < count)
 	{
 		if (!split_one_cmd(line, res, &i, idx))
 		{
-			safe_free(res, idx);
+			// safe_free(res, idx);
 			return (NULL);
 		}
 		idx++;

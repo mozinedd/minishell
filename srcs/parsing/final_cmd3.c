@@ -39,6 +39,7 @@ static void	remove_quotes_from_cmd(t_cmds *cmd)
 	i = 0;
 	while (cmd->cmd[i])
 	{
+		// if (!ft_strchr(cmd->cmd[i], '='))
 			cmd->cmd[i] = remove_quts(cmd->cmd[i]);
 		i++;
 	}
@@ -55,8 +56,8 @@ t_cmds	*final_commandes(t_cmds **command)
 		current = current->next;
 	}
 	t_cmds *tmp = return_quts(command);
-	// printf(" \nfinal command : %s\n", tmp->cmd[0]);
-	// printf(" \nfinal command: %s\n", tmp->cmd[1]);
-	// printf("\n---------------------------------\n");
+	printf(" \nfinal command : %s\n", tmp->cmd[0]);
+	printf(" \nfinal command: %s\n", tmp->cmd[1]);
+	printf("\n---------------------------------\n");
 	return (tmp);
 }

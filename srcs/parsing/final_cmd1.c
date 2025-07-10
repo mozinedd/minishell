@@ -67,13 +67,13 @@ t_cmds	*init_command_node(void)
 	return (command);
 }
 
-void	cleanup_and_free(t_cmds *head, t_cmds *new_node)
-{
-	if (new_node)
-	{
-		if (new_node->file)
-			free(new_node->file);
-		free(new_node);
-	}
-	free_commands(head);
-}
+// void	cleanup_and_free(t_cmds *head, t_cmds *new_node)
+// {
+// 	if (new_node)
+// 	{
+// 		if (new_node->file)
+// 			free(new_node->file);
+// 		free(new_node);
+// 	}
+// 	free_commands(head);
+// }

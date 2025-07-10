@@ -17,7 +17,7 @@ static int	process_command_node(t_cmds *new_node, t_glob *global)
 		return (1);
 	}
 	new_node->cmd = fill_command(joined);
-	free(joined);
+	// free(joined);
 	if (!new_node->cmd)
 		return (0);
 	return (1);
@@ -37,9 +37,9 @@ t_cmds	*create_commands(t_glob *global)
 	{
 		new_node = init_command_node();
 		if (!new_node)
-			return (free_commands(head), NULL);
+			return (/*free_commands(head),*/ NULL);
 		if (!process_command_node(new_node, global))
-			return (cleanup_and_free(head, new_node), NULL);
+			return (/*cleanup_and_free(head, new_node),*/ NULL);
 		if (!head)
 			head = new_node;
 		else

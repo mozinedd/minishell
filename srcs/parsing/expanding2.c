@@ -20,7 +20,7 @@ static char	*handle_exit_code(char *w, int *i, int *end, t_glob *g)
 	*end += ft_strlen(value) - 2;
 	w = replace_word(w, pos, pos + 1, value);
 	*i = pos + ft_strlen(value);
-	free(value);
+	// free(value);
 	return (w);
 }
 
@@ -39,10 +39,10 @@ static char	*handle_variable(char *w, int *i, int *end, t_glob *g)
 		val = ft_strdup("");
 	val = replace_quts(val);
 	*end += ft_strlen(val) - ft_strlen(var) - 1;
-	free(var);
+	// free(var);
 	w = replace_word(w, pos, *i - 1, val);
 	*i = pos + ft_strlen(val);
-	free(val);
+	// free(val);
 	return (w);
 }
 

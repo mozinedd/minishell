@@ -20,10 +20,10 @@ static int	handle_word(char *line, int *i, t_tokens **token)
 	}
 	substr = ft_substr(line, start, *i - start);
 	if (!substr)
-		return (free_tokens(*token), 0);
+		return (/*free_tokens(*token),*/ 0);
 	new = new_token(substr, WORD);
 	if (!new)
-		return (free(substr), free_tokens(*token), 0);
+		return (/*free(substr), free_tokens(*token), */0);
 	add_token(token, new);
 	return (1);
 }
@@ -54,8 +54,8 @@ static int	append_with_pipe(t_tokens **all, t_tokens *tmp)
 	pipe = new_token(ft_strdup("|"), PIPE);
 	if (!pipe)
 	{
-		free_tokens(tmp);
-		free_tokens(*all);
+		// free_tokens(tmp);
+		// free_tokens(*all);
 		return (0);
 	}
 	*all = append_token_list(*all, pipe);
@@ -75,7 +75,7 @@ t_tokens	*tokenize_all_segments(char **lines)
 	{
 		tmp = tokenize_cmd(lines[i]);
 		if (!tmp)
-			return (free_tokens(all_tokens), NULL);
+			return (/*free_tokens(all_tokens),*/ NULL);
 		if (!all_tokens)
 			all_tokens = tmp;
 		else if (!append_with_pipe(&all_tokens, tmp))
