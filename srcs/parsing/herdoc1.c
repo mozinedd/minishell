@@ -44,12 +44,12 @@ char	*generate_herdoc_name(void)
 		if (!counter_str)
 			return (NULL);
 		filename = ft_strjoin2("/tmp/herdoc", counter_str);
-		free(counter_str);
+		// free(counter_str);
 		if (!filename)
 			return (NULL);
 		if (access(filename, F_OK) != 0)
 			return (filename);
-		free(filename);
+		// free(filename);
 		counter++;
 	}
 	return (NULL);
@@ -63,7 +63,7 @@ int	open_herdoc_fds(char **filename, int *fd_read, int *fd_write)
 	*fd_write = open(*filename, O_CREAT | O_WRONLY, 0644);
 	*fd_read = open(*filename, O_RDONLY);
 	unlink(*filename);
-	free(*filename);
+	// free(*filename);
 	if (*fd_write == -1 || *fd_read == -1)
 		return (perror("heredoc"), -1);
 	return (0);

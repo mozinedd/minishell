@@ -39,9 +39,9 @@ char	*reconstruct_line(char **words)
 	while (words[i])
 	{
 		tmp = ft_strjoin2(line, " ");
-		free(line);
+		// free(line);
 		line = ft_strjoin2(tmp, words[i]);
-		free(tmp);
+		// free(tmp);
 		if (!line)
 			return (NULL);
 		i++;
@@ -80,7 +80,7 @@ char	**operate_export(char **lines)
 			i++;
 			continue ;
 		}
-		free(lines[i]);
+		// free(lines[i]);
 		lines[i] = new_line;
 		i++;
 	}

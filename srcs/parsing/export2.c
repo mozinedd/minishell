@@ -23,7 +23,7 @@ static char	*add_quotes_to_value(char *value)
 	if (!tmp)
 		return (NULL);
 	quoted = ft_strjoin2(tmp, "\"");
-	free(tmp);
+	// free(tmp);
 	return (quoted);
 }
 
@@ -39,10 +39,27 @@ static char	**process_equal_split(char **equal_split, int flag, int flag2)
 		&& !ft_isdigit(equal_split[0][0]))
 	{
 		quoted = add_quotes_to_value(equal_split[1]);
-		free(equal_split[1]);
+		// free(equal_split[1]);
 		equal_split[1] = quoted;
 	}
 	return (equal_split);
+}
+static char	**split_first_equal(char *str)
+{
+	char	**result;
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	if (!str[i])
+		return (NULL);
+
+	result = gc_malloc(sizeof(char *) * 3);
+	result[0] = ft_substr(str, 0, i);
+	result[1] = ft_strdup(str + i + 1);
+	result[2] = NULL;
+	return (result);
 }
 
 static int	process_export_arg(char **sp, int i, int flag2)
@@ -53,14 +70,14 @@ static int	process_export_arg(char **sp, int i, int flag2)
 
 	if (!there_is(sp[i], '='))
 		return (i + 1);
-	equal_split = ft_split(sp[i], '=');
+	equal_split = split_first_equal(sp[i]);
 	equal_split = trim_split_result(equal_split);
 	if (!equal_split || !equal_split[0] || !equal_split[1])
 		return (i + 1);
 	flag = check_var_name(equal_split[0]);
 	equal_split = process_equal_split(equal_split, flag, flag2);
 	new_str = ft_strjoin2(equal_split[0], equal_split[1]);
-	free(sp[i]);
+	// free(sp[i]);
 	sp[i] = new_str;
 	return (i + 1);
 }

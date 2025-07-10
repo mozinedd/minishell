@@ -54,16 +54,17 @@ int	mshll_loop(char **envp)
 		if (open_heredoc(global))
 		{
 			close_heredoc(global);
-			free_commands(global->cmd);
+			// free_commands(global->cmd);
 			continue ;
 		}
 		if (global->cmd)
 		{
 			execute_command(global);
-			free_commands(global->cmd);
+			// free_commands(global->cmd);
 		}
 	}
-	return (free(global), 1);
+	gc_free();
+	return (/*free(global), */1);
 }
 int main (int args, char **argv, char **env)
 {

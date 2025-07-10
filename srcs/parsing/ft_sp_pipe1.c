@@ -23,18 +23,18 @@ size_t count_pipes(char *line)
 	return (count);
 }
 
-void safe_free(char **arr, size_t idx)
-{
-	size_t n;
+// void safe_free(char **arr, size_t idx)
+// {
+// 	size_t n;
 
-	n = 0;
-	while (n < idx)
-	{
-		free(arr[n]);
-		n++;
-	}
-	free(arr);
-}
+// 	n = 0;
+// 	while (n < idx)
+// 	{
+// 		free(arr[n]);
+// 		n++;
+// 	}
+// 	free(arr);
+// }
 
 static int is_in_quotes_at_pos(char *str, int pos)
 {
@@ -76,7 +76,7 @@ char	*trim_spaces(char *str)
 	len = end - start + 1;
 	res = gc_malloc(len + 1);
 	ft_strlcpy(res, start, len + 1);
-	free(str);
+	// free(str);
 	return (res);
 }
 
