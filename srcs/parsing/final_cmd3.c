@@ -55,8 +55,8 @@ t_cmds	*final_commandes(t_cmds **command)
 		current = current->next;
 	}
 	t_cmds *tmp = return_quts(command);
-	printf(" \nfinal command : %s\n", tmp->cmd[0]);
-	printf(" \nfinal command: %s\n", tmp->cmd[1]);
-	printf("\n---------------------------------\n");
+	// printf(" \nfinal command : %s\n", tmp->cmd[0]);
+	// printf(" \nfinal command: %s\n", tmp->cmd[1]);
+	// printf("\n---------------------------------\n");
 	return (tmp);
 }
