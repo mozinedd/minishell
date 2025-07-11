@@ -169,6 +169,7 @@ char		*replace_quts(char *val);
 char		*expand_from_to(char *word, int start, int *end, t_glob *g);
 char		*expan_word(char *wrd, t_glob *global);
 int			expand_var(t_file *file, t_glob *global);
+char 		*herdoc_expand(char *word, int start, int *end, t_glob *g);
 
 /******************|  final command   |********************/
 char 		*join_commands(t_glob *global);

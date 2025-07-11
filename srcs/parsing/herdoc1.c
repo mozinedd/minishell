@@ -23,7 +23,7 @@ void	write_herdoc_line(char *line, int fd_write, int flag, t_glob *global)
 	len = (int)ft_strlen(line);
 	if (flag == 0)
 	{
-		expanded = expand_from_to(line, 0, &len, global);
+		expanded = herdoc_expand(line, 0, &len, global);
 		write(fd_write, expanded, ft_strlen(expanded));
 		free(expanded);
 	}
