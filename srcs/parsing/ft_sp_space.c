@@ -2,11 +2,9 @@
 
 static size_t	count_word(char *s)
 {
-	size_t	i;
-	size_t	count;
+	size_t	i = 0;
+	size_t	count = 0;
 
-	i = 0;
-	count = 0;
 	while (s[i])
 	{
 		while (s[i] && is_space(s[i]))
@@ -15,7 +13,12 @@ static size_t	count_word(char *s)
 		{
 			count++;
 			while (s[i] && !is_space(s[i]))
-				i++;
+			{
+				if (s[i] == '\'' || s[i] == '"')
+					skip_to_next(s, (int *)&i);
+				else
+					i++;
+			}
 		}
 	}
 	return (count);
@@ -23,21 +26,22 @@ static size_t	count_word(char *s)
 
 static size_t	len_words(char *s)
 {
-	size_t	i;
+	size_t	i = 0;
 
-	i = 0;
-	while (*s && is_space(*s))
-		s++;
 	while (s[i] && !is_space(s[i]))
-		i++;
+	{
+		if (s[i] == '\'' || s[i] == '"')
+			skip_to_next(s, (int *)&i);
+		else
+			i++;
+	}
 	return (i);
 }
 
 static void	free_sp(char **arr, size_t i)
 {
-	size_t	n;
+	size_t	n = 0;
 
-	n = 0;
 	while (n < i)
 	{
 		free(arr[n]);
@@ -48,29 +52,26 @@ static void	free_sp(char **arr, size_t i)
 
 static char	**alloc_words(char **arr, char *s, size_t count)
 {
-	size_t	i;
-	size_t	j;
-	size_t	wlen;
+	size_t	i = 0, j, wlen;
 
-	i = 0;
 	while (i < count)
 	{
-		wlen = len_words(s);
 		while (*s && is_space(*s))
 			s++;
-		arr[i] = (char *)malloc((wlen + 1) * sizeof(char));
+		wlen = len_words(s);
+		arr[i] = malloc((wlen + 1) * sizeof(char));
 		if (!arr[i])
 			return (free_sp(arr, i), NULL);
 		j = 0;
 		while (j < wlen)
 		{
-			arr[i][j] = *(s++);
-			j++;
+			arr[i][j++] = *s++;
 		}
 		arr[i][j] = '\0';
 		i++;
 	}
-	return (arr[i] = NULL, arr);
+	arr[i] = NULL;
+	return (arr);
 }
 
 char	**ft_split_whitespace(char *s)
