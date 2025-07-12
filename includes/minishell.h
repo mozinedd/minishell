@@ -170,6 +170,7 @@ char		*replace_quts(char *val);
 char		*expand_from_to(char *word, int start, int *end, t_glob *g);
 char		*expan_word(char *wrd, t_glob *global);
 int			expand_var(t_file *file, t_glob *global);
+char 		*herdoc_expand(char *word, int start, int *end, t_glob *g);
 
 /******************|  final command   |********************/
 char 		*join_commands(t_glob *global);
@@ -236,6 +237,11 @@ int	ft_print_str(char *str);
 int	ft_printf(const char *format, ...);
 int	ft_putnbr(int nb);
 int    ft_putchar_exec(char c);
+void	print_exported_vars(t_env *env);
+t_env  *creat_new_var(char *key, char *value, char *key_val);
+void	add_var_env(t_env **env, char *key, char *value, char *key_val);
+t_env *is_exist(t_env *env, char *key);
+void update_value(t_env **env, char *value, int is_append);
 
 
 #endif

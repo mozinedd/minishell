@@ -6,22 +6,15 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:19 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/07 18:52:20 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/12 17:31:27 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_cd(t_env *env, char **args)
+int	ft_cd(t_env *env, char **args)
 {
-	char *path;
-	
-	t_env *curr= env; 
-	while(curr)
-	{
-		printf("the key is : %s\n", curr->key);
-		curr = curr->next;
-	}
+	char	*path;
 
 	if (!args[1])
 	{

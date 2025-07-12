@@ -32,7 +32,7 @@ SRCSEXEC = lib/ft_atoi.c\
 	srcs/execution/built_in/cd.c\
 	srcs/execution/built_in/echo.c\
 	srcs/execution/built_in/exit.c\
-	srcs/execution/built_in/export.c\
+	srcs/execution/built_in/export/export.c\
 	srcs/execution/built_in/pwd.c\
 	srcs/execution/single_commands/handle_single_command.c \
 	srcs/execution/utilis/is_builtin.c \
@@ -45,7 +45,8 @@ SRCSEXEC = lib/ft_atoi.c\
 	srcs/execution/multi_commands/multi_commands.c \
 	lib/ft_printf/ft_print_str.c \
 	lib/ft_printf/ft_printf.c \
-	lib/ft_printf/ft_putnbr.c
+	lib/ft_printf/ft_putnbr.c\
+	srcs/execution/built_in/export/helper_export.c
 
 	
 
