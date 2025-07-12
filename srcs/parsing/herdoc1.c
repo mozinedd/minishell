@@ -83,7 +83,7 @@ int	creat_herdoc(char *delimiter, t_glob *global, int fd_read, int flag)
 	{
 		line = readline("> ");
 		if (g_sig_hander == CTRL_C)
-			return (free(line), -1);
+			return (free(line), close(fd_write), -1);
 		if (!line || ft_strncmp(delimiter, line, -1) == 0)
 			break ;
 		write_herdoc_line(line, fd_write, flag, global);

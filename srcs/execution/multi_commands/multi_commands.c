@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multi_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 16:55:57 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/12 16:06:05 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/12 19:22:44 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
         }
 
         // Handle redirections
-        redirection_check = redirection_handel(global);
+        redirection_check = redirection_handel(cmd->file);
         if (redirection_check == -1)
         {
             perror("Error redirection failed\n");
@@ -96,12 +96,12 @@ void exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
 
 void handle_multiple_command(t_glob *global)
 {
-    int origin_stdin;
-    int origin_stdout;
+    // int origin_stdin;
+    // int origin_stdout;
     int prev_fd = -1;
     t_cmds *cmd = global->cmd;
 
-    save_fd(&origin_stdin, &origin_stdout);
+    // save_fd(&origin_stdin, &origin_stdout);
 
     while (cmd)
     {
@@ -113,7 +113,7 @@ void handle_multiple_command(t_glob *global)
     if (prev_fd != -1)
         close(prev_fd);
 
-    restore_fd(&origin_stdin, &origin_stdout);
+    // restore_fd(&origin_stdin, &origin_stdout);
 
     // Wait for any remaining background processes
     int status;
