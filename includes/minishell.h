@@ -15,6 +15,7 @@
 #include <errno.h>
 #include <stdbool.h>
 #include <sys/ioctl.h>
+# include <stdarg.h>
 
 
 #define HEREDOC_MODE 16
@@ -225,5 +226,16 @@ int		detect_overflow(int is_set, int my_status);
 char *ft_getenv(t_env *env, const char *key);
 char *check_command_is_exist(t_env *env, char	*cmd);
 void execute_command(t_glob *global);
+void handle_multiple_command(t_glob *global);
+
+void save_fd(int *in, int *out);
+void restore_fd(int *in, int *out);
+int get_status_code(int status);
+int	redirection_handel(t_glob *global);
+int	ft_print_str(char *str);
+int	ft_printf(const char *format, ...);
+int	ft_putnbr(int nb);
+int    ft_putchar_exec(char c);
+
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_single_command.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:47 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/09 22:30:16 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/11 18:11:56 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ void save_fd(int *in, int *out)
 void restore_fd(int *org_in, int *org_out)
 {
 	dup2(0, *org_in);
+	close(*org_in);
 	dup2(1, *org_out);
+	close(*org_out);
 }
 
 int get_status_code(int status)

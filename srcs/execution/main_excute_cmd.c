@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_excute_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 16:25:51 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/08 20:36:21 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/11 18:10:18 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int ft_cmdsize(t_cmds *cmd)
 		// 	current = current->next;
 		// }
 
-        // ft_cmd_size = ft_cmdsize(cmd);
-		ft_cmd_size = 1;
+        ft_cmd_size = ft_cmdsize(global->cmd);
+		// ft_cmd_size = 1;
         if (ft_cmd_size > 1)
         {
             printf("handle multiple command\n");
-            // handle_multiple_command(cmd, env);
+            handle_multiple_command(global);
         }
         else
         {

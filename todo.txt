@@ -1,0 +1,20 @@
+export a="a b c"     => a="a  b c"
+export b=$a          => b="a b c"
+$qwertyu export c=$a => c="a"
+///////////
+minishell$ export h="q                r                          t"
+minishell$ echo "$h"
+its give => q r t => shold give => q                r                          t
+////////////
+new line after control+c  ^Cminishell$
+/////////////////////////////////////////
+handle ctrl + \ => Quit (core dumped ):
+bash-5.2$ cat 
+^\Quit (core dumped)
+bash-5.2$ 
+//////////////
+handle :
+cat << a > a.txt | cat << b > b.txt 
+//////////
+a.txt >> b.txt >> c.txt > d.txt
+////////////
