@@ -14,7 +14,7 @@ char	**do_job(char **sp)
 		if (!str)
 			return (NULL);
 		str = remove_quts(str);
-		if (ft_strncmp(sp[i], str, -1) != 0)
+		if (ft_strncmp(sp[i], str, -1) != 0 || i != 0)
 			flag2 = 1;
 		if (ft_strncmp(str, "export", 6) == 0)
 			i = handle_export_command(sp, i, flag2);
@@ -54,11 +54,15 @@ static char	*process_single_line(char *line)
 	char	**split_line;
 	char	*new_line;
 
+	printf("5 - line : %s\n", line);
 	split_line = ft_split_whitespace(line);
 	if (!split_line)
 		return (NULL);
+	printf("6 - line : %s\n", split_line[1]);
 	split_line = do_job(split_line);
+	printf("7 - line : %s\n", split_line[1]);
 	new_line = reconstruct_line(split_line);
+	printf("8 - line : %s\n", new_line);
 	if (!new_line)
 		return (NULL);
 	return (new_line);

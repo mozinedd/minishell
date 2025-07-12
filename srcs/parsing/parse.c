@@ -7,6 +7,7 @@ t_cmds	*parsing(t_glob *global)
 	if (!global)
 		return (NULL);
 	line = read_command_line();
+	printf("1 - line : %s\n", line);
 	if (!line)
 		return (NULL);
 	global->token = lexer(line, global);
@@ -68,7 +69,58 @@ void print_cmds(t_glob *global) {
 }
 
 
+void	print_commands(t_cmds *cmd)
+{
+	t_file		*file;
+	char		**args;
+	int			i;
+	int			j;
 
+	while (cmd)
+	{
+		printf("🔹 Command:\n");
+
+		args = cmd->cmd;
+		if (args)
+		{
+			i = 0;
+			while (args[i])
+			{
+				printf("  arg[%d] = %s\n", i, args[i]);
+				i++;
+			}
+		}
+		else
+			printf("  (no arguments)\n");
+
+		file = cmd->file;
+		if (file && file[0].type != 0)
+		{
+			j = 0;
+			printf("  🔸 Redirections:\n");
+			while (file[j].value)
+			{
+				printf("    - word: %s  → type: ", file[j].value);
+				if (file[j].type == REDIR_IN)
+					printf("REDIR_IN\n");
+				else if (file[j].type == REDIR_OUT)
+					printf("REDIR_OUT\n");
+				else if (file[j].type == APPEND)
+					printf("APPEND\n");
+				else if (file[j].type == HERDOC)
+					printf("HEREDOC\n");
+				else
+					printf("UNKNOWN (%d)\n", file[j].type);
+				j++;
+			}
+		}
+		else
+			printf("  (no redirections)\n");
+
+		printf("──────────────────────────\n");
+		cmd = cmd->next;
+	}
+}
 
 
 int	mshll_loop(char **envp)
@@ -83,18 +135,19 @@ int	mshll_loop(char **envp)
 	init_signals();
 	while (1 && global)
 	{
+		dup2(2, 0);
+		dup2(2, 1);
 		global->cmd = parsing(global);
 		if (open_heredoc(global))
 		{
 			close_heredoc(global);
-			// free_commands(global->cmd);
 			continue ;
 		}
 		if (global->cmd)
 		{
-			// print_cmds(global);
+			print_commands(global->cmd);
 			execute_command(global);
-			// free_commands(global->cmd);
+			close_heredoc(global);
 		}
 	}
 	gc_free();

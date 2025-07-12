@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   handle_single_command.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:47 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/11 18:11:56 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/12 19:23:30 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	redirection_handel(t_glob *global)
+int	redirection_handel(t_file *tmp)
 {
+	fprintf(stderr, "======\n");
 	int	outfile;
 	int infile;
 	int	i;
@@ -22,16 +23,17 @@ int	redirection_handel(t_glob *global)
 	infile = -2;
 	outfile = -2;
 	// -2 : n'exist pas
-	t_file *tmp = global->cmd->file;
+	//  = global->cmd->file;
 	while (tmp && tmp[i].value  && tmp[i].type)
 	{
+		fprintf(stderr,"%s\n", tmp[i].value );
 		if (tmp[i].type == REDIR_OUT)
 		{
 			if (outfile != -1)
 				close(outfile);
 			outfile = open (tmp[i].value, O_CREAT | O_WRONLY | O_TRUNC , 0644);
 			if (outfile == -1)
-				return (perror(""), 0);
+				return (perror(""), -1);
 			printf("mamima: %d\n", outfile);
 		}
 		else if (tmp[i].type == APPEND)
@@ -40,7 +42,7 @@ int	redirection_handel(t_glob *global)
 				close(outfile);
 			outfile = open (tmp[i].value, O_CREAT | O_WRONLY | O_APPEND , 0644);
 			if (outfile == -1)
-				return (perror(""), 0);
+				return (perror(""), -1);
 		}
 		// cmd.herdoc 
 		else if (tmp[i].type == HERDOC)
@@ -53,20 +55,20 @@ int	redirection_handel(t_glob *global)
 				close(infile);
 			infile = open (tmp[i].value, O_RDONLY);
 			if (infile == -1)
-				return (perror(""), 0);
+				return (perror(""), -1);
 		}
 		i += 1;
 	}
 	if (infile > 0)
 	{
 		if(dup2(infile, 0) == -1)
-			return (perror(""), 0);
+			return (perror(""), -1);
 		close(infile);
 	}
 	if (outfile > 0)
 	{
 		if(dup2(outfile, 1) == -1)
-			return (perror(""), 0);
+			return (perror(""), -1);
 		close(outfile);
 	}
 	return (1);
@@ -80,9 +82,9 @@ void save_fd(int *in, int *out)
 
 void restore_fd(int *org_in, int *org_out)
 {
-	dup2(0, *org_in);
+	dup2(*org_in, 0);
 	close(*org_in);
-	dup2(1, *org_out);
+	dup2( *org_out, 1);
 	close(*org_out);
 }
 
@@ -112,7 +114,7 @@ void handle_single_command (t_glob *global)
 	id = fork();
 	if (id == 0)
 	{
-		redirection_check =  redirection_handel(global);
+		redirection_check =  redirection_handel(global->cmd->file);
 		if (redirection_check == -1)
 		{
 			perror("Error redirection failed\n");
