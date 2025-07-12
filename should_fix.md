@@ -229,3 +229,22 @@ final command: (null)
 
 ^Cminishell$ 
 ###############################################################
+bash-3.2$ >a cat <b >>c 
+bash: b: No such file or directory
+bash-3.2$ 
+
+minishell$ >a cat <b >>c
+ 
+final command : cat
+
+---------------------------------
+mamima: 47
+No such file or directory
+
+
+
+
+^\^\^\^\^\^Cminishell$ 
+minishell$ 
+
+##################################################################

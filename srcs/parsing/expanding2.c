@@ -1,17 +1,16 @@
 #include "minishell.h"
 
-static int	is_special_quote_case(char *w, int i, t_glob *g)
+static int is_special_quote_case(char *w, int i, t_glob *g)
 {
-	if (!g->in_double_quotes && w[i] == '$'
-		&& (w[i + 1] == '\'' || w[i + 1] == '"'))
+	if (!g->in_double_quotes && w[i] == '$' && (w[i + 1] == '\'' || w[i + 1] == '"'))
 		return (1);
 	return (0);
 }
 
-static char	*handle_exit_code(char *w, int *i, int *end, t_glob *g)
+static char *handle_exit_code(char *w, int *i, int *end, t_glob *g)
 {
-	char	*value;
-	int		pos;
+	char *value;
+	int pos;
 
 	value = ft_itoa(exit_status(g->exit_status, 1));
 	pos = *i;
@@ -24,11 +23,11 @@ static char	*handle_exit_code(char *w, int *i, int *end, t_glob *g)
 	return (w);
 }
 
-static char	*handle_variable(char *w, int *i, int *end, t_glob *g)
+static char *handle_variable(char *w, int *i, int *end, t_glob *g)
 {
-	int		pos;
-	char	*var;
-	char	*val;
+	int pos;
+	char *var;
+	char *val;
 
 	pos = (*i)++;
 	var = allocate_name_var(w, i);
@@ -46,7 +45,7 @@ static char	*handle_variable(char *w, int *i, int *end, t_glob *g)
 	return (w);
 }
 
-static char	*expand_loop(char *word, int *i, int *end, t_glob *g)
+static char *expand_loop(char *word, int *i, int *end, t_glob *g)
 {
 	if (is_special_quote_case(word, *i, g))
 	{
@@ -55,8 +54,7 @@ static char	*expand_loop(char *word, int *i, int *end, t_glob *g)
 		(*i)++;
 		return (word);
 	}
-	if (word[*i] == '$' && word[*i + 1]
-		&& word[*i + 1] != '\'' && word[*i + 1] != '"')
+	if (word[*i] == '$' && word[*i + 1] && word[*i + 1] != '\'' && word[*i + 1] != '"')
 	{
 		if (word[*i + 1] == '?')
 			word = handle_exit_code(word, i, end, g);
@@ -68,19 +66,30 @@ static char	*expand_loop(char *word, int *i, int *end, t_glob *g)
 	return (word);
 }
 
-char	*expand_from_to(char *word, int start, int *end, t_glob *g)
+char *herdoc_expand(char *word, int start, int *end, t_glob *g)
 {
-	int	i;
+	int i;
 
 	if (!word || !end || !g)
 		return (word);
 	i = start;
 	while (i < *end && word[i])
 	{
-		if(word[i] == '$' && !ft_isalnum(word[i + 1]) && word[i + 1] != '$' && word[i + 1] != '?')
+		if (word[i] == '$' && !ft_isalnum(word[i + 1])&& word[i + 1] != '$'  && word[i + 1] != '?')
 			i++;
 		else
 			word = expand_loop(word, &i, end, g);
 	}
+	return (word);
+}
+char *expand_from_to(char *word, int start, int *end, t_glob *g)
+{
+	int i;
+
+	if (!word || !end || !g)
+		return (word);
+	i = start;
+	while (i < *end && word[i])
+		word = expand_loop(word, &i, end, g);
 	return (word);
 }
