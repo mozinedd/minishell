@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I includes -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I includes #-g -fsanitize=address
 
 SRCS = lib/ft_strncmp.c lib/ft_strtrim.c lib/ft_substr.c lib/ft_isalnum.c lib/ft_itoa.c lib/ft_strjoin2.c lib/ft_split.c\
 	 srcs/parsing/command_line.c\
@@ -34,14 +34,19 @@ SRCSEXEC = lib/ft_atoi.c\
 	srcs/execution/built_in/exit.c\
 	srcs/execution/built_in/export.c\
 	srcs/execution/built_in/pwd.c\
-	srcs/execution/single_commands/handle_single_command.c\
+	srcs/execution/single_commands/handle_single_command.c \
 	srcs/execution/utilis/is_builtin.c \
 	srcs/execution/utilis/help.c \
 	srcs/execution/update_exit_status.c\
 	srcs/execution/built_in/unset.c \
 	lib/ft_strjoin.c \
 	srcs/execution/utilis/ft_getenv.c \
-	srcs/execution/main_excute_cmd.c
+	srcs/execution/main_excute_cmd.c \
+	srcs/execution/multi_commands/multi_commands.c \
+	lib/ft_printf/ft_print_str.c \
+	lib/ft_printf/ft_printf.c \
+	lib/ft_printf/ft_putnbr.c
+
 	
 
 OBJS = $(SRCS:.c=.o)
@@ -49,7 +54,7 @@ OBJSEXEC = $(SRCSEXEC:.c=.o)
 
 NAME = minishell
 
-all: $(NAME) clean
+all: $(NAME)
 
 $(NAME): $(OBJS) $(OBJSEXEC)
 	$(CC) $(CFLAGS) $(OBJS) $(OBJSEXEC) -o $(NAME) -lreadline

@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_print_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/11 22:07:06 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/11 22:12:22 by mozinedd         ###   ########.fr       */
+/*   Created: 2024/11/29 20:21:49 by mozinedd          #+#    #+#             */
+/*   Updated: 2025/07/11 22:06:43 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    ft_putchar(char c)
+int	ft_print_str(char *str)
 {
-    write (1, &c, 1);
-}
+	int	i;
 
-int    ft_putchar_exec(char c)
-{
-    write (2, &c, 1);
-	return (1);
+	if (str == NULL)
+		str = "(null)";
+	i = 0;
+	while (str[i])
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+	return (i);
 }

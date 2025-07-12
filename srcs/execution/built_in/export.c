@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:28:56 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/09 16:05:19 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/11 16:10:15 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,10 @@ char **split_key_value(char *cmd, int *is_append)
 	final_resutl = gc_malloc(sizeof(char *) * 3);
 	if (result)
 	{
+		if (cmd[0] == '=')
+			return (printf("invalid identifier '%s'\n", cmd), NULL);
 		if (*(result - 1) == '+')
-		{
-			printf("mozinedd\n");
 			*is_append = 1;
-		}
 		if (!final_resutl)
 			return NULL;
 		if (*is_append)
@@ -185,7 +184,7 @@ void	ft_export (t_env **env, char **cmd)
 	while (cmd[i])
 	{
 		my_key_value = split_key_value(cmd[i], &is_append);
-		if (!is_valid_key(my_key_value[0]))
+		if (!my_key_value || !is_valid_key(my_key_value[0]))
 		{
 			exit_status(1, 0);
 			printf("the exit status is : %d\n", exit_status(0, 1));

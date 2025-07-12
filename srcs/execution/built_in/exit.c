@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:07 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/09 22:59:53 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/11 18:45:28 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int is_numeric(char *str)
 int ft_exit(char **args)
 {
 	int number;
-	printf("exit\n");
+	printf("exit \n");
 	if (!args[1])
 		exit(exit_status(0, 1));
 	if (!is_numeric(args[1]))
