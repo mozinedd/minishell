@@ -46,6 +46,7 @@ SRCSEXEC = lib/ft_atoi.c\
 	lib/ft_printf/ft_print_str.c \
 	lib/ft_printf/ft_printf.c \
 	lib/ft_printf/ft_putnbr.c\
+	srcs/execution/utilis/list_of_env.c\
 	srcs/execution/built_in/export/helper_export.c
 
 	

@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:28:56 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/12 20:20:47 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/13 16:53:32 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,6 @@ char **split_key_value(char *cmd, int *is_append)
 	return final_resutl;
 }
 
-
-
-
-
-
 void	ft_export (t_env **env, char **cmd)
 {
 	char **my_key_value;
@@ -92,7 +87,6 @@ void	ft_export (t_env **env, char **cmd)
 			return ;
 		return (print_exported_vars(*env));
 	}
-
 	while (cmd[i])
 	{
 		my_key_value = split_key_value(cmd[i], &is_append);
@@ -103,15 +97,10 @@ void	ft_export (t_env **env, char **cmd)
 			return ; 
 		}
 		curr = is_exist(*env, my_key_value[0]);
-		if(curr){
+		if(curr)
 			update_value(&curr, my_key_value[1], is_append);
-			printf("hi from curr apend\n");
-		}
 		else
-		{
-			printf("haneasldkjf;ldasfj \n");
 			add_var_env(env, my_key_value[0], my_key_value[1], cmd[i]);
-		}
 		i++;
 	}
 	return ;

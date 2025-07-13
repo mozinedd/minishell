@@ -232,7 +232,7 @@ void handle_multiple_command(t_glob *global);
 void save_fd(int *in, int *out);
 void restore_fd(int *in, int *out);
 int get_status_code(int status);
-int	redirection_handel(t_glob *global);
+int	redirection_handel(t_file *tmp);
 int	ft_print_str(char *str);
 int	ft_printf(const char *format, ...);
 int	ft_putnbr(int nb);

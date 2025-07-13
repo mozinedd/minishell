@@ -18,3 +18,5 @@ cat << a > a.txt | cat << b > b.txt
 //////////
 a.txt >> b.txt >> c.txt > d.txt
 ////////////
+ exit "       1       "
+ \\\\\\\\\\\\\\\\\\\\\
