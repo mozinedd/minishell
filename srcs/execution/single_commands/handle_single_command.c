@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_single_command.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:47 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/12 19:23:30 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/15 18:48:27 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	redirection_handel(t_file *tmp)
 {
-	fprintf(stderr, "======\n");
 	int	outfile;
 	int infile;
 	int	i;
@@ -22,8 +21,6 @@ int	redirection_handel(t_file *tmp)
 	i = 0;
 	infile = -2;
 	outfile = -2;
-	// -2 : n'exist pas
-	//  = global->cmd->file;
 	while (tmp && tmp[i].value  && tmp[i].type)
 	{
 		fprintf(stderr,"%s\n", tmp[i].value );
@@ -44,7 +41,6 @@ int	redirection_handel(t_file *tmp)
 			if (outfile == -1)
 				return (perror(""), -1);
 		}
-		// cmd.herdoc 
 		else if (tmp[i].type == HERDOC)
 		{
 			infile = tmp[i].fd;
@@ -110,10 +106,10 @@ void handle_single_command (t_glob *global)
 	if (!global->cmd->cmd[0])
 		return ;
 	save_fd(&origin_stdin, &origin_stdout);
-	// saving int outfile
 	id = fork();
 	if (id == 0)
 	{
+		signal(SIGQUIT, SIG_DFL); // katrod signal l difault dyalha;
 		redirection_check =  redirection_handel(global->cmd->file);
 		if (redirection_check == -1)
 		{

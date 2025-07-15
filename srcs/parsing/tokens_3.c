@@ -33,16 +33,13 @@ t_tokens	*lexer(char *line, t_glob *global)
 	char		*clean_line;
 
 	clean_line = prepare_line(line);
-	printf("2 - line : %s\n", clean_line);
 	if (!clean_line)
 		return (NULL);
 	split_lines = split_by_pipes(clean_line);
-	printf("3 - line : %s\n", split_lines[0]);
 	// free(clean_line);
 	if (!split_lines)
 		return (NULL);
 	split_lines = operate_export(split_lines);
-	printf("4 - line : %s\n", split_lines[0]);
 	if (!split_lines)
 	{
 		// free_split(split_lines);

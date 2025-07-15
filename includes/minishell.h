@@ -77,6 +77,12 @@ typedef struct s_gc
     struct s_gc     *next;
 }   t_gc;
 
+typedef struct s_cd
+{
+	void		*ptr;
+	struct s_cd	*next;
+}	t_cd;
+
 /*========global variable=========*/
 extern int g_sig_hander;
 
@@ -237,6 +243,11 @@ int	ft_print_str(char *str);
 int	ft_printf(const char *format, ...);
 int	ft_putnbr(int nb);
 int    ft_putchar_exec(char c);
+void	print_exported_vars(t_env *env);
+t_env  *creat_new_var(char *key, char *value, char *key_val);
+void	add_var_env(t_env **env, char *key, char *value, char *key_val);
+t_env *is_exist(t_env *env, char *key);
+void update_value(t_env **env, char *value, int is_append);
 
 
 #endif

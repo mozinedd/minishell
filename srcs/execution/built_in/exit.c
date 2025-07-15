@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:07 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/11 18:45:28 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/12 17:35:02 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int is_numeric(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
@@ -30,9 +30,10 @@ int is_numeric(char *str)
 	return (1);
 }
 
-int ft_exit(char **args)
+int	ft_exit(char **args)
 {
-	int number;
+	int	number;
+	
 	printf("exit \n");
 	if (!args[1])
 		exit(exit_status(0, 1));

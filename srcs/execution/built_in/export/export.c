@@ -6,81 +6,28 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:28:56 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/11 16:10:15 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:18:15 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    print_exported_vars(t_env *env)
-{
-	// creat copy from env : copy : copy sort 
-	while (env)
-	{
-		if (env->value)
-			printf("declare -x %s=\"%s\"\n", env->key, env->value);
-		else 
-			printf("declare -x %s\n", env->key);
-		env = env->next;
-	}
-}
-
-t_env  *creat_new_var(char *key, char *value, char *key_val)
-{
-	t_env *new_node = gc_malloc (sizeof(t_env));
-	if (!value){
-
-		new_node->key = ft_strdup(key);
-		if (ft_strchr(key_val, '=') != NULL)
-			new_node->value = ft_strdup("");
-		else
-			new_node->value = NULL;
-		new_node->next = NULL;
-	}
-	else 
-	{
-		new_node->key = ft_strdup(key);
-		new_node->value = ft_strdup(value);
-		new_node->next = NULL;
-	}
-	return (new_node);
-}
-
-void	add_var_env(t_env **env, char *key, char *value, char *key_val)
-{
-	t_env *new_node = creat_new_var(key, value, key_val);
-	t_env*current;
-
-	if (!new_node)
-		return ;
-	if (!*env)
-	{
-		*env = new_node;
-		return ;
-	}
-	current = *env;
-	while (current->next)
-		current = current->next;
-	current->next = new_node;
-}
-
-
 int is_valid_key(char *key)
 {
 	int i;
 
-	if (!ft_isalpha(key[0]) || key[0] == '_')
+	if (!ft_isalpha(key[0]) && key[0] != '_')
 	{
-		printf("minishell: export: %s: not a valid identifier\n", key);
+		printf("minishell: export: %s: 1 not a valid identifier\n", key);
 		// exit status
 		return (0);
 	}
 	i = 1;
 	while (key[i])
 	{
-		if (!ft_isalnum(key[i]) || key[i] == '_')
+		if (!ft_isalnum(key[i]) && key[i] != '_')
 		{
-			printf("minishell: export: %s: not a valid identifier\n", key);
+			printf("minishell: export: %s: 2 not a valid identifier\n", key);
 			return (0);
 		}
 		i++; 
@@ -127,46 +74,6 @@ char **split_key_value(char *cmd, int *is_append)
 	return final_resutl;
 }
 
-
-
-t_env *is_exist(t_env *env, char *key)
-{
-	t_env *curr = env;
-
-	while(curr)
-	{
-		if (ft_strcmp(curr->key, key) == 0)
-			return (curr);
-		curr = curr->next;
-	}
-	return (NULL);
-}
-
-void update_value(t_env **env, char *value, int is_append)
-{
-	char *my_new_value;
-
-	if (!env || !*env)
-		return ;
-	if (is_append)
-	{
-		if ((*env)->value)
-			my_new_value  = ft_strjoin((*env)->value, value);
-		else
-			my_new_value = ft_strdup(value);
-		(*env)->value = my_new_value;
-	}
-	else 
-	{
-		printf("am over here now\n");
-		if (value == NULL)
-			return ;
-		(*env)->value = ft_strdup(value);
-	}
-}
-
-
-
 void	ft_export (t_env **env, char **cmd)
 {
 	char **my_key_value;
@@ -180,7 +87,6 @@ void	ft_export (t_env **env, char **cmd)
 			return ;
 		return (print_exported_vars(*env));
 	}
-
 	while (cmd[i])
 	{
 		my_key_value = split_key_value(cmd[i], &is_append);
@@ -191,15 +97,10 @@ void	ft_export (t_env **env, char **cmd)
 			return ; 
 		}
 		curr = is_exist(*env, my_key_value[0]);
-		if(curr){
+		if(curr)
 			update_value(&curr, my_key_value[1], is_append);
-			printf("hi from curr apend\n");
-		}
 		else
-		{
-			printf("haneasldkjf;ldasfj \n");
 			add_var_env(env, my_key_value[0], my_key_value[1], cmd[i]);
-		}
 		i++;
 	}
 	return ;
