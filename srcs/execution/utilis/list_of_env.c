@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 18:00:11 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/13 18:00:31 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:23:34 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_env *list_of_env(char **env)
 	list = NULL;
 	size = NULL;
 	i = 0;
+	if (!env || !*env)
+		return (NULL);
 	while (env[i])
 	{
 		new_node = creat_node(env[i]);

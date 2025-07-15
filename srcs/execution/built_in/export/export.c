@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:28:56 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/13 16:53:32 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:18:15 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ int is_valid_key(char *key)
 {
 	int i;
 
-	if (!ft_isalpha(key[0]) || key[0] == '_')
+	if (!ft_isalpha(key[0]) && key[0] != '_')
 	{
-		printf("minishell: export: %s: not a valid identifier\n", key);
+		printf("minishell: export: %s: 1 not a valid identifier\n", key);
 		// exit status
 		return (0);
 	}
 	i = 1;
 	while (key[i])
 	{
-		if (!ft_isalnum(key[i]) || key[i] == '_')
+		if (!ft_isalnum(key[i]) && key[i] != '_')
 		{
-			printf("minishell: export: %s: not a valid identifier\n", key);
+			printf("minishell: export: %s: 2 not a valid identifier\n", key);
 			return (0);
 		}
 		i++; 

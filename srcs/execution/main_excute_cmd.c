@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 16:25:51 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/13 20:56:10 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/14 23:04:42 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ int ft_cmdsize(t_cmds *cmd)
 
 	void	execute_command(t_glob *global)
 	{
+		
 		int	ft_cmd_size;
 		// int fd[2];
 
 		// fd[0] = dup(0);
 		// fd[1] = dup(1);
+		
+		
 		ft_cmd_size = ft_cmdsize(global->cmd);
 		if (ft_cmd_size > 1)
 		{

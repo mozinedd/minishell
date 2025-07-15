@@ -6,23 +6,28 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:28:51 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/12 17:38:29 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/14 22:52:38 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+///@brief problem 
+
 void	ft_pwd(t_env *env)
 {
 	char	*path;
-	(void)env;
 
 	path = getcwd(NULL, 0);
-	if (!path)
+	if (path != NULL)
 	{
-		perror("error geting current working directory\n");
-		return;
-	}
-	printf("%s\n", path);
+		printf("the path  from get cwd is : %s\n", path);
+		return ;
+	}else {
+		path = ft_getenv(env, "PWD");
+		printf("the path  from my env is : %s\n", path);
+		return ;
+	}	
+	// printf("%s\n", path);
 }
 

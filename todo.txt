@@ -20,3 +20,8 @@ a.txt >> b.txt >> c.txt > d.txt
 ////////////
  exit "       1       "
  \\\\\\\\\\\\\\\\\\\\\
+bash-3.2$ export a="a b c"
+bash-3.2$ > test export d=$a
+bash-3.2$ export
+
+ 

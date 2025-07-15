@@ -77,6 +77,12 @@ typedef struct s_gc
     struct s_gc     *next;
 }   t_gc;
 
+typedef struct s_cd
+{
+	void		*ptr;
+	struct s_cd	*next;
+}	t_cd;
+
 /*========global variable=========*/
 extern int g_sig_hander;
 

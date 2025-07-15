@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:16 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/12 17:33:55 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:49:15 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	ft_echo(char **args)
 	int	i;
 	int	newline;
 
+	exit_status(0, 0);
 	if (!args || !args[0])
 		return (0);
 	i = 1;
