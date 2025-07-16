@@ -58,7 +58,7 @@ static char	**alloc_words(char **arr, char *s, size_t count)
 		wlen = len_words(s);
 		while (*s && is_space(*s))
 			s++;
-		arr[i] = (char *)malloc((wlen + 1) * sizeof(char));
+		arr[i] = (char *)gc_malloc((wlen + 1) * sizeof(char));
 		if (!arr[i])
 			return (free_sp(arr, i), NULL);
 		j = 0;

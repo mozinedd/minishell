@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:19 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/15 16:07:56 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/16 18:11:59 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 void	update_old_pwd(t_env **env, char *oldpwd)
 {
 	t_env	*curr;
+	char	**cmd;
 	
 	curr = *env;
 	if (oldpwd != NULL)
@@ -30,7 +31,16 @@ void	update_old_pwd(t_env **env, char *oldpwd)
 			}
 			curr = curr->next;
 		}
+		if (curr == NULL)
+		{
+			cmd = gc_malloc(sizeof(char *) * 2);
+			cmd[0] = "export";
+			cmd[1] = ft_strjoin("OLDPWD=", oldpwd);
+			cmd[2] = NULL;
+			ft_export(env, cmd);
+		}
 	}
+	
 }
 
 void	add_to_pwd(t_env **env, char *arg){
@@ -52,7 +62,8 @@ void	add_to_pwd(t_env **env, char *arg){
 		}
 		curr = curr->next;
 	}
-	update_old_pwd(env, oldpwd);
+	if (oldpwd != NULL)
+		update_old_pwd(env, oldpwd);
 }
 
 int	ft_cd(t_env *env, char **args)
@@ -61,6 +72,7 @@ int	ft_cd(t_env *env, char **args)
 	char	*cwd;
 	char	*oldpwd =NULL ;
 	char	cwd_return[4096];
+	char	**cmd;
 
 	if (!args[1])
 	{
@@ -106,6 +118,14 @@ int	ft_cd(t_env *env, char **args)
 				break ;
 			}
 			curr = curr->next;
+		}
+		if (curr == NULL)
+		{
+			cmd = gc_malloc(sizeof(char *) * 2);
+			cmd[0] = "export";
+			cmd[1] = ft_strjoin("PWD=", cwd_return);
+			cmd[2] = NULL;
+			ft_export(&env, cmd);
 		}
 		update_old_pwd(&env, oldpwd);
 	}

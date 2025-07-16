@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:47 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/15 18:48:27 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/15 22:45:50 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ void handle_single_command (t_glob *global)
 	pid_t		id;
 	int		status = 0;
 	int redirection_check = 0;
-	int origin_stdin; // 3
-	int origin_stdout;// 4
+	// int origin_stdin; // 3
+	// int origin_stdout;// 4
 	
 	if (!global->cmd->cmd[0])
 		return ;
-	save_fd(&origin_stdin, &origin_stdout);
+	// save_fd(&origin_stdin, &origin_stdout);
 	id = fork();
 	if (id == 0)
 	{
@@ -135,5 +135,5 @@ void handle_single_command (t_glob *global)
 		waitpid(id, &status, 0);
 		exit_status(get_status_code(status), 0);
 	}
-	restore_fd(&origin_stdin, &origin_stdout);
+	// restore_fd(&origin_stdin, &origin_stdout);
 }

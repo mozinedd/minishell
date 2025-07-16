@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I includes -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I includes #-g -fsanitize=address
 
 SRCS = lib/ft_strncmp.c lib/ft_strtrim.c lib/ft_substr.c lib/ft_isalnum.c lib/ft_itoa.c lib/ft_strjoin2.c lib/ft_split.c\
 	 srcs/parsing/command_line.c\
