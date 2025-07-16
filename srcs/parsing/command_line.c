@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:23:17 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/15 16:55:57 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/16 18:23:31 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*read_command_line(void)
 	if (!line)
 	{
 		rl_clear_history();
+		gc_free();
 		write(2, "exit\n", 5);
 		exit(0);
 	}

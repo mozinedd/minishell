@@ -98,7 +98,7 @@ char		*ft_itoa(int n);
 char		*ft_strchr(const char *s, int c);
 size_t 		ft_strlen(const char *str);
 char 		*ft_strndup(const char *s, size_t n);
-size_t		ft_strlcpy(char *dst,char *src, size_t dstsize);
+size_t		ft_strlcpy(char *dst ,char *src, size_t dstsize);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 int	ft_isalnum(char c);
@@ -201,53 +201,52 @@ int			mshll_loop(char **envp);
 /*				execution              	  */
 /*================********================*/
 
-char			*ft_strchr(const char *s, int c);
-char			*ft_strndup(const char *s, size_t n);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strndup(const char *s, size_t n);
 char	*ft_strdup(char *s1);
-void	ft_env(t_env *env);
-size_t			ft_strlen(const char *str);
+size_t	ft_strlen(const char *str);
 void    *ft_memcpy(void *dst, const void* src, size_t n);
 void    ft_putchar(char c);
-int	ft_atoi(const char *str);
-void handle_single_command (t_glob *global);
+int		ft_atoi(const char *str);
 char	*ft_strcpy(char *dest, char *src);
-t_env *list_of_env(char **env);
-
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_calloc(size_t count, size_t size);
+int		ft_strcmp(const char *s1, const char *s2);
+char    *ft_strjoin(char const *s1, char const *s2);
+int		ft_print_str(char *str);
+int		ft_printf(const char *format, ...);
+int		ft_putnbr(int nb);
+int		ft_putchar_exec(char c);
+
 int		ft_cd(t_env *env, char **args);
 int		ft_echo(char **args);
 int		ft_exit(char **args);
 void	ft_pwd(t_env *env);
-int	ft_strcmp(const char *s1, const char *s2);
-int	check_is_builtin(t_cmds *cmd);
-int	exec_is_builtin(t_env **env, t_cmds *cmd);
-char **env_to_array(t_env *head);
-char	*get_command_path(t_env *env, char *cmd);
+void	ft_env(t_env *env);
 void	ft_export (t_env **env, char **cmd);
-int exit_status(int status, int is_get);
-int ft_unset(char **args, t_env **env);
-char    *ft_strjoin(char const *s1, char const *s2);
-int		detect_overflow(int is_set, int my_status);
-// todo : come back here
-char *ft_getenv(t_env *env, const char *key);
-char *check_command_is_exist(t_env *env, char	*cmd);
-void execute_command(t_glob *global);
-void handle_multiple_command(t_glob *global);
+int		ft_unset(char **args, t_env **env);
 
-void save_fd(int *in, int *out);
-void restore_fd(int *in, int *out);
-int get_status_code(int status);
-int	redirection_handel(t_file *tmp);
-int	ft_print_str(char *str);
-int	ft_printf(const char *format, ...);
-int	ft_putnbr(int nb);
-int    ft_putchar_exec(char c);
+void	handle_single_command (t_glob *global);
+void	handle_multiple_command(t_glob *global);
+void	execute_command(t_glob *global);
+int		redirection_handel(t_file *tmp);
+int		check_is_builtin(t_cmds *cmd);
+int		exec_is_builtin(t_env **env, t_cmds *cmd);
+t_env	*list_of_env(char **env);
+char	**env_to_array(t_env *head);
+char	*get_command_path(t_env *env, char *cmd);
+int		exit_status(int status, int is_get);
+int		detect_overflow(int is_set, int my_status);
+char	*ft_getenv(t_env *env, const char *key);
+char	*check_command_is_exist(t_env *env, char	*cmd);
+int		get_status_code(int status);
 void	print_exported_vars(t_env *env);
-t_env  *creat_new_var(char *key, char *value, char *key_val);
+t_env	*creat_new_var(char *key, char *value, char *key_val);
 void	add_var_env(t_env **env, char *key, char *value, char *key_val);
-t_env *is_exist(t_env *env, char *key);
-void update_value(t_env **env, char *value, int is_append);
+t_env	*is_exist(t_env *env, char *key);
+void	update_value(t_env **env, char *value, int is_append);
+void	save_fd(int *in, int *out);
+void	restore_fd(int *in, int *out);
 
 
 #endif

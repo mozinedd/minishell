@@ -2,8 +2,6 @@
 t_gc **get_garbage_collector(void)
 {
     static t_gc *collector;
-
-    collector = NULL;
     return (&collector);
 }
 
