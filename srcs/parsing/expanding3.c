@@ -1,4 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expanding3.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 21:55:50 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 21:55:55 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+char	*expand_from_to(char *word, int start, int *end, t_glob *g)
+{
+	int	i;
+
+	if (!word || !end || !g)
+		return (word);
+	i = start;
+	while (i < *end && word[i])
+		word = expand_loop(word, &i, end, g);
+	return (word);
+}
 
 static char	*process_quoted_section(char *wrd, int *i, t_glob *global)
 {

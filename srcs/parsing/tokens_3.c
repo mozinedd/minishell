@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokens_3.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:56:33 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:56:34 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static char	*prepare_line(char *line)
@@ -12,15 +24,13 @@ static char	*prepare_line(char *line)
 		return (NULL);
 	if (!check_pipe_error(trimmed))
 	{
-		// free(trimmed);
 		exit_status(258, 0);
 		return (NULL);
 	}
 	if (!valid_quotes(trimmed))
 	{
 		write(2, "msh: syntax error near unexpected token `quotes'\n", 50);
-		// free(trimmed);
-		exit_status(1, 0);
+		exit_status(258, 0);
 		return (NULL);
 	}
 	return (trimmed);
@@ -33,23 +43,16 @@ t_tokens	*lexer(char *line, t_glob *global)
 	char		*clean_line;
 
 	clean_line = prepare_line(line);
-	printf("2 - line : %s\n", clean_line);
 	if (!clean_line)
 		return (NULL);
 	split_lines = split_by_pipes(clean_line);
-	printf("3 - line : %s\n", split_lines[0]);
-	// free(clean_line);
+	free(clean_line);
 	if (!split_lines)
 		return (NULL);
 	split_lines = operate_export(split_lines);
-	printf("4 - line : %s\n", split_lines[0]);
 	if (!split_lines)
-	{
-		// free_split(split_lines);
 		return (NULL);
-	}
 	tokens = tokenize_all_segments(split_lines);
-	// free_split(split_lines);
 	if (!tokens)
 		return (NULL);
 	global->token = tokens;

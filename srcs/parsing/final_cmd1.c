@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   final_cmd1.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:19:51 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:19:52 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_file	*init_files_of_commands(t_tokens *token)
@@ -66,14 +78,3 @@ t_cmds	*init_command_node(void)
 	command->next = NULL;
 	return (command);
 }
-
-// void	cleanup_and_free(t_cmds *head, t_cmds *new_node)
-// {
-// 	if (new_node)
-// 	{
-// 		if (new_node->file)
-// 			free(new_node->file);
-// 		free(new_node);
-// 	}
-// 	free_commands(head);
-// }

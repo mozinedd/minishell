@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   herdoc2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:31:14 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:31:22 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	handle_heredoc_file(t_file *file, t_glob *global)
@@ -6,7 +18,6 @@ static int	handle_heredoc_file(t_file *file, t_glob *global)
 
 	if (file->type == HERDOC)
 	{
-		printf("→ HEREDOC detected: delimiter = %s\n", file->value);
 		fd = creat_herdoc(file->value, global, file->fd, file->found_quts);
 		if (fd == -1)
 			return (1);
@@ -20,7 +31,7 @@ static int	handle_heredoc_file(t_file *file, t_glob *global)
 int	open_heredoc(t_glob *global)
 {
 	t_cmds	*tmp;
-	int			i;
+	int		i;
 
 	if (!global || !global->cmd)
 		return (0);
@@ -45,7 +56,7 @@ int	open_heredoc(t_glob *global)
 void	close_heredoc(t_glob *global)
 {
 	t_cmds	*tmp;
-	int			i;
+	int		i;
 
 	if (!global || !global->cmd)
 		return ;

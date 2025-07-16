@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 21:58:55 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 21:58:56 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	**trim_split_result(char **arr)
@@ -13,7 +25,6 @@ char	**trim_split_result(char **arr)
 		trimmed = ft_strtrim(arr[i], " \t\n\r\v\f");
 		if (!trimmed)
 			return (NULL);
-		// free(arr[i]);
 		arr[i] = trimmed;
 		i++;
 	}
@@ -35,7 +46,7 @@ int	red(char *str)
 
 int	there_is(char *str, char c)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (str[i])

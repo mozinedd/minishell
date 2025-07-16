@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/09 16:06:08 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/16 22:10:40 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int env_size(t_env *head)
 {
-	int size;
-
+	int	size;
+	t_env* tmp;
+	
 	size = 0;
-	t_env* tmp = head;
+	tmp = head;
 	while (tmp)
 	{
 		size++;
@@ -32,13 +33,21 @@ char **env_to_array(t_env *head)
 	int size;
 	char **array;
 	t_env *tmp = head;
+	char *curent = NULL;;
 
 	size = env_size(head);
 	array = gc_malloc(sizeof(char *) * (size +1));
 	i = 0;
 	while (i < size)
 	{
-		array[i] = tmp->value;
+		curent = ft_strjoin2(curent, tmp->key);
+		if(tmp->value)
+		{
+			curent = ft_strjoin2(curent, "=");
+			curent = ft_strjoin2(curent, tmp->value);		
+		}
+		array[i] = curent;
+		curent = NULL;
 		tmp = tmp->next;
 		i++;
 	}
@@ -74,7 +83,7 @@ char *get_path(char **dirs, char *cmd)
 {
 	char	*all_path;
 	int i = 0 ; 
-	int j  = 0;
+	// int j  = 0;
 	
 	while (dirs[i]) {
 		size_t len_dirs = ft_strlen(dirs[i]);
@@ -92,25 +101,25 @@ char *get_path(char **dirs, char *cmd)
 		if (access(all_path, F_OK) == 0)
 		{
 			// you will use garbage collector later
-			j = 0;
-			while (dirs[j])
-			{
-				free(dirs[j]);
-				j++;
-			}
-			free(dirs);
+			// j = 0;
+			// while (dirs[j])
+			// {
+			// 	free(dirs[j]);
+			// 	j++;
+			// }
+			// free(dirs);
 			return all_path;
 		}
-		free(all_path);
+		// free(all_path);
 		i++;
 	}
-	j = 0;
-	while (dirs[j])
-	{
-		free(dirs[j]);
-		j++;
-	}
-	free(dirs);
+	// j = 0;
+	// while (dirs[j])
+	// {
+	// 	free(dirs[j]);
+	// 	j++;
+	// }
+	// free(dirs);
 	return NULL;
 }
 
@@ -147,59 +156,3 @@ char	*get_command_path(t_env *env ,char *cmd)
 	// save and restore int out 
 }
 
-t_env *creat_node(char *env)
-{
-		size_t          key_lent;
-		t_env   *new_node;
-		char            *equal;
-
-		new_node = gc_malloc(sizeof(t_env));
-		equal = ft_strchr(env, '=');
-		if (!equal)
-				return (NULL);
-		key_lent = equal - env;
-		new_node->key = ft_strndup(env, key_lent);
-		new_node->value = ft_strdup(equal + 1);
-		if (!new_node->key || !new_node->value)
-		{
-				free(new_node->key);
-				free(new_node->value);
-				free(new_node);
-				return (NULL);
-		}
-		new_node->next = NULL;
-		return (new_node);
-}
-
-t_env *list_of_env(char **env)
-{
-	t_env *list;
-	t_env *size;
-	t_env *new_node;
-	int i;
-
-	list = NULL;
-	size = NULL;
-	i = 0;
-	while (env[i])
-	{
-		new_node = creat_node(env[i]);
-		if (!new_node)
-		{
-			i++;
-			continue;
-		}
-		if (!list)
-		{
-			list = new_node;
-			size = new_node;
-		}
-		 else
-		{
-			size->next = new_node;
-			size = new_node;
-		}
-		i++;
-	}
-	return(list);
-}

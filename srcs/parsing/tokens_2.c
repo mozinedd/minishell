@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokens_2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:55:31 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:55:32 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	handle_word(char *line, int *i, t_tokens **token)
@@ -20,10 +32,10 @@ static int	handle_word(char *line, int *i, t_tokens **token)
 	}
 	substr = ft_substr(line, start, *i - start);
 	if (!substr)
-		return (/*free_tokens(*token),*/ 0);
+		return (0);
 	new = new_token(substr, WORD);
 	if (!new)
-		return (/*free(substr), free_tokens(*token), */0);
+		return (0);
 	add_token(token, new);
 	return (1);
 }
@@ -53,11 +65,7 @@ static int	append_with_pipe(t_tokens **all, t_tokens *tmp)
 
 	pipe = new_token(ft_strdup("|"), PIPE);
 	if (!pipe)
-	{
-		// free_tokens(tmp);
-		// free_tokens(*all);
 		return (0);
-	}
 	*all = append_token_list(*all, pipe);
 	*all = append_token_list(*all, tmp);
 	return (1);
@@ -75,7 +83,7 @@ t_tokens	*tokenize_all_segments(char **lines)
 	{
 		tmp = tokenize_cmd(lines[i]);
 		if (!tmp)
-			return (/*free_tokens(all_tokens),*/ NULL);
+			return (NULL);
 		if (!all_tokens)
 			all_tokens = tmp;
 		else if (!append_with_pipe(&all_tokens, tmp))

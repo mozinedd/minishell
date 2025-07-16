@@ -7,7 +7,6 @@ SRCS = lib/ft_strncmp.c lib/ft_strtrim.c lib/ft_substr.c lib/ft_isalnum.c lib/ft
 	 srcs/parsing/export1.c srcs/parsing/export2.c srcs/parsing/export3.c\
 	 srcs/parsing/fill_cmd1.c srcs/parsing/fill_cmd2.c\
 	 srcs/parsing/final_cmd1.c srcs/parsing/final_cmd2.c srcs/parsing/final_cmd3.c\
-	 srcs/parsing/ft_free.c \
 	 srcs/parsing/ft_sp_space.c srcs/parsing/ft_sp_pipe2.c srcs/parsing/ft_sp_pipe1.c\
 	 srcs/parsing/herdoc1.c  srcs/parsing/herdoc2.c \
 	 srcs/parsing/is_fct.c \
@@ -16,6 +15,7 @@ SRCS = lib/ft_strncmp.c lib/ft_strtrim.c lib/ft_substr.c lib/ft_isalnum.c lib/ft
 	 srcs/parsing/remove_quotes.c \
 	 srcs/parsing/parse.c \
 	 srcs/parsing/signal.c  lib/ft_malloc.c lib/ft_free.c\
+	 main.c srcs/parsing/terminal.c
 
 SRCSEXEC = lib/ft_atoi.c\
 	lib/ft_memcpy.c \
@@ -32,7 +32,7 @@ SRCSEXEC = lib/ft_atoi.c\
 	srcs/execution/built_in/cd.c\
 	srcs/execution/built_in/echo.c\
 	srcs/execution/built_in/exit.c\
-	srcs/execution/built_in/export.c\
+	srcs/execution/built_in/export/export.c\
 	srcs/execution/built_in/pwd.c\
 	srcs/execution/single_commands/handle_single_command.c \
 	srcs/execution/utilis/is_builtin.c \
@@ -45,7 +45,9 @@ SRCSEXEC = lib/ft_atoi.c\
 	srcs/execution/multi_commands/multi_commands.c \
 	lib/ft_printf/ft_print_str.c \
 	lib/ft_printf/ft_printf.c \
-	lib/ft_printf/ft_putnbr.c
+	lib/ft_printf/ft_putnbr.c\
+	srcs/execution/utilis/list_of_env.c\
+	srcs/execution/built_in/export/helper_export.c
 
 	
 

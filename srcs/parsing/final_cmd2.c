@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   final_cmd2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:20:30 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:20:41 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	process_command_node(t_cmds *new_node, t_glob *global)
@@ -17,7 +29,6 @@ static int	process_command_node(t_cmds *new_node, t_glob *global)
 		return (1);
 	}
 	new_node->cmd = fill_command(joined);
-	// free(joined);
 	if (!new_node->cmd)
 		return (0);
 	return (1);
@@ -37,9 +48,9 @@ t_cmds	*create_commands(t_glob *global)
 	{
 		new_node = init_command_node();
 		if (!new_node)
-			return (/*free_commands(head),*/ NULL);
+			return (NULL);
 		if (!process_command_node(new_node, global))
-			return (/*cleanup_and_free(head, new_node),*/ NULL);
+			return (NULL);
 		if (!head)
 			head = new_node;
 		else
@@ -48,7 +59,6 @@ t_cmds	*create_commands(t_glob *global)
 		if (global->token && global->token->type == PIPE)
 			global->token = global->token->next;
 	}
-
 	return (head);
 }
 

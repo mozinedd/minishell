@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sp_space.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:26:04 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:26:05 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static size_t	count_word(char *s)
 {
-	size_t	i = 0;
-	size_t	count = 0;
+	size_t	i;
+	size_t	count;
 
+	i = 0;
+	count = 0;
 	while (s[i])
 	{
 		while (s[i] && is_space(s[i]))
@@ -26,8 +40,9 @@ static size_t	count_word(char *s)
 
 static size_t	len_words(char *s)
 {
-	size_t	i = 0;
+	size_t	i;
 
+	i = 0;
 	while (s[i] && !is_space(s[i]))
 	{
 		if (s[i] == '\'' || s[i] == '"')
@@ -40,8 +55,9 @@ static size_t	len_words(char *s)
 
 static void	free_sp(char **arr, size_t i)
 {
-	size_t	n = 0;
+	size_t	n;
 
+	n = 0;
 	while (n < i)
 	{
 		free(arr[n]);
@@ -52,8 +68,11 @@ static void	free_sp(char **arr, size_t i)
 
 static char	**alloc_words(char **arr, char *s, size_t count)
 {
-	size_t	i = 0, j, wlen;
+	size_t	i;
+	size_t	j;
+	size_t	wlen;
 
+	i = 0;
 	while (i < count)
 	{
 		while (*s && is_space(*s))
@@ -61,12 +80,13 @@ static char	**alloc_words(char **arr, char *s, size_t count)
 		wlen = len_words(s);
 		arr[i] = malloc((wlen + 1) * sizeof(char));
 		if (!arr[i])
-			return (free_sp(arr, i), NULL);
+		{
+			free_sp(arr, i);
+			return (NULL);
+		}
 		j = 0;
 		while (j < wlen)
-		{
 			arr[i][j++] = *s++;
-		}
 		arr[i][j] = '\0';
 		i++;
 	}

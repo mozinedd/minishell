@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:28:45 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/05 15:28:46 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/16 18:34:41 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	remove_key(t_env **env, char *key)
 			if (prev)
 				prev->next = curr->next;
 			else
-				**env = *curr->next;
+				*env = curr->next;
 			// free(curr->key);
 			// free(curr->value);
 			// free(curr);
@@ -38,10 +38,9 @@ void	remove_key(t_env **env, char *key)
 	}
 }
 
-
-int ft_unset(char **args, t_env **env)
+int	ft_unset(char **args, t_env **env)
 {
-	int i = 1;
+	int	i = 1;
 
 	while (args[i])
 	{

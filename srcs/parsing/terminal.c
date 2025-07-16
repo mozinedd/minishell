@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   terminal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 21:22:53 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/16 21:22:54 by ysouaf           ###   ########.fr       */
+/*   Created: 2025/07/16 21:02:01 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:54:25 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strchr(const char *s, int c)
+void	get_terminal(struct termios *termios)
 {
-	size_t			i;
-	unsigned char	ch;
-
-	ch = (unsigned char) c;
-	i = 0;
-	while (s[i] != '\0')
+	if (tcgetattr(STDIN_FILENO, termios) == -1)
 	{
-		if (s[i] == ch)
-		{
-			return ((char *)&s[i]);
-		}
-		i++;
+		perror("tcgetattr");
 	}
-	if (ch == '\0' && s[i] == '\0')
-		return ((char *)&s[i]);
-	return (NULL);
+}
+
+void	set_terminal(struct termios *termios)
+{
+	if (tcsetattr(STDIN_FILENO, TCSANOW, termios) == -1)
+	{
+		perror("tcsetattr");
+	}
 }
