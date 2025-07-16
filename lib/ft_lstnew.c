@@ -1,6 +1,18 @@
-#include "../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 21:18:36 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 21:19:14 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_env*ft_lstnew(void *content)
+#include "minishell.h"
+
+t_env	*ft_lstnew(void *content)
 {
 	t_env	*lst;
 

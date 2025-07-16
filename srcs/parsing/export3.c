@@ -1,4 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export3.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:58:10 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:58:11 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+int	handle_export_command(char **sp, int i, int flag2)
+{
+	i++;
+	while (sp[i])
+	{
+		if (red(sp[i]))
+			break ;
+		i = process_export_arg(sp, i, flag2);
+	}
+	return (i);
+}
 
 char	**do_job(char **sp)
 {
@@ -39,9 +63,7 @@ char	*reconstruct_line(char **words)
 	while (words[i])
 	{
 		tmp = ft_strjoin2(line, " ");
-		// free(line);
 		line = ft_strjoin2(tmp, words[i]);
-		// free(tmp);
 		if (!line)
 			return (NULL);
 		i++;
@@ -80,7 +102,7 @@ char	**operate_export(char **lines)
 			i++;
 			continue ;
 		}
-		// free(lines[i]);
+		free(lines[i]);
 		lines[i] = new_line;
 		i++;
 	}

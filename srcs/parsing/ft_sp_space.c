@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sp_space.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:26:04 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:26:05 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static size_t	count_word(char *s)
@@ -15,7 +27,12 @@ static size_t	count_word(char *s)
 		{
 			count++;
 			while (s[i] && !is_space(s[i]))
-				i++;
+			{
+				if (s[i] == '\'' || s[i] == '"')
+					skip_to_next(s, (int *)&i);
+				else
+					i++;
+			}
 		}
 	}
 	return (count);
@@ -26,10 +43,13 @@ static size_t	len_words(char *s)
 	size_t	i;
 
 	i = 0;
-	while (*s && is_space(*s))
-		s++;
 	while (s[i] && !is_space(s[i]))
-		i++;
+	{
+		if (s[i] == '\'' || s[i] == '"')
+			skip_to_next(s, (int *)&i);
+		else
+			i++;
+	}
 	return (i);
 }
 
@@ -55,22 +75,23 @@ static char	**alloc_words(char **arr, char *s, size_t count)
 	i = 0;
 	while (i < count)
 	{
-		wlen = len_words(s);
 		while (*s && is_space(*s))
 			s++;
-		arr[i] = (char *)gc_malloc((wlen + 1) * sizeof(char));
+		wlen = len_words(s);
+		arr[i] = malloc((wlen + 1) * sizeof(char));
 		if (!arr[i])
-			return (free_sp(arr, i), NULL);
+		{
+			free_sp(arr, i);
+			return (NULL);
+		}
 		j = 0;
 		while (j < wlen)
-		{
-			arr[i][j] = *(s++);
-			j++;
-		}
+			arr[i][j++] = *s++;
 		arr[i][j] = '\0';
 		i++;
 	}
-	return (arr[i] = NULL, arr);
+	arr[i] = NULL;
+	return (arr);
 }
 
 char	**ft_split_whitespace(char *s)

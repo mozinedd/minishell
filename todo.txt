@@ -24,4 +24,9 @@ bash-3.2$ export a="a b c"
 bash-3.2$ > test export d=$a
 bash-3.2$ export
 
+
+minishell$ pwd
+the path  from get cwd is : /mnt/homes/ysouaf  => leak here
+
+
  

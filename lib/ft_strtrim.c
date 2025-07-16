@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 21:52:10 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 21:52:11 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*ft_strrchr(char *s, int c)
@@ -16,11 +28,11 @@ char	*ft_strrchr(char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strtrim(char  *s1, char *set)
+char	*ft_strtrim(char *s1, char *set)
 {
 	char	*start;
 	char	*end;
-	size_t		len;
+	size_t	len;
 
 	if (!s1)
 		return (NULL);

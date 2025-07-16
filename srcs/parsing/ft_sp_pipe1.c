@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sp_pipe1.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:23:04 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:23:36 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-size_t count_pipes(char *line)
+size_t	count_pipes(char *line)
 {
-	int i;
-	size_t count;
+	int		i;
+	size_t	count;
 
 	if (!line)
 		return (0);
@@ -14,7 +26,7 @@ size_t count_pipes(char *line)
 		if (line[i] == '\'' || line[i] == '\"')
 		{
 			skip_to_next(line, &i);
-			continue;
+			continue ;
 		}
 		if (line[i] == '|')
 			count++;
@@ -23,24 +35,11 @@ size_t count_pipes(char *line)
 	return (count);
 }
 
-// void safe_free(char **arr, size_t idx)
-// {
-// 	size_t n;
-
-// 	n = 0;
-// 	while (n < idx)
-// 	{
-// 		free(arr[n]);
-// 		n++;
-// 	}
-// 	free(arr);
-// }
-
-static int is_in_quotes_at_pos(char *str, int pos)
+static int	is_in_quotes_at_pos(char *str, int pos)
 {
-	int i;
-	int in_single;
-	int in_double;
+	int	i;
+	int	in_single;
+	int	in_double;
 
 	i = 0;
 	in_single = 0;
@@ -49,7 +48,7 @@ static int is_in_quotes_at_pos(char *str, int pos)
 	{
 		if (str[i] == '\'' && !in_double)
 			in_single = !in_single;
-		else if (str[i] == '"' && !in_single)
+		else if (str[i] == '\"' && !in_single)
 			in_double = !in_double;
 		i++;
 	}
@@ -76,7 +75,5 @@ char	*trim_spaces(char *str)
 	len = end - start + 1;
 	res = gc_malloc(len + 1);
 	ft_strlcpy(res, start, len + 1);
-	// free(str);
 	return (res);
 }
-

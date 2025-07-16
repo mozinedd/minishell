@@ -7,7 +7,6 @@ SRCS = lib/ft_strncmp.c lib/ft_strtrim.c lib/ft_substr.c lib/ft_isalnum.c lib/ft
 	 srcs/parsing/export1.c srcs/parsing/export2.c srcs/parsing/export3.c\
 	 srcs/parsing/fill_cmd1.c srcs/parsing/fill_cmd2.c\
 	 srcs/parsing/final_cmd1.c srcs/parsing/final_cmd2.c srcs/parsing/final_cmd3.c\
-	 srcs/parsing/ft_free.c \
 	 srcs/parsing/ft_sp_space.c srcs/parsing/ft_sp_pipe2.c srcs/parsing/ft_sp_pipe1.c\
 	 srcs/parsing/herdoc1.c  srcs/parsing/herdoc2.c \
 	 srcs/parsing/is_fct.c \
@@ -16,6 +15,7 @@ SRCS = lib/ft_strncmp.c lib/ft_strtrim.c lib/ft_substr.c lib/ft_isalnum.c lib/ft
 	 srcs/parsing/remove_quotes.c \
 	 srcs/parsing/parse.c \
 	 srcs/parsing/signal.c  lib/ft_malloc.c lib/ft_free.c\
+	 main.c srcs/parsing/terminal.c
 
 SRCSEXEC = lib/ft_atoi.c\
 	lib/ft_memcpy.c \

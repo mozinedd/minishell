@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/13 18:05:22 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/16 22:10:40 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,21 @@ char **env_to_array(t_env *head)
 	int size;
 	char **array;
 	t_env *tmp = head;
+	char *curent = NULL;;
 
 	size = env_size(head);
 	array = gc_malloc(sizeof(char *) * (size +1));
 	i = 0;
 	while (i < size)
 	{
-		array[i] = tmp->value;
+		curent = ft_strjoin2(curent, tmp->key);
+		if(tmp->value)
+		{
+			curent = ft_strjoin2(curent, "=");
+			curent = ft_strjoin2(curent, tmp->value);		
+		}
+		array[i] = curent;
+		curent = NULL;
 		tmp = tmp->next;
 		i++;
 	}

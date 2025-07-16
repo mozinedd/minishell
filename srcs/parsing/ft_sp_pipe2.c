@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sp_pipe2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:24:14 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:24:18 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	skip_until_pipe(char *line, int *i)
@@ -7,13 +19,14 @@ static void	skip_until_pipe(char *line, int *i)
 		if (line[*i] == '\'' || line[*i] == '\"')
 		{
 			skip_to_next(line, i);
-			continue;
+			continue ;
 		}
 		if (line[*i] == '|')
-			break;
+			break ;
 		(*i)++;
 	}
 }
+
 static int	split_one_cmd(char *line, char **res, int *i, size_t idx)
 {
 	int		start;
@@ -46,19 +59,16 @@ static char	**split_by_p(char *line, size_t count)
 	while (line[i] && idx < count)
 	{
 		if (!split_one_cmd(line, res, &i, idx))
-		{
-			// safe_free(res, idx);
 			return (NULL);
-		}
 		idx++;
 	}
 	res[idx] = NULL;
 	return (res);
 }
 
-char **split_by_pipes(char *line)
+char	**split_by_pipes(char *line)
 {
-	size_t count;
+	size_t	count;
 
 	if (!line)
 		return (NULL);

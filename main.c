@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 21:22:53 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/16 21:22:54 by ysouaf           ###   ########.fr       */
+/*   Created: 2025/07/16 20:25:09 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:57:21 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strchr(const char *s, int c)
+int	main(int argc, char **argv, char **env)
 {
-	size_t			i;
-	unsigned char	ch;
-
-	ch = (unsigned char) c;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == ch)
-		{
-			return ((char *)&s[i]);
-		}
-		i++;
-	}
-	if (ch == '\0' && s[i] == '\0')
-		return ((char *)&s[i]);
-	return (NULL);
+	(void)argv;
+	if (argc > 1)
+		return (write(2, "Usage: ./minishell\n", 20), 1);
+	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))
+		mshll_loop(env);
+	return (0);
 }

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:23:17 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/16 18:23:31 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/16 22:41:40 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// int	g_sig_hander;
 
 char	*read_command_line(void)
 {
@@ -28,7 +26,7 @@ char	*read_command_line(void)
 	if (!line)
 	{
 		rl_clear_history();
-		gc_free();
+		free(line);
 		write(2, "exit\n", 5);
 		exit(0);
 	}

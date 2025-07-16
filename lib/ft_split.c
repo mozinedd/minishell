@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 21:22:41 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 21:22:42 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static size_t	count_word(char *s, char c)
@@ -36,18 +48,18 @@ static size_t	len_words(char *s, char c)
 	return (i);
 }
 
-// static void	split_free(char **arr, size_t i)
-// {
-// 	size_t	n;
+static void	split_free(char **arr, size_t i)
+{
+	size_t	n;
 
-// 	n = 0;
-// 	while (n < i)
-// 	{
-// 		free(arr[n]);
-// 		n++;
-// 	}
-// 	free(arr);
-// }
+	n = 0;
+	while (n < i)
+	{
+		free(arr[n]);
+		n++;
+	}
+	free(arr);
+}
 
 static char	**alloc_words(char **arr, char *s, char c, size_t count)
 {
@@ -60,12 +72,12 @@ static char	**alloc_words(char **arr, char *s, char c, size_t count)
 	while (i < count)
 	{
 		wlen = len_words(s, c);
-		arr[i] = (char *)gc_malloc((wlen + 1) * sizeof(char));
-		// if (arr[i] == NULL)
-		// {
-		// 	split_free(arr, i);
-		// 	return (NULL);
-		// }
+		arr[i] = (char *)malloc((wlen + 1) * sizeof(char));
+		if (arr[i] == NULL)
+		{
+			split_free(arr, i);
+			return (NULL);
+		}
 		j = 0;
 		while (*s == c)
 			s++;

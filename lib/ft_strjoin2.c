@@ -1,12 +1,22 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 21:47:50 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 21:47:57 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t  ft_strlcat(char *dst, char *src, int dstsize)
+size_t	ft_strlcat(char *dst, char *src, int dstsize)
 {
-	int 	i;
-	int 	len_dst;
-	int     len_src;
+	int	i;
+	int	len_dst;
+	int	len_src;
 
 	if (dst == NULL && dstsize == 0)
 		return (ft_strlen(src));
@@ -23,7 +33,8 @@ size_t  ft_strlcat(char *dst, char *src, int dstsize)
 	dst[len_dst + i] = '\0';
 	return (len_dst + len_src);
 }
-size_t	ft_strlcpy(char *dst,char *src, size_t dstsize)
+
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
 	size_t	i;
 
@@ -38,7 +49,7 @@ size_t	ft_strlcpy(char *dst,char *src, size_t dstsize)
 	return (ft_strlen(src));
 }
 
-char	*ft_strjoin2(char  *s1, char  *s2)
+char	*ft_strjoin2(char *s1, char *s2)
 {
 	char	*s3;
 	size_t	len;
@@ -51,6 +62,8 @@ char	*ft_strjoin2(char  *s1, char  *s2)
 		return (ft_strdup(s1));
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	s3 = gc_malloc(sizeof(char) * len);
+	if (!s3)
+		return (NULL);
 	ft_strlcpy(s3, s1, len);
 	ft_strlcat(s3, s2, len);
 	return (s3);

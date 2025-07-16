@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   remove_quotes.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:44:25 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:44:26 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*remove_quts(char *line)
@@ -25,6 +37,5 @@ char	*remove_quts(char *line)
 		new_cmd = ft_strjoin2(new_cmd, c);
 		i++;
 	}
-	// free(line);
 	return (new_cmd);
 }

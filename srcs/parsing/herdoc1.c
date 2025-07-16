@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   herdoc1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 22:29:59 by ysouaf            #+#    #+#             */
+/*   Updated: 2025/07/16 22:30:04 by ysouaf           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	check_dollar(char *word)
@@ -44,12 +56,10 @@ char	*generate_herdoc_name(void)
 		if (!counter_str)
 			return (NULL);
 		filename = ft_strjoin2("/tmp/herdoc", counter_str);
-		// free(counter_str);
 		if (!filename)
 			return (NULL);
 		if (access(filename, F_OK) != 0)
 			return (filename);
-		// free(filename);
 		counter++;
 	}
 	return (NULL);
@@ -63,7 +73,6 @@ int	open_herdoc_fds(char **filename, int *fd_read, int *fd_write)
 	*fd_write = open(*filename, O_CREAT | O_WRONLY, 0644);
 	*fd_read = open(*filename, O_RDONLY);
 	unlink(*filename);
-	// free(*filename);
 	if (*fd_write == -1 || *fd_read == -1)
 		return (perror("heredoc"), -1);
 	return (0);
@@ -87,7 +96,6 @@ int	creat_herdoc(char *delimiter, t_glob *global, int fd_read, int flag)
 		if (!line || ft_strncmp(delimiter, line, -1) == 0)
 			break ;
 		write_herdoc_line(line, fd_write, flag, global);
-
 	}
 	free(line);
 	close(fd_write);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:07:06 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/13 19:23:07 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/16 21:22:29 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putchar(char c)
 {
-    write (1, &c, 1);
+	write (1, &c, 1);
 }
 
 int	ft_putchar_exec(char c)
