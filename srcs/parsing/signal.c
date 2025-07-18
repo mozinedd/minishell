@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:50:53 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/16 22:58:39 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/18 22:41:42 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	handle_signal(int sig)
 			rl_on_new_line();
 			rl_redisplay();
 		}
-		g_sig_hander = CTRL_C;
+		g_sig_hander = CTRL_C;		
 	}
 }
 

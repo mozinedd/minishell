@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:05:21 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/16 22:01:31 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/18 21:05:19 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,8 @@ int			is_operator(char c);
 char		**ft_split_whitespace(char *s);
 char		**split_by_pipes(char *line);
 size_t		count_pipes(char *line);
-void		safe_free(char **arr, size_t idx);
 char		*trim_spaces(char *str);
+size_t		count_word(char *s, char c);
 
 /* Signals */
 void		handle_signal(int sig);

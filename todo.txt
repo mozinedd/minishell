@@ -28,5 +28,23 @@ bash-3.2$ export
 minishell$ pwd
 the path  from get cwd is : /mnt/homes/ysouaf  => leak here
 
+################################################
+
+minishell$ cat | cat | ls
+Makefile        main.o
+README.md       minishell
+includes        should_fix.md
+lib             srcs
+main.c          todo.txt
+^\^\^\^\^\^\^\^\^\^\^\^\^\^
+
+bash-3.2$ cat | cat | ls
+Makefile        minishell
+README.md       should_fix.md
+includes        srcs
+lib             todo.txt
+main.c
+^\bash-3.2$ 
+
 
  
