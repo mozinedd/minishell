@@ -6,13 +6,13 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:26:04 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/16 22:26:05 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/18 21:08:17 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static size_t	count_word(char *s)
+static size_t	count_word1(char *s)
 {
 	size_t	i;
 	size_t	count;
@@ -101,7 +101,7 @@ char	**ft_split_whitespace(char *s)
 
 	if (!s)
 		return (NULL);
-	count = count_word(s);
+	count = count_word1(s);
 	arr = gc_malloc((count + 1) * sizeof(char *));
 	return (alloc_words(arr, s, count));
 }

@@ -6,13 +6,13 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:22:41 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/16 21:22:42 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/18 21:04:49 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static size_t	count_word(char *s, char c)
+size_t	count_word(char *s, char c)
 {
 	size_t	i;
 	size_t	count;

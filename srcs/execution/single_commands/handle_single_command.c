@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_single_command.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:47 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/15 22:45:50 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/18 22:41:04 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,30 @@ int	redirection_handel(t_file *tmp)
 	i = 0;
 	infile = -2;
 	outfile = -2;
-	while (tmp && tmp[i].value  && tmp[i].type)
+	while (tmp && tmp[i].type)
 	{
-		fprintf(stderr,"%s\n", tmp[i].value );
+		// fprintf(stderr,"%s\n", tmp[i].value );
+		// problem here when we have > $a normaly it is an error but in our program doesn't return error it is working
 		if (tmp[i].type == REDIR_OUT)
 		{
+			if (!tmp[i].value || size_cmd(tmp[i].value) != 1)
+				return (perror("msh : ambiguous redirect"), -1);
 			if (outfile != -1)
 				close(outfile);
 			outfile = open (tmp[i].value, O_CREAT | O_WRONLY | O_TRUNC , 0644);
 			if (outfile == -1)
-				return (perror(""), -1);
+				return (perror("Error redirection failed"), -1);
 			printf("mamima: %d\n", outfile);
 		}
 		else if (tmp[i].type == APPEND)
 		{
+			if(tmp[i].value == NULL || size_cmd(tmp[i].value) != 1)
+				return (printf("msh : ambiguous redirect"), -1);
 			if (outfile != -1)
 				close(outfile);
 			outfile = open (tmp[i].value, O_CREAT | O_WRONLY | O_APPEND , 0644);
 			if (outfile == -1)
-				return (perror(""), -1);
+				return (perror("Error redirection failed"), -1);
 		}
 		else if (tmp[i].type == HERDOC)
 		{
@@ -47,11 +52,13 @@ int	redirection_handel(t_file *tmp)
 		}
 		else if (tmp[i].type == REDIR_IN)
 		{
+			if(tmp[i].value == NULL || size_cmd(tmp[i].value) != 1)
+				return (printf("msh : ambiguous redirect"), -1);
 			if (infile != -1 && tmp[i].fd == -1)
 				close(infile);
 			infile = open (tmp[i].value, O_RDONLY);
 			if (infile == -1)
-				return (perror(""), -1);
+				return (perror("Error redirection failed"), -1);
 		}
 		i += 1;
 	}
@@ -86,11 +93,27 @@ void restore_fd(int *org_in, int *org_out)
 
 int get_status_code(int status)
 {
-	if (WIFSIGNALED(status))
+	int	sig;
+	int	last_status;
+
+	sig = 0;
+	last_status = 0;
+	if (WIFEXITED(status))
+		last_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
 	{
-		return WTERMSIG(status) + 128;
+		sig = WTERMSIG(status);
+		if (sig == SIGINT)
+			last_status = SIGINT + 128;
+		else if (sig == SIGQUIT)
+		{
+			dup2(2, 1);
+			printf("Quit: %d\n", SIGQUIT);
+			dup2(1, 2);
+			last_status = SIGQUIT + 128;
+		}
 	}
-	return (WEXITSTATUS(status));
+	return (last_status);
 }
 
 void handle_single_command (t_glob *global)
@@ -109,11 +132,12 @@ void handle_single_command (t_glob *global)
 	id = fork();
 	if (id == 0)
 	{
-		signal(SIGQUIT, SIG_DFL); // katrod signal l difault dyalha;
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL); // katrod signal l difault dyalha;
 		redirection_check =  redirection_handel(global->cmd->file);
 		if (redirection_check == -1)
 		{
-			perror("Error redirection failed\n");
+			// perror("Error redirection failed\n");
 			exit(1);
 		}
 		env_list = env_to_array(global->env);
