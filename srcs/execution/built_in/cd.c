@@ -6,13 +6,11 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:19 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/16 18:11:59 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/20 21:43:25 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-///@b custimse cd norminette : handle env -i :
 
 void	update_old_pwd(t_env **env, char *oldpwd)
 {
@@ -40,7 +38,6 @@ void	update_old_pwd(t_env **env, char *oldpwd)
 			ft_export(env, cmd);
 		}
 	}
-	
 }
 
 void	add_to_pwd(t_env **env, char *arg){
@@ -85,7 +82,6 @@ int	ft_cd(t_env *env, char **args)
 	}
 	else if (args[1])
 		path = args[1];
-	/// @brief OPTIONAL
 	else if (args[1][0] == '~' || args[1][0] == '-')
 	{
 		fprintf(stderr, "cd : unsupported path format\n");
@@ -96,7 +92,6 @@ int	ft_cd(t_env *env, char **args)
 		perror("cd");
 		return (1);
 	}
-	/// handle updating pwd and oldpwd
 	cwd = getcwd(cwd_return, sizeof(cwd_return));
 	if (!cwd)
 	{
