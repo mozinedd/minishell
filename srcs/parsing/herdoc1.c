@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:29:59 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/19 22:02:42 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/20 20:09:40 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	write_herdoc_line(char *line, int fd_write, int flag, t_glob *global)
 	}
 	else
 		write(fd_write, line, ft_strlen(line));
-	free(line);
 	write(fd_write, "\n", 1);
 }
 

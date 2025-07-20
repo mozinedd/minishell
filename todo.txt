@@ -1,74 +1,12 @@
-export a="a b c"     => a="a  b c"
-export b=$a          => b="a b c"
-$qwertyu export c=$a => c="a"
+
 ///////////
-minishell$ export h="q                r                          t"
-minishell$ echo "$h"
-its give => q r t => shold give => q                r                          t
-////////////
-new line after control+c  ^Cminishell$
-/////////////////////////////////////////
 handle ctrl + \ => Quit (core dumped ):
 bash-5.2$ cat 
 ^\Quit (core dumped)
 bash-5.2$ 
-//////////////
-handle :
-cat << a > a.txt | cat << b > b.txt 
 //////////
 a.txt >> b.txt >> c.txt > d.txt
-////////////
- exit "       1       "
- \\\\\\\\\\\\\\\\\\\\\
-bash-3.2$ export a="a b c"
-bash-3.2$ > test export d=$a
-bash-3.2$ export
-
-
-minishell$ pwd
-the path  from get cwd is : /mnt/homes/ysouaf  => leak here
-
 ################################################
-
-minishell$ cat | cat | ls
-Makefile        main.o
-README.md       minishell
-includes        should_fix.md
-lib             srcs
-main.c          todo.txt
-^\^\^\^\^\^\^\^\^\^\^\^\^\^
-
-bash-3.2$ cat | cat | ls
-Makefile        minishell
-README.md       should_fix.md
-includes        srcs
-lib             todo.txt
-main.c
-^\bash-3.2$ 
-
-------------------------
-
-
- minishell$ "echo $a"
-minishell 5: NO such file or directory |||||| khas tkon command not found
-minishell$ 
-
-mohsine    COMPLET
-
-------------------------
-
-minishell$ exit -88+ 44
-exit 
-exit: -88+ : numeric argument required
-➜  linux-verion-mini git:(mozinedd) ✗ echo $?
-2
-
-exit status khasha tkon 255 machi 2
-
-mohsine
-
------------------------
-
 minishell$ dafadsf
 minishell 2: dafadsf: Command not found
 minishell$ mli kankhroj b CTRL + D
@@ -79,32 +17,7 @@ exit
 khaso ikhroj b2akhir exit status
 
 parsing
-
 ----------------------
-
-minishell$ exit "      88      "
-exit 
-exit:       88       : numeric argument required
-➜  linux-verion-mini git:(mozinedd) ✗ echo $?
-2
-
-khaso ikhroj b 88 machi 2
-
-mohsine
-----------------------
-
-minishell$ exit "   888   " 88
-exit 
-exit:    888    : numeric argument required
-
-exit status khas tkon 1 machi 2
-
-too many argument 
-
-
-mohsine
-------------------------
-
 cat << 1 << 2 << 3 << 4 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15 << 16 --- parsing
 
 parsing
@@ -125,6 +38,12 @@ the exit status is : 1
 minishell$ 
 
 -------------------
+
+leak in heredoc
+
+cat << EOF
+>$USER
+>hi
 
 
 while true; do lsof -c minishell; sleep 1 ; done 
