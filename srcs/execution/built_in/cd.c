@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:19 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/20 21:43:25 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:48:23 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	ft_cd(t_env *env, char **args)
 	char	cwd_return[4096];
 	char	**cmd;
 
+	printf("cd is running...\n");
 	if (!args[1])
 	{
 		path = ft_getenv(env, "HOME");

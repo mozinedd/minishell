@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:47 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/19 20:19:55 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:30:18 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ void handle_single_command (t_glob *global)
 	pid_t		id;
 	int		status = 0;
 	int redirection_check = 0;
-	// int origin_stdin; // 3
-	// int origin_stdout;// 4
+
+
 	
 	if (!global->cmd->cmd[0])
 		return ;

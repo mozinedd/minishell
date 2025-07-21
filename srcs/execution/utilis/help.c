@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/16 22:10:40 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/21 15:52:58 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ char *check_command_is_exist(t_env *env, char	*cmd)
 		else {
 			if (ft_getenv(env, "PATH") == NULL)
 				return (printf("minishell 1: %s: No such file or direcotry\n", cmd), exit (127), NULL);
-			return (printf("minishell 2: %s: Command not found\n", cmd), exit (127), NULL);
+			return (printf("minishell: %s: Command not found\n", cmd), exit (127), NULL);
 		}
 	}
 	if (S_ISDIR(mozinedd.st_mode) != 0)
-		return (printf("minishell 3: %s: Is a directory\n", cmd), exit(126), NULL); 
-	return my_final_cmd;
+		return (printf("minishell: %s: Is a directory\n", cmd), exit(126), NULL); 
+	return (my_final_cmd);
 
 }
 

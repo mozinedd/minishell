@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 16:25:51 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/15 22:39:37 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:57:22 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int ft_cmdsize(t_cmds *cmd)
 	void	execute_command(t_glob *global)
 	{
 		int	ft_cmd_size;
-		// int fd[2];
+		int fd[2];
 
-		// fd[0] = dup(0);
-		// fd[1] = dup(1);
+		fd[0] = dup(0);
+		fd[1] = dup(1);
 		
 		
 		ft_cmd_size = ft_cmdsize(global->cmd);
@@ -49,8 +49,9 @@ int ft_cmdsize(t_cmds *cmd)
 			else
 				handle_single_command(global);
 		}
-		// while (wait(0) != -1)
-		// 	;
-		// dup2(fd[0], 0);
-		// dup2(fd[0], 0);
+		while (wait(0) != -1);
+		dup2(fd[0], 0);
+		dup2(fd[1], 1);
+		close(fd[0]);
+		close(fd[1]);
 	}

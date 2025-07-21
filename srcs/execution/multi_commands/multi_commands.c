@@ -6,13 +6,13 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 16:55:57 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/19 20:20:00 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:08:02 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
+int	exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
 {
 	char **env_list;
 	char *cmd_path;
@@ -24,13 +24,15 @@ void exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
 	if (cmd->next && pipe(fd) < 0)
 	{
 		perror("error in pipe");
-		return ;
+		return (-1);
 	}
 	pid = fork();
 	if (pid < 0)
 	{
 		perror("error in fork");
-		return ;
+		close(fd[0]);
+		close(fd[1]);
+		return (-1);
 	}
 	if (pid == 0)
 	{
@@ -53,18 +55,26 @@ void exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
 			perror("Error redirection failed\n");
 			exit(1);
 		}
-		env_list = env_to_array(global->env);
-		cmd_path = check_command_is_exist(global->env, cmd->cmd[0]);
-		if (!cmd_path)
-			exit(127);
-		if (execve(cmd_path, cmd->cmd, env_list) < 0)
-		{	
-			if (errno == EACCES)
-				return (printf("minishell 4: Permission denied\n"), exit(126));
-			else if (errno == ENOENT)
-				return (printf("minishell 5: NO such file or directory\n"), exit(127));
-			else if (errno == ENOTDIR)
-				return (printf("minishell 6: Not ad directory\n"), exit(126));
+		if (check_is_builtin(cmd))
+		{
+			if (exec_is_builtin(&global->env, cmd) == 1)
+				exit(1);
+		}
+		else
+		{
+			cmd_path = check_command_is_exist(global->env, cmd->cmd[0]);
+			if (!cmd_path)
+				exit(127);
+			env_list = env_to_array(global->env);
+			if (execve(cmd_path, cmd->cmd, env_list) < 0)
+			{
+				if (errno == EACCES)
+					return (printf("minishell 4: Permission denied\n"), exit(126), 0);
+				else if (errno == ENOENT)
+					return (printf("minishell 5: NO such file or directory\n"), exit(127), 0);
+				else if (errno == ENOTDIR)
+					return (printf("minishell 6: Not ad directory\n"), exit(126), 0);
+			}
 		}
 	}
 	else if (pid > 0)
@@ -84,6 +94,7 @@ void exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
 			exit_status(get_status_code(status), 0);
 		} 
 	}
+	return (1);
 }
 
 
@@ -95,11 +106,12 @@ void handle_multiple_command(t_glob *global)
 	cmd = global->cmd;
 	while (cmd)
 	{
-		exec_command(cmd, global, &prev_fd);
+		if (exec_command(cmd, global, &prev_fd) == -1)
+			break ;
 		cmd = cmd->next;
 	}
 	 if (prev_fd != -1)
-        close(prev_fd);
+		close(prev_fd);
 	int status;
 	while (wait(&status) > 0)
 		 ;
