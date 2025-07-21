@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:56:33 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/16 22:56:34 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/21 20:51:59 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_tokens	*lexer(char *line, t_glob *global)
 	t_tokens	*tokens;
 	char		**split_lines;
 	char		*clean_line;
+	int			count;
 
 	clean_line = prepare_line(line);
 	if (!clean_line)
@@ -55,6 +56,12 @@ t_tokens	*lexer(char *line, t_glob *global)
 	tokens = tokenize_all_segments(split_lines);
 	if (!tokens)
 		return (NULL);
+	count = count_herdoc(tokens);
+	if (count >= 17)
+	{
+		write(2, "maximum here-document count exceeded\n", 38);
+		exit(1);
+	}
 	global->token = tokens;
 	return (tokens);
 }

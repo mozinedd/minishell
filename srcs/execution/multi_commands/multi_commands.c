@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multi_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 16:55:57 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/19 20:20:00 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:50:13 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ void exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
 			exit(1);
 		}
 		env_list = env_to_array(global->env);
+		// if(!cmd->cmd[0])
+		// 	exit(0);
 		cmd_path = check_command_is_exist(global->env, cmd->cmd[0]);
 		if (!cmd_path)
-			exit(127);
+			exit(127);///////"NULL" | > file from you
 		if (execve(cmd_path, cmd->cmd, env_list) < 0)
 		{	
 			if (errno == EACCES)
