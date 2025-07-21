@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:05:21 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/18 21:05:19 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/21 18:56:41 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ char		*remove_quts(char *line);
 /* Terminal */
 void		get_terminal(struct termios *termios);
 void		set_terminal(struct termios *termios);
+int count_herdoc(t_tokens *token);
 
 /* Parse function */
 t_cmds		*parsing(t_glob *global);

@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:55:31 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/16 22:55:32 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/21 19:01:30 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,19 @@ t_tokens	*tokenize_all_segments(char **lines)
 		i++;
 	}
 	return (all_tokens);
+}
+
+int count_herdoc(t_tokens *token)
+{
+	t_tokens *tmp;
+	int	count = 0;
+
+	tmp = token;
+	while(tmp)
+	{
+		if(tmp->type == HERDOC)
+			count++;
+		tmp = tmp->next;	
+	}
+	return(count);
 }
