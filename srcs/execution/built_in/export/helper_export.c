@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 17:43:30 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/12 18:23:48 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:20:17 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	print_exported_vars(t_env *env)
 {
+	if (!env)
+		return ;
 	while (env)
 	{
 		if (env->value)

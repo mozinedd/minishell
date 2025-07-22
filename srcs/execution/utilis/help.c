@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/21 15:52:58 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:11:15 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,27 +99,9 @@ char *get_path(char **dirs, char *cmd)
 		all_path[len_dirs] = '/';
 		ft_strcpy(all_path + len_dirs + 1, cmd);
 		if (access(all_path, F_OK) == 0)
-		{
-			// you will use garbage collector later
-			// j = 0;
-			// while (dirs[j])
-			// {
-			// 	free(dirs[j]);
-			// 	j++;
-			// }
-			// free(dirs);
 			return all_path;
-		}
-		// free(all_path);
 		i++;
 	}
-	// j = 0;
-	// while (dirs[j])
-	// {
-	// 	free(dirs[j]);
-	// 	j++;
-	// }
-	// free(dirs);
 	return NULL;
 }
 
@@ -155,4 +137,6 @@ char	*get_command_path(t_env *env ,char *cmd)
 
 	// save and restore int out 
 }
+/// @b remainder
+// run redirection first if commands NULL
 
