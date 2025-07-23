@@ -34,7 +34,7 @@ SRCSEXEC = lib/ft_atoi.c\
 	srcs/execution/built_in/exit.c\
 	srcs/execution/built_in/export/export.c\
 	srcs/execution/built_in/pwd.c\
-	srcs/execution/single_commands/handle_single_command.c \
+	srcs/execution/single_commands/handle_redirection.c \
 	srcs/execution/utilis/is_builtin.c \
 	srcs/execution/utilis/help.c \
 	srcs/execution/update_exit_status.c\
@@ -49,7 +49,7 @@ SRCSEXEC = lib/ft_atoi.c\
 	srcs/execution/utilis/list_of_env.c\
 	srcs/execution/built_in/export/helper_export.c \
 	srcs/execution/multi_commands/kill_pids.c \
-	srcs/execution/single_commands/handle_single_command2.c
+	srcs/execution/single_commands/single_command.c
 
 	
 

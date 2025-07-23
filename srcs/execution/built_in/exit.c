@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:07 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 16:05:55 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:59:29 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,31 @@ char	*skip_space(char *str)
 	return (ft_substr(str, i, (j + 1) - i));
 }
 
-int	ft_exit(char **args)
+int	ft_exit(char **args, int is_multi)
 {
 	int		number;
 	char	*skip;
 
-	printf("exit \n");
+	if (!is_multi)
+		printf("exit \n");
 	if (!args[1])
 		exit(exit_status(0, 1));
 	skip = skip_space(args[1]);
 	if (!is_numeric(skip))
 	{
-		fprintf(stderr, "exit: %s : numeric argument required\n", args[1]);
+		ft_printf("exit: %s : numeric argument required\n", args[1]);
 		exit (255);
 	}
 	if (args[2])
 	{
-		fprintf(stderr, "exit: too many argument\n");
+		ft_printf("exit: too many argument\n");
 		exit_status(1, 0);
 		return (1);
 	}
 	number = ft_atoi(skip);
 	if (detect_overflow(0, 1) == 13)
 	{
-		fprintf(stderr, "exit: %s : numeric argument required\n", args[1]);
+		ft_printf("exit: %s : numeric argument required\n", args[1]);
 		exit (255);
 	}
 	return (exit(number), 0);
