@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getenv.c                                        :+:      :+:    :+:   */
+/*   kill_pids.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/05 15:18:47 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/22 21:41:03 by mozinedd         ###   ########.fr       */
+/*   Created: 2025/07/23 17:15:47 by mozinedd          #+#    #+#             */
+/*   Updated: 2025/07/23 17:24:50 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_getenv(t_env *env, const char *key)
+void	add_pid(t_pid **list, int pid)
 {
-	t_env	*curr;
+	t_pid	*new_pid = gc_malloc(sizeof(t_pid));
+	t_pid	*tmp;
 
-	curr = env;
-	while (curr)
+	new_pid->pid = pid;
+	new_pid->next = NULL;
+	if (!*list)
 	{
-		if (!ft_strcmp(curr->key, key))
-			return (curr->value);
-		curr = curr->next;
+		*list = new_pid;
+		return;
 	}
-	return (NULL);
+	tmp = *list;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new_pid;
 }
+
+void	kill_pids(t_pid *list)
+{
+	while (list)
+	{
+		kill(list->pid, SIGKILL);
+		waitpid(list->pid, NULL, 0);
+		list = list->next;
+	}
+}
+

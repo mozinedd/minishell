@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:19 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/22 15:44:55 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:04:20 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	update_old_pwd(t_env **env, char *oldpwd)
 {
 	t_env	*curr;
 	char	**cmd;
-	
+
 	curr = *env;
 	if (oldpwd != NULL)
 	{
@@ -40,11 +40,10 @@ void	update_old_pwd(t_env **env, char *oldpwd)
 	}
 }
 
-void	add_to_pwd(t_env **env, char *arg){
-
-	char *oldpwd;
-	t_env *curr;
-
+void	add_to_pwd(t_env **env, char *arg)
+{
+	char	*oldpwd;
+	t_env	*curr;
 
 	curr = *env;
 	oldpwd = NULL;
@@ -63,19 +62,21 @@ void	add_to_pwd(t_env **env, char *arg){
 		update_old_pwd(env, oldpwd);
 }
 
-void	long_print()
+void	long_print(void)
 {
-	ft_printf("cd: error retrieving current" 
+	ft_printf("cd: error retrieving current"
 		"directory: getcwd: cannot access parent"
 		"directories: No such file or directory\n");
 }
 
 void	cwd_valid(char *cwd_return, t_env *env)
 {
-	char	*oldpwd = NULL;
+	char	*oldpwd;
 	char	**cmd;
+	t_env	*curr;
 
-	t_env *curr = env;
+	curr = env;
+	oldpwd = NULL;
 	while (curr)
 	{
 		if (ft_strcmp(curr->key, "PWD") == 0)

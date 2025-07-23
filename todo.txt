@@ -26,7 +26,7 @@ parsing
 
 minishell$ echo "cat Makefile | cat Makefile" | > file
 mamima: 3
-minishell$ echo $?
+minishell$ echo $? 
 127
 
 parsing
@@ -47,3 +47,7 @@ cat << EOF
 
 
 while true; do lsof -c minishell; sleep 1 ; done 
+
+
+
+chek that in norm ++i srcs/execution/utilis/help.c get_path

@@ -6,15 +6,15 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:28:56 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/21 20:42:33 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:59:43 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_valid_key(char *key)
+int	is_valid_key(char *key)
 {
-	int i;
+	int	i;
 
 	if (!ft_isalpha(key[0]) && key[0] != '_')
 	{
@@ -29,8 +29,8 @@ int is_valid_key(char *key)
 			printf("minishell: export: %s: 2 not a valid identifier\n", key);
 			return (exit_status(1, 0), 0);
 		}
-		i++; 
-	} 
+		i++;
+	}
 	return (1);
 }
 
@@ -44,14 +44,14 @@ char	**init_final_reuslt(int is_append, char *result, char *cmd)
 	if (is_append)
 	{
 		key_len = result - cmd - 1;
-		final_result[0] =  ft_substr(cmd, 0, key_len);
+		final_result[0] = ft_substr(cmd, 0, key_len);
 		final_result[1] = ft_strdup(result + 1);
 		final_result[2] = NULL;
 	}
 	else
 	{
 		key_len = result - cmd ;
-		final_result[0] =  ft_substr(cmd, 0, key_len);
+		final_result[0] = ft_substr(cmd, 0, key_len);
 		final_result[1] = ft_strdup(result + 1);
 		final_result[2] = NULL;
 	}
@@ -87,7 +87,7 @@ void	ft_export(t_env **env, char **cmd)
 	int		is_append;
 	t_env	*curr;
 	int		i;
-	
+
 	i = 1;
 	curr = *env;
 	is_append = 0;

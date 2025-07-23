@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   herdoc1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:29:59 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/20 20:09:40 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:40:04 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,17 @@ void	write_herdoc_line(char *line, int fd_write, int flag, t_glob *global)
 {
 	char	*expanded;
 	int		len;
+	char *tmp;
 
 	len = (int)ft_strlen(line);
+	expanded = NULL;
 	if (flag == 0)
 	{
+		tmp = line;
 		expanded = herdoc_expand(line, 0, &len, global);
 		write(fd_write, expanded, ft_strlen(expanded));
-		free(expanded);
+		if (line != expanded)
+			free(expanded);
 	}
 	else
 		write(fd_write, line, ft_strlen(line));
@@ -96,6 +100,8 @@ int	creat_herdoc(char *delimiter, t_glob *global, int fd_read, int flag)
 		if (!line || ft_strncmp(delimiter, line, -1) == 0)
 			break ;
 		write_herdoc_line(line, fd_write, flag, global);
+		free(line);
+		line = NULL;
 	}
 	free(line);
 	close(fd_write);
