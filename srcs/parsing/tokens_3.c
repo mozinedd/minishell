@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:56:33 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/21 20:51:59 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/22 21:55:33 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_tokens	*lexer(char *line, t_glob *global)
 	if (!clean_line)
 		return (NULL);
 	split_lines = split_by_pipes(clean_line);
-	free(clean_line);
 	if (!split_lines)
 		return (NULL);
 	split_lines = operate_export(split_lines);

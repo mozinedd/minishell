@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multi_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 16:55:57 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 17:37:10 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:33:03 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ int	exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
 			handle_normal_command(global, cmd);
 	}
 	else if (pid > 0)
-		return (add_pid(&global->pids, pid), parent_process(prev_fd, cmd, fd, pid), 1);
+		return (add_pid(&global->pids, pid),
+			parent_process(prev_fd, cmd, fd, pid), 1);
 	return (1);
 }
 
