@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:16 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/14 20:49:15 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:05:13 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ int	ft_echo(char **args)
 		return (0);
 	i = 1;
 	newline = 1;
-	while (args[i] && is_n_option(args[i])) {
+	while (args[i] && is_n_option(args[i]))
+	{
 		newline = 0;
 		i++;
 	}
-	while (args[i]) {
+	while (args[i])
+	{
 		printf("%s", args[i]);
 		if (args[i + 1])
 			printf(" ");

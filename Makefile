@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I includes -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I includes #-g -fsanitize=address
 
 SRCS = lib/ft_strncmp.c lib/ft_strtrim.c lib/ft_substr.c lib/ft_isalnum.c lib/ft_itoa.c lib/ft_strjoin2.c lib/ft_split.c\
 	 srcs/parsing/command_line.c\
@@ -47,7 +47,8 @@ SRCSEXEC = lib/ft_atoi.c\
 	lib/ft_printf/ft_printf.c \
 	lib/ft_printf/ft_putnbr.c\
 	srcs/execution/utilis/list_of_env.c\
-	srcs/execution/built_in/export/helper_export.c
+	srcs/execution/built_in/export/helper_export.c \
+	srcs/execution/multi_commands/kill_pids.c
 
 	
 
@@ -73,4 +74,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   help.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/16 22:10:40 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/23 16:33:45 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int env_size(t_env *head)
+int	env_size(t_env *head)
 {
-	int	size;
-	t_env* tmp;
-	
+	int		size;
+	t_env	*tmp;
+
 	size = 0;
 	tmp = head;
 	while (tmp)
@@ -27,24 +27,25 @@ int env_size(t_env *head)
 	return (size);
 }
 
-char **env_to_array(t_env *head)
+char	**env_to_array(t_env *head)
 {
-	int i;
-	int size;
-	char **array;
-	t_env *tmp = head;
-	char *curent = NULL;;
+	int		i;
+	int		size;
+	char	**array;
+	t_env	*tmp;
+	char	*curent;
 
+	(1) && (tmp = head, curent = NULL);
 	size = env_size(head);
 	array = gc_malloc(sizeof(char *) * (size +1));
 	i = 0;
 	while (i < size)
 	{
 		curent = ft_strjoin2(curent, tmp->key);
-		if(tmp->value)
+		if (tmp->value)
 		{
 			curent = ft_strjoin2(curent, "=");
-			curent = ft_strjoin2(curent, tmp->value);		
+			curent = ft_strjoin2(curent, tmp->value);
 		}
 		array[i] = curent;
 		curent = NULL;
@@ -55,104 +56,103 @@ char **env_to_array(t_env *head)
 	return (array);
 }
 
-char *check_command_is_exist(t_env *env, char	*cmd)
+char	*check_command_is_exist(t_env *env, char *cmd)
 {
-	char 	*my_final_cmd;
-	struct stat mozinedd;
+	char		*my_final_cmd;
+	struct stat	mozinedd;
 
 	if (!cmd)
-		return NULL;
+		return (NULL);
 	my_final_cmd = get_command_path(env, cmd);
 	stat(my_final_cmd, &mozinedd);
-	if (my_final_cmd == NULL){
-		if (access(cmd, F_OK) == 0 && access(cmd, X_OK) == 0 && S_ISDIR(mozinedd.st_mode) != 0)
-			return cmd;
-		else {
+	if (my_final_cmd == NULL)
+	{
+		if (access(cmd, F_OK) == 0 && access(cmd, X_OK) == 0
+			&& S_ISDIR(mozinedd.st_mode) != 0)
+			return (cmd);
+		else
+		{
 			if (ft_getenv(env, "PATH") == NULL)
-				return (printf("minishell 1: %s: No such file or direcotry\n", cmd), exit (127), NULL);
-			return (printf("minishell 2: %s: Command not found\n", cmd), exit (127), NULL);
+				return (ft_printf("mini: %s: No such file or direcotry\n", cmd)
+					, exit (127), NULL);
+			return (ft_printf("mini: %s: Command not found\n", cmd)
+				, exit (127), NULL);
 		}
 	}
 	if (S_ISDIR(mozinedd.st_mode) != 0)
-		return (printf("minishell 3: %s: Is a directory\n", cmd), exit(126), NULL); 
-	return my_final_cmd;
-
+		return (ft_printf("mini: %s: Is a directory\n", cmd), exit(126), NULL);
+	return (my_final_cmd);
 }
 
-char *get_path(char **dirs, char *cmd)
+// char	*get_path(char **dirs, char *cmd)
+// {
+// 	char	*all_path;
+// 	int		i;
+
+// 	i = 0 ;
+// 	while (dirs[i])
+// 	{
+// 		size_t len_dirs = ft_strlen(dirs[i]);
+// 		size_t len_cmd = ft_strlen(cmd);
+// 		size_t total_len = len_dirs + 1 + len_cmd + 1;
+// 		all_path = gc_malloc(total_len);
+// 		if (!all_path)
+// 		{
+// 			i++;
+// 			continue;
+// 		}
+// 		ft_strcpy(all_path, dirs[i]);
+// 		all_path[len_dirs] = '/';
+// 		ft_strcpy(all_path + len_dirs + 1, cmd);
+// 		if (access(all_path, F_OK) == 0)
+// 			return all_path;
+// 		i++;
+// 	}
+// 	return NULL;
+// }
+
+char	*get_path(char **dirs, char *cmd)
 {
 	char	*all_path;
-	int i = 0 ; 
-	// int j  = 0;
-	
-	while (dirs[i]) {
-		size_t len_dirs = ft_strlen(dirs[i]);
-		size_t len_cmd = ft_strlen(cmd);
-		size_t total_len = len_dirs + 1 + len_cmd + 1;
+	int		i;
+	size_t	len_dirs;
+	size_t	len_cmd;
+	size_t	total_len;
+
+	i = -1;
+	while (dirs[++i])
+	{
+		len_dirs = ft_strlen(dirs[i]);
+		len_cmd = ft_strlen(cmd);
+		total_len = len_dirs + 1 + len_cmd + 1;
 		all_path = gc_malloc(total_len);
 		if (!all_path)
-		{
-			i++;
-			continue;
-		}
+			continue ;
 		ft_strcpy(all_path, dirs[i]);
 		all_path[len_dirs] = '/';
 		ft_strcpy(all_path + len_dirs + 1, cmd);
 		if (access(all_path, F_OK) == 0)
-		{
-			// you will use garbage collector later
-			// j = 0;
-			// while (dirs[j])
-			// {
-			// 	free(dirs[j]);
-			// 	j++;
-			// }
-			// free(dirs);
-			return all_path;
-		}
-		// free(all_path);
-		i++;
+			return (all_path);
 	}
-	// j = 0;
-	// while (dirs[j])
-	// {
-	// 	free(dirs[j]);
-	// 	j++;
-	// }
-	// free(dirs);
-	return NULL;
+	return (NULL);
 }
 
-char	*get_command_path(t_env *env ,char *cmd)
+char	*get_command_path(t_env *env, char *cmd)
 {
 	char	*path_env;
 	char	**dirs;
 	char	*my_command;
-	
+
 	if (!env || !cmd || !ft_strcmp(cmd, ""))
 		return (NULL);
-
-	// handle .. and . 
-	
 	if (strchr(cmd, '/'))
-		return ft_strdup(cmd);
+		return (ft_strdup(cmd));
 	path_env = ft_getenv(env, "PATH");
 	if (!path_env)
-		return cmd;
+		return (cmd);
 	dirs = ft_split(path_env, ':');
 	if (!dirs)
-		return NULL;
+		return (NULL);
 	my_command = get_path(dirs, cmd);
-	return my_command;
-	
-	// i = 0;
-	// if (stat(cmd, &sp) != 0)
-	// {
-	// 	printf("stat failed\n");
-	// 	return NULL;
-	// }
-	// check if is direcotry
-
-	// save and restore int out 
+	return (my_command);
 }
-

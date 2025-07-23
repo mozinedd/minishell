@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:05:21 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/21 18:56:41 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/23 17:27:35 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,21 @@ typedef struct s_cmds
 	struct s_cmds	*prev;
 }	t_cmds;
 
+typedef struct s_pid {
+	int pid;
+	struct s_pid *next;
+} t_pid;
+
 typedef struct s_glob
 {
 	t_cmds			*cmd;
 	t_env			*env;
 	t_tokens		*token;
+	t_pid			*pids;
 	int				exit_status;
 	int				in_double_quotes;
 	struct termios	origin;
+	
 }	t_glob;
 
 typedef struct s_gc
@@ -243,5 +250,8 @@ t_env		*is_exist(t_env *env, char *key);
 void		update_value(t_env **env, char *value, int is_append);
 void		save_fd(int *in, int *out);
 void		restore_fd(int *in, int *out);
+void	add_pid(t_pid **list, int pid);
+void	kill_pids(t_pid *list);
+
 
 #endif
