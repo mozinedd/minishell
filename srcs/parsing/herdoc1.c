@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:29:59 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/21 20:40:04 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/22 21:56:19 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	write_herdoc_line(char *line, int fd_write, int flag, t_glob *global)
 {
 	char	*expanded;
 	int		len;
-	char *tmp;
+	char	*tmp;
 
 	len = (int)ft_strlen(line);
 	expanded = NULL;
