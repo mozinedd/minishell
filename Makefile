@@ -48,7 +48,8 @@ SRCSEXEC = lib/ft_atoi.c\
 	lib/ft_printf/ft_putnbr.c\
 	srcs/execution/utilis/list_of_env.c\
 	srcs/execution/built_in/export/helper_export.c \
-	srcs/execution/multi_commands/kill_pids.c
+	srcs/execution/multi_commands/kill_pids.c \
+	srcs/execution/single_commands/handle_single_command2.c
 
 	
 
