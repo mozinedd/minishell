@@ -47,7 +47,8 @@ SRCSEXEC = lib/ft_atoi.c\
 	lib/ft_printf/ft_printf.c \
 	lib/ft_printf/ft_putnbr.c\
 	srcs/execution/utilis/list_of_env.c\
-	srcs/execution/built_in/export/helper_export.c
+	srcs/execution/built_in/export/helper_export.c \
+	srcs/execution/multi_commands/kill_pids.c
 
 	
 
@@ -73,4 +74,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-

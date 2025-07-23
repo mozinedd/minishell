@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:05:21 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/21 18:56:41 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/23 18:31:16 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,18 @@ typedef struct s_cmds
 	struct s_cmds	*prev;
 }	t_cmds;
 
+typedef struct s_pid
+{
+	int				pid;
+	struct s_pid	*next;
+}	t_pid;
+
 typedef struct s_glob
 {
 	t_cmds			*cmd;
 	t_env			*env;
 	t_tokens		*token;
+	t_pid			*pids;
 	int				exit_status;
 	int				in_double_quotes;
 	struct termios	origin;
@@ -94,7 +101,7 @@ typedef struct s_cd
 	struct s_cd		*next;
 }	t_cd;
 
-extern int	g_sig_hander;
+extern int	g_sig_hander; /* Global variable used for signal handling */
 
 /* Libft */
 int			ft_isalpha(char c);
@@ -192,7 +199,7 @@ char		*remove_quts(char *line);
 /* Terminal */
 void		get_terminal(struct termios *termios);
 void		set_terminal(struct termios *termios);
-int count_herdoc(t_tokens *token);
+int			count_herdoc(t_tokens *token);
 
 /* Parse function */
 t_cmds		*parsing(t_glob *global);
@@ -241,7 +248,7 @@ t_env		*creat_new_var(char *key, char *value, char *key_val);
 void		add_var_env(t_env **env, char *key, char *value, char *key_val);
 t_env		*is_exist(t_env *env, char *key);
 void		update_value(t_env **env, char *value, int is_append);
-void		save_fd(int *in, int *out);
-void		restore_fd(int *in, int *out);
+void		add_pid(t_pid **list, int pid);
+void		kill_pids(t_pid *list);
 
 #endif

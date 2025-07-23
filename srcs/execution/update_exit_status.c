@@ -3,25 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   update_exit_status.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 20:31:13 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/08 20:22:20 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/23 16:40:49 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// get value : status : any number 
-//			 : is_get = 1
-//-----------------------------
-// set value : status : your new  exit status
-//           : is_get : 0
-
-int exit_status(int status, int is_get)
+int	exit_status(int status, int is_get)
 {
-	static int state;
+	static int	state;
+
 	if (is_get == 0)
 		state = status;
-	return state;
+	return (state);
 }
