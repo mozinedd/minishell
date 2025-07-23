@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:05:21 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/23 18:31:16 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/23 22:08:50 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,18 +223,18 @@ int			ft_putchar_exec(char c);
 
 int			ft_cd(t_env *env, char **args);
 int			ft_echo(char **args);
-int			ft_exit(char **args);
+int			ft_exit(char **args, int is_multi);
 void		ft_pwd(t_env *env);
 void		ft_env(t_env *env);
 void		ft_export(t_env **env, char **cmd);
 int			ft_unset(char **args, t_env **env);
 
-void		handle_single_command(t_glob *global);
-void		handle_multiple_command(t_glob *global);
+void		single_command(t_glob *global, int is_multi);
+void		multiple_command(t_glob *global, int is_multi);
 void		execute_command(t_glob *global);
 int			redirection_handel(t_file *tmp);
 int			check_is_builtin(t_cmds *cmd);
-int			exec_is_builtin(t_env **env, t_cmds *cmd);
+int			exec_is_builtin(t_env **env, t_cmds *cmd, int is_multi);
 t_env		*list_of_env(char **env);
 char		**env_to_array(t_env *head);
 char		*get_command_path(t_env *env, char *cmd);
@@ -250,5 +250,7 @@ t_env		*is_exist(t_env *env, char *key);
 void		update_value(t_env **env, char *value, int is_append);
 void		add_pid(t_pid **list, int pid);
 void		kill_pids(t_pid *list);
+int			run_it_in_child(t_env **env, t_cmds *cmd);
+int			run_it_in_parent(t_env **env, t_cmds *cmd, int is_multi);
 
 #endif
