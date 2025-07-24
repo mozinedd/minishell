@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_single_command.c                            :+:      :+:    :+:   */
+/*   handle_redirection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:47 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 18:59:45 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/23 23:02:59 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	redirection_append(int *outfile, t_file *tmp, int i)
 {
 	if (tmp[i].value == NULL || size_cmd(tmp[i].value) != 1)
-		return (printf("msh : ambiguous redirect"), -1);
+		return (ft_printf("msh : ambiguous redirect\n"), -1);
 	if (*outfile != -1)
 		close(*outfile);
 	*outfile = open (tmp[i].value, O_CREAT | O_WRONLY | O_APPEND, 0644);
@@ -27,24 +27,24 @@ int	redirection_append(int *outfile, t_file *tmp, int i)
 int	redirection_redir_out(int *outfile, t_file *tmp, int i)
 {
 	if (!tmp[i].value || size_cmd(tmp[i].value) != 1)
-		return (perror("msh : ambiguous redirect"), -1);
+		return (ft_printf("msh : ambiguous redirect\n"), -1);
 	if (*outfile != -1)
 		close(*outfile);
 	*outfile = open (tmp[i].value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (*outfile == -1)
-		return (perror("Error redirection failed"), -1);
+		return (perror("Error redirection failed\n"), -1);
 	return (1);
 }
 
 int	redirection_redir_in(int *infile, t_file *tmp, int i)
 {
 	if (tmp[i].value == NULL || size_cmd(tmp[i].value) != 1)
-		return (printf("msh : ambiguous redirect"), -1);
+		return (ft_printf("msh : ambiguous redirect\n"), -1);
 	if (*infile != -1 && tmp[i].fd == -1)
 		close(*infile);
 	*infile = open (tmp[i].value, O_RDONLY);
 	if (*infile == -1)
-		return (perror("Error redirection failed"), -1);
+		return (perror("Error redirection failed\n"), -1);
 	return (1);
 }
 
