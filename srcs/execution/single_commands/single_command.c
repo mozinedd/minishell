@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 18:58:42 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 22:26:10 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:17:20 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,11 @@
 
 int	get_status_code(int status)
 {
-	int	sig;
-	int	last_status;
-
-	sig = 0;
-	last_status = 0;
-	if (WIFEXITED(status))
-		last_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
+	if (WIFSIGNALED(status))
 	{
-		sig = WTERMSIG(status);
-		if (sig == SIGINT)
-			last_status = SIGINT + 128;
-		else if (sig == SIGQUIT)
-		{
-			dup2(2, 1);
-			printf("Quit: %d\n", SIGQUIT);
-			dup2(1, 2);
-			last_status = SIGQUIT + 128;
-		}
+		return (WTERMSIG(status) + 128);
 	}
-	return (last_status);
+	return (WEXITSTATUS(status));
 }
 
 int	handle_single_in_child(t_glob *global)
@@ -59,9 +43,9 @@ int	handle_single_in_child(t_glob *global)
 		if (errno == EACCES)
 			return (ft_printf("mini: Permission denied\n"), exit(126), -1);
 		else if (errno == ENOENT)
-			return (ft_printf("mini: NO such file or dire\n"), exit(127), -1);
+			return (ft_printf("mini: No such file or dir\n"), exit(127), -1);
 		else if (errno == ENOTDIR)
-			return (ft_printf("mini: Not ad directory\n"), exit(126), -1);
+			return (ft_printf("mini: Not a directory\n"), exit(126), -1);
 	}
 	return (1);
 }
@@ -75,10 +59,13 @@ void	single_command(t_glob *global, int is_multi)
 	if (run_it_in_parent(&global->env, global->cmd, is_multi) == 0)
 	{
 		id = fork();
+		if (id < 0)
+			return ;
 		if (id == 0)
 		{
 			if (handle_single_in_child(global) == -1)
 				return ;
+			exit(0);
 		}
 		else
 		{
