@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:05:21 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/23 22:08:50 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:06:57 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,7 @@ typedef struct s_gc
 	struct s_gc		*next;
 }	t_gc;
 
-typedef struct s_cd
-{
-	void			*ptr;
-	struct s_cd		*next;
-}	t_cd;
-
-extern int	g_sig_hander; /* Global variable used for signal handling */
+extern int	g_sig_hander;
 
 /* Libft */
 int			ft_isalpha(char c);
