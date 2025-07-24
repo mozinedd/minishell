@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 16:33:45 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:42:49 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,33 +83,6 @@ char	*check_command_is_exist(t_env *env, char *cmd)
 		return (ft_printf("mini: %s: Is a directory\n", cmd), exit(126), NULL);
 	return (my_final_cmd);
 }
-
-// char	*get_path(char **dirs, char *cmd)
-// {
-// 	char	*all_path;
-// 	int		i;
-
-// 	i = 0 ;
-// 	while (dirs[i])
-// 	{
-// 		size_t len_dirs = ft_strlen(dirs[i]);
-// 		size_t len_cmd = ft_strlen(cmd);
-// 		size_t total_len = len_dirs + 1 + len_cmd + 1;
-// 		all_path = gc_malloc(total_len);
-// 		if (!all_path)
-// 		{
-// 			i++;
-// 			continue;
-// 		}
-// 		ft_strcpy(all_path, dirs[i]);
-// 		all_path[len_dirs] = '/';
-// 		ft_strcpy(all_path + len_dirs + 1, cmd);
-// 		if (access(all_path, F_OK) == 0)
-// 			return all_path;
-// 		i++;
-// 	}
-// 	return NULL;
-// }
 
 char	*get_path(char **dirs, char *cmd)
 {
