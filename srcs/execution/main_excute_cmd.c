@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_excute_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 16:25:51 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 16:39:43 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:25:17 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,9 @@ void	execute_command(t_glob *global)
 	fd[1] = dup(1);
 	ft_cmd_size = ft_cmdsize(global->cmd);
 	if (ft_cmd_size > 1)
-		handle_multiple_command(global);
+		multiple_command(global, 1);
 	else
-	{
-		if (check_is_builtin(global->cmd))
-			exec_is_builtin(&global->env, global->cmd);
-		else
-			handle_single_command(global);
-	}
+		single_command(global, 0);
 	while (wait(0) != -1)
 		;
 	dup2(fd[0], 0);

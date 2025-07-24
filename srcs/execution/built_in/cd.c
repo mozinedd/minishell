@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:19 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 16:04:20 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:44:10 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,10 @@ int	ft_cd(t_env *env, char **args)
 		if (!path)
 			return (ft_printf("cd: HOME not set\n", 1), exit_status(1, 0));
 	}
-	else if (args[1])
+	else
 		path = args[1];
+	if (path[0] == '\0')
+		return (exit_status(0, 0), 1);
 	if (chdir(path) != 0)
 		return (perror("cd"), exit_status(1, 0), 1);
 	cwd = getcwd(cwd_return, sizeof(cwd_return));

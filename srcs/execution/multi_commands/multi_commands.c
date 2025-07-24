@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multi_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 16:55:57 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 18:33:03 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/23 22:09:09 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	parent_process(int *prev_fd, t_cmds *cmd, int *fd, pid_t pid)
 	}
 }
 
-int	exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
+int	exec_command(t_cmds *cmd, t_glob *global, int *prev_fd, int is_multi)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -96,7 +96,7 @@ int	exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
 		handle_fd(cmd, fd, prev_fd);
 		if (check_is_builtin(cmd))
 		{
-			if (exec_is_builtin(&global->env, cmd) == 1)
+			if (exec_is_builtin(&global->env, cmd, is_multi) == 1)
 				exit(1);
 		}
 		else
@@ -108,7 +108,7 @@ int	exec_command(t_cmds *cmd, t_glob *global, int *prev_fd)
 	return (1);
 }
 
-void	handle_multiple_command(t_glob *global)
+void	multiple_command(t_glob *global, int is_multi)
 {
 	t_cmds	*cmd;
 	int		prev_fd;
@@ -119,7 +119,7 @@ void	handle_multiple_command(t_glob *global)
 	cmd = global->cmd;
 	while (cmd)
 	{
-		fail = exec_command(cmd, global, &prev_fd);
+		fail = exec_command(cmd, global, &prev_fd, is_multi);
 		if (fail < 0)
 			break ;
 		cmd = cmd->next;
