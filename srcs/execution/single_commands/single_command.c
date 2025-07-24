@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 18:58:42 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 22:26:10 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:02:19 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,11 @@
 
 int	get_status_code(int status)
 {
-	int	sig;
-	int	last_status;
-
-	sig = 0;
-	last_status = 0;
-	if (WIFEXITED(status))
-		last_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
+	if (WIFSIGNALED(status))
 	{
-		sig = WTERMSIG(status);
-		if (sig == SIGINT)
-			last_status = SIGINT + 128;
-		else if (sig == SIGQUIT)
-		{
-			dup2(2, 1);
-			printf("Quit: %d\n", SIGQUIT);
-			dup2(1, 2);
-			last_status = SIGQUIT + 128;
-		}
+		return (WTERMSIG(status) + 128);
 	}
-	return (last_status);
+	return (WEXITSTATUS(status));
 }
 
 int	handle_single_in_child(t_glob *global)

@@ -3,31 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:28:56 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 15:59:43 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:02:52 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_valid_key(char *key)
+static int	is_valid_key(char *key, int *status)
 {
 	int	i;
 
 	if (!ft_isalpha(key[0]) && key[0] != '_')
 	{
+		*status = 1;
 		printf("minishell: export: %s: 1 not a valid identifier\n", key);
-		return (exit_status(1, 0), 0);
+		return (0);
 	}
 	i = 1;
 	while (key[i])
 	{
 		if (!ft_isalnum(key[i]) && key[i] != '_')
 		{
+			*status = 1;
 			printf("minishell: export: %s: 2 not a valid identifier\n", key);
-			return (exit_status(1, 0), 0);
+			return (0);
 		}
 		i++;
 	}
@@ -87,8 +89,10 @@ void	ft_export(t_env **env, char **cmd)
 	int		is_append;
 	t_env	*curr;
 	int		i;
+	int		status;
 
 	i = 1;
+	status = 0;
 	curr = *env;
 	is_append = 0;
 	if (!cmd[1])
@@ -96,8 +100,8 @@ void	ft_export(t_env **env, char **cmd)
 	while (cmd[i])
 	{
 		my_key_value = split_key_value(cmd[i], &is_append);
-		if (!my_key_value || !is_valid_key(my_key_value[0]))
-			return ;
+		if (!my_key_value || (!is_valid_key(my_key_value[0], &status) && i++))
+			continue ;
 		curr = is_exist(*env, my_key_value[0]);
 		if (curr)
 			update_value(&curr, my_key_value[1], is_append);
@@ -105,4 +109,5 @@ void	ft_export(t_env **env, char **cmd)
 			add_var_env(env, my_key_value[0], my_key_value[1], cmd[i]);
 		i++;
 	}
+	exit_status(status, 0);
 }

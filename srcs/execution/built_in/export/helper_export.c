@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 17:43:30 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 16:02:04 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:54:40 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void	update_value(t_env **env, char *value, int is_append)
 	}
 	else
 	{
-		printf("am over here now\n");
 		if (value == NULL)
 			return ;
 		(*env)->value = ft_strdup(value);
