@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:56:33 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/22 21:55:33 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/26 12:48:12 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_tokens	*lexer(char *line, t_glob *global)
 	if (count >= 17)
 	{
 		write(2, "maximum here-document count exceeded\n", 38);
-		exit(1);
+		exit(2);
 	}
 	global->token = tokens;
 	return (tokens);
