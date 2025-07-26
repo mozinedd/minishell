@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:29:59 by ysouaf            #+#    #+#             */
-/*   Updated: 2025/07/22 21:56:19 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/26 12:44:05 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ int	creat_herdoc(char *delimiter, t_glob *global, int fd_read, int flag)
 	}
 	free(line);
 	close(fd_write);
+	exit_status(0, 0);
 	return (fd_read);
 }
