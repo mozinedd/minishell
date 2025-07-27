@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kill_pids.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 17:15:47 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/23 18:32:38 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/27 21:44:27 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	add_pid(t_pid **list, int pid)
 
 void	kill_pids(t_pid *list)
 {
+	if (!list)
+		return ;
 	while (list)
 	{
 		kill(list->pid, SIGKILL);

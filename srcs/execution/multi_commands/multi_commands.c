@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 16:55:57 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/24 17:54:59 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/27 22:02:01 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	exec_command(t_cmds *cmd, t_glob *global, int *prev_fd, int is_multi)
 		if (check_is_builtin(cmd))
 		{
 			if (exec_is_builtin(&global->env, cmd, is_multi) == 1)
-				exit(1);
+				exit(0);
 		}
 		else
 			handle_normal_command(global, cmd);

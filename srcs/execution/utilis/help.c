@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/24 17:42:49 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/27 21:25:31 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,11 @@ char	*check_command_is_exist(t_env *env, char *cmd)
 			return (ft_printf("mini: %s: Command not found\n", cmd)
 				, exit (127), NULL);
 		}
+		
 	}
 	if (S_ISDIR(mozinedd.st_mode) != 0)
 		return (ft_printf("mini: %s: Is a directory\n", cmd), exit(126), NULL);
-	return (my_final_cmd);
+	return (my_final_cmd); // never be null
 }
 
 char	*get_path(char **dirs, char *cmd)
