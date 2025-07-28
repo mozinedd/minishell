@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/27 21:25:31 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/28 15:12:12 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,10 @@ char	*check_command_is_exist(t_env *env, char *cmd)
 			return (ft_printf("mini: %s: Command not found\n", cmd)
 				, exit (127), NULL);
 		}
-		
 	}
 	if (S_ISDIR(mozinedd.st_mode) != 0)
 		return (ft_printf("mini: %s: Is a directory\n", cmd), exit(126), NULL);
-	return (my_final_cmd); // never be null
+	return (my_final_cmd);
 }
 
 char	*get_path(char **dirs, char *cmd)
