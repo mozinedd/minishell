@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:28:56 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/24 16:02:52 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/28 17:03:12 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	**init_final_reuslt(int is_append, char *result, char *cmd)
 	return (final_result);
 }
 
-char	**split_key_value(char *cmd, int *is_append)
+char	**split_key_value(char *cmd, int *is_append, int *status)
 {
 	char	**final_result;
 	char	*result;
@@ -69,7 +69,10 @@ char	**split_key_value(char *cmd, int *is_append)
 	if (result)
 	{
 		if (cmd[0] == '=')
+		{
+			(*status) = 1;
 			return (printf("invalid identifier '%s'\n", cmd), NULL);
+		}
 		if (*(result - 1) == '+')
 			*is_append = 1;
 		final_result = init_final_reuslt(*is_append, result, cmd);
@@ -91,23 +94,20 @@ void	ft_export(t_env **env, char **cmd)
 	int		i;
 	int		status;
 
-	i = 1;
-	status = 0;
-	curr = *env;
 	is_append = 0;
+	(1) && (i = 0, status = 0, curr = *env, curr = *env);
 	if (!cmd[1])
 		return (print_exported_vars(*env));
-	while (cmd[i])
+	while (cmd[++i])
 	{
-		my_key_value = split_key_value(cmd[i], &is_append);
-		if (!my_key_value || (!is_valid_key(my_key_value[0], &status) && i++))
+		my_key_value = split_key_value(cmd[i], &is_append, &status);
+		if (!my_key_value || (!is_valid_key(my_key_value[0], &status)))
 			continue ;
 		curr = is_exist(*env, my_key_value[0]);
 		if (curr)
 			update_value(&curr, my_key_value[1], is_append);
 		else
 			add_var_env(env, my_key_value[0], my_key_value[1], cmd[i]);
-		i++;
 	}
 	exit_status(status, 0);
 }
