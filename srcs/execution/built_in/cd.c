@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:19 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/24 14:44:10 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/28 17:36:49 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	update_old_pwd(t_env **env, char *oldpwd)
 		}
 		if (curr == NULL)
 		{
-			cmd = gc_malloc(sizeof(char *) * 2);
+			cmd = gc_malloc(sizeof(char *) * 3);
 			cmd[0] = "export";
 			cmd[1] = ft_strjoin("OLDPWD=", oldpwd);
 			cmd[2] = NULL;
@@ -89,7 +89,7 @@ void	cwd_valid(char *cwd_return, t_env *env)
 	}
 	if (curr == NULL)
 	{
-		cmd = gc_malloc(sizeof(char *) * 2);
+		cmd = gc_malloc(sizeof(char *) * 3);
 		cmd[0] = "export";
 		cmd[1] = ft_strjoin("PWD=", cwd_return);
 		cmd[2] = NULL;

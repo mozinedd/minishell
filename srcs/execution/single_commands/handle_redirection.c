@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 16:07:42 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/24 16:07:45 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/28 17:41:26 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	redirection_append(int *outfile, t_file *tmp, int i)
 		close(*outfile);
 	*outfile = open (tmp[i].value, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (*outfile == -1)
-		return (perror("Error redirection failed"), -1);
+		return (-1);
 	return (1);
 }
 
@@ -32,7 +32,7 @@ int	redirection_redir_out(int *outfile, t_file *tmp, int i)
 		close(*outfile);
 	*outfile = open (tmp[i].value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (*outfile == -1)
-		return (perror("Error redirection failed\n"), -1);
+		return (-1);
 	return (1);
 }
 
@@ -44,7 +44,7 @@ int	redirection_redir_in(int *infile, t_file *tmp, int i)
 		close(*infile);
 	*infile = open (tmp[i].value, O_RDONLY);
 	if (*infile == -1)
-		return (perror("Error redirection failed\n"), -1);
+		return (-1);
 	return (1);
 }
 

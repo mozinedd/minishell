@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/27 21:25:31 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/28 16:18:51 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	*get_command_path(t_env *env, char *cmd)
 	char	**dirs;
 	char	*my_command;
 
-	if (!env || !cmd || !ft_strcmp(cmd, ""))
+	if (!cmd || !ft_strcmp(cmd, ""))
 		return (NULL);
 	if (strchr(cmd, '/'))
 		return (ft_strdup(cmd));
