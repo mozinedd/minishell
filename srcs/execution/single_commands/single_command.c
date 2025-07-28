@@ -6,7 +6,7 @@
 /*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 18:58:42 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/28 16:14:36 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/28 17:50:30 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	handle_single_in_child(t_glob *global)
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
 	redirection_check = redirection_handel(global->cmd->file);
-	if (redirection_check == -1 || !global->cmd->cmd[0])
-		exit(1);
+	if (!global->cmd->cmd[0] || redirection_check == -1)
+		exit(0);
 	if (run_it_in_child(&global->env, global->cmd) == 1)
 		return (exit_status(1, 0), exit(0), -1);
 	env_list = env_to_array(global->env);
