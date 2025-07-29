@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:55:43 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/28 15:12:12 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/28 17:50:41 by mozinedd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char	*get_command_path(t_env *env, char *cmd)
 	char	**dirs;
 	char	*my_command;
 
-	if (!env || !cmd || !ft_strcmp(cmd, ""))
+	if (!cmd || !ft_strcmp(cmd, ""))
 		return (NULL);
 	if (strchr(cmd, '/'))
 		return (ft_strdup(cmd));

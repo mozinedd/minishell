@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozinedd <mozinedd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 16:07:42 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/24 16:07:45 by mozinedd         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:05:08 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	redirection_append(int *outfile, t_file *tmp, int i)
 		close(*outfile);
 	*outfile = open (tmp[i].value, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (*outfile == -1)
-		return (perror("Error redirection failed"), -1);
+		return (-1);
+	if (dup2(*outfile, 1) == -1)
+		return (close(*outfile), perror(""), -1);
 	return (1);
 }
 
@@ -32,7 +34,9 @@ int	redirection_redir_out(int *outfile, t_file *tmp, int i)
 		close(*outfile);
 	*outfile = open (tmp[i].value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (*outfile == -1)
-		return (perror("Error redirection failed\n"), -1);
+		return (-1);
+	if (dup2(*outfile, 1) == -1)
+		return (close(*outfile), perror(""), -1);
 	return (1);
 }
 
@@ -44,7 +48,20 @@ int	redirection_redir_in(int *infile, t_file *tmp, int i)
 		close(*infile);
 	*infile = open (tmp[i].value, O_RDONLY);
 	if (*infile == -1)
-		return (perror("Error redirection failed\n"), -1);
+		return (-1);
+	if (dup2(*infile, 0) == -1)
+		return (close(*infile), perror(""), -1);
+	return (1);
+}
+int	redirection_heredoc(int *infile, t_file *tmp, int i)
+{
+	if (*infile != -1)
+		close(*infile);
+	*infile = tmp[i].fd;
+	if (*infile == -1)
+		return (-1);
+	if (dup2(*infile, 0) == -1)
+		return (close(*infile), perror(""), -1);
 	return (1);
 }
 
@@ -61,7 +78,10 @@ int	all_redirection_checker(int i, int *outfile, int *infile, t_file *tmp)
 			return (-1);
 	}
 	else if (tmp[i].type == HERDOC)
-		*infile = tmp[i].fd;
+	{
+		if (redirection_heredoc(infile, tmp, i) == -1)
+			return (-1);
+	}
 	else if (tmp[i].type == REDIR_IN)
 	{
 		if (redirection_redir_in(infile, tmp, i) == -1)
@@ -85,16 +105,8 @@ int	redirection_handel(t_file *tmp)
 			return (-1);
 	}
 	if (infile > 0)
-	{
-		if (dup2(infile, 0) == -1)
-			return (perror(""), -1);
 		close(infile);
-	}
 	if (outfile > 0)
-	{
-		if (dup2(outfile, 1) == -1)
-			return (perror(""), -1);
 		close(outfile);
-	}
 	return (1);
 }

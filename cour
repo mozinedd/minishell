@@ -1,0 +1,136 @@
+########## access ############
+
+int access( const char * pathname, int aMode );
+La fonction access vérifie l'existence et les autorisations d'accès au fichier spécifié par le paramètre pathname. 
+L'information à vérifier doit être spécifié dans le paramètre aMode.
+
+il est possible de tester plusieurs permissions simultanément en les combinant en utilisant l'opérateur binaire |. 
+Par exemple, pour tester l'existence et la permission de lecture, on utilisera F_OK | R_OK.
+
+Paramètres
+pathname : ce paramètre permet d'indiquer le fichier pour lequel réaliser les vérifications.
+aMode : un entier qui représente le mode d'accès à tester. Il peut prendre l'un des valeurs suivantes.
+F_OK : teste l'existence du fichier.
+R_OK : teste la permission de lecture.
+W_OK : teste la permission d'écriture.
+X_OK : teste la permission d'exécution.
+
+Valeur de retour
+La fonction access renvoie 0 si l'accès au fichier est autorisé en fonction du mode d'accès spécifié. 
+Si l'accès est refusé ou si une erreur s'est produite, la fonction renvoie -1. 
+Si une erreur est constatée, la variable errno sera fixée avec le code erreur constaté.
+
+
+########## readline ###################
+
+char *line = readline("minishell$ ");
+Affiche le prompt, lit une ligne de l'entrée standard (stdin), permet à l'utilisateur d'éditer la ligne
+ et retourne une chaîne allouée dynamiquement (à libérer avec free()).
+
+
+ if (line && *line)
+    add_history(line);
+Ajoute la ligne lue à l’historique (si elle n’est pas vide).
+ Cela permet d’accéder à cette commande avec les touches fléchées (↑ ↓).
+
+
+rl_clear_history();
+ Vide toute l'historique (libère la mémoire allouée pour 
+ l’historique).
+
+
+ rl_on_new_line();
+ Informe readline qu'une nouvelle ligne est en cours d'édition. 
+ Cela prépare l’interface pour l’affichage d’une nouvelle ligne.
+
+
+
+ rl_replace_line(const char *text, int clear_undo)
+ rl_replace_line("", 0); // Efface la ligne actuelle
+ Remplace le contenu courant de la ligne par text.
+  Utile pour effacer la ligne en cours ou y injecter une commande.
+
+Paramètres :
+text : nouveau contenu de la ligne.
+clear_undo : si non nul, l’historique d’annulation est réinitialisé.
+
+rl_redisplay(void)
+Réaffiche la ligne d’édition actuelle à l’écran, utile après un rl_replace_line()
+ pour voir les changements.
+rl_redisplay();
+
+
+############### tcgetattr tcsetattr ###################
+tcgetattr(int fd, struct termios *termios_p)
+But : Récupérer les paramètres actuels du terminal référencé par le descripteur de fichier fd (souvent STDIN_FILENO).
+
+Paramètres :
+
+fd : descripteur de fichier (souvent STDIN_FILENO)
+
+termios_p : pointeur vers une structure termios que la fonction remplit
+
+Retour : 0 en cas de succès, -1 en cas d’erreur
+
+🧪 Exemple :
+c
+Copy
+Edit
+#include <termios.h>
+#include <unistd.h>
+
+struct termios old_termios;
+
+tcgetattr(STDIN_FILENO, &old_termios);
+📘 2. tcsetattr(int fd, int optional_actions, const struct termios *termios_p)
+But : Modifier les paramètres du terminal référencé par fd.
+
+Paramètres :
+
+fd : descripteur de fichier
+
+optional_actions : spécifie quand appliquer les changements :
+
+TCSANOW : immédiatement
+
+TCSADRAIN : après l'envoi de toutes les sorties écrites
+
+TCSAFLUSH : après l'envoi et l'effacement de toutes les entrées non lues
+
+termios_p : les nouvelles configurations
+
+Retour : 0 en cas de succès, -1 en cas d’erreur
+
+
+ ############ isatty #############
+
+  — Tester si un descripteur de fichier est associé à un terminal
+📘 Prototype
+c
+Copy
+Edit
+#include <unistd.h>
+
+int isatty(int fd);
+🔍 Description
+La fonction isatty() teste si le descripteur de fichier fd fait référence à un terminal (TTY = Teletype Terminal). Elle est utilisée pour déterminer si un programme interagit avec un terminal ou non (par exemple, s’il est exécuté en mode interactif ou redirigé).
+
+✅ Retour
+1 : si fd est associé à un terminal
+
+0 : sinon (et errno est défini)
+
+⚠️ Exemple de descripteurs standard
+Descripteur	Nom
+0	STDIN_FILENO
+1	STDOUT_FILENO
+2	STDERR_FILENO
+
+
+
+
+
+
+
+
+
