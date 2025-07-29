@@ -6,7 +6,7 @@
 /*   By: ysouaf <ysouaf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 15:29:07 by mozinedd          #+#    #+#             */
-/*   Updated: 2025/07/24 13:45:43 by ysouaf           ###   ########.fr       */
+/*   Updated: 2025/07/28 17:22:58 by ysouaf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ char	*skip_space(char *str)
 	j = ft_strlen(str) - 1;
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	while (str[j] == ' ' || (str[j] >= 9 && str[j] <= 13))
+	while (j >= 0 && (str[j] == ' ' || (str[j] >= 9 && str[j] <= 13)))
 		j--;
+	if (j < i)
+		return (ft_strdup(""));
 	return (ft_substr(str, i, (j + 1) - i));
 }
 
